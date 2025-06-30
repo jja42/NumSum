@@ -50,4 +50,9 @@ int main(int argc, char* argv[]) {
         SDL_RenderClear(ren);
         SDL_RenderPresent(ren);
     }
+
+    printf("Closing Game\n");
+    SDL_DestroyRenderer(ren);
+    SDL_DestroyWindow(win);
+    SDL_Quit();
 }
