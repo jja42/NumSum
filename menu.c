@@ -7,18 +7,18 @@ void include_test(){
     printf("Include Worked\n");
 }
 
-void exit_game_button(struct MenuButton *self)
+void exit_game_button(MenuButton *self)
 {
 }
 
-void start_game_button(struct MenuButton *self)
+void start_game_button(MenuButton *self)
 {
 }
 
 //Just Prints for Now. Not Yet Connected
-void game_info_button(struct MenuButton *self)
+void game_info_button(MenuButton *self)
 {
-    printf("Button is Working");
+    printf("Button is Working\n");
 }
 
 void render_button(SDL_Renderer* renderer, MenuButton* button) {

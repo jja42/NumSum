@@ -65,8 +65,12 @@ int main(int argc, char* argv[]) {
 
                 //Click Handling
                 case SDL_MOUSEBUTTONDOWN:
-                    printf("Mouse button %d pressed at (%d, %d)\n",
-                           e.button.button, e.button.x, e.button.y);
+                    //printf("Mouse button %d pressed at (%d, %d)\n", e.button.button, e.button.x, e.button.y);
+
+                    //On Left Click
+                    if(e.button.button == 1){ 
+                        check_entity_click(&game,e.button.x, e.button.y);
+                    }
                     break;
             }
         }
