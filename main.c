@@ -36,23 +36,9 @@ int main(int argc, char* argv[]) {
                     running = false;
                     break;
 
-                case SDL_MOUSEMOTION:
-                    printf("Mouse moved to (%d, %d)\n", e.motion.x, e.motion.y);
-                    break;
-
                 case SDL_MOUSEBUTTONDOWN:
                     printf("Mouse button %d pressed at (%d, %d)\n",
                            e.button.button, e.button.x, e.button.y);
-                    break;
-
-                case SDL_MOUSEBUTTONUP:
-                    printf("Mouse button %d released at (%d, %d)\n",
-                           e.button.button, e.button.x, e.button.y);
-                    break;
-
-                case SDL_MOUSEWHEEL:
-                    printf("Mouse wheel: (%d, %d)\n",
-                           e.wheel.x, e.wheel.y);
                     break;
             }
         }
