@@ -6,6 +6,12 @@
 
 void include_test();
 
+void exit_game();
+
+void start_game();
+
+void game_info();
+
 struct MenuButton;
 
 typedef struct {
