@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "menu.h"
+#include "game_manager.h"
+#include "list.h"
+
+//Declare Game in Global Scope
+Game game;
 
 int main(int argc, char* argv[]) {
 
@@ -29,10 +34,6 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    printf("Success!\n");
-
-    include_test();
-
     //Create a Button for Testing
     MenuButton testbutton = {    
     .x_pos = 250,
@@ -43,6 +44,12 @@ int main(int argc, char* argv[]) {
     .height = 150,
     .on_click = game_info_button
 };
+
+    //Initialize an Entity
+    entity_s ent = {BUTTON, &testbutton};
+
+    init_game(&game);
+    add_entity(&game,&ent);
 
     bool running = true;
     SDL_Event e;
@@ -71,7 +78,8 @@ int main(int argc, char* argv[]) {
         SDL_RenderClear(ren);
 
         //Render our Button, Not Yet Responsive
-        render_button(ren, &testbutton);
+        //render_button(ren, &testbutton);
+        render_entities(ren, &game);
 
         //Refresh our Render
         SDL_RenderPresent(ren);
@@ -83,6 +91,8 @@ int main(int argc, char* argv[]) {
     printf("Closing Game\n");
 
     //Clean Up and Exit
+    free_list(game.entities);
+
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
     SDL_Quit();

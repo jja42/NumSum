@@ -2,6 +2,8 @@
 #define GAME_MANAGER_H
 
 #include "entity.h"
+#include "list.h"
+#include <SDL2/SDL.h>
 
 //Various states for the game that will trigger functions when swapped
 typedef enum {
@@ -16,7 +18,7 @@ END
 //We will use this to track our game and loop through our entities
 typedef struct {
 GameState state;
-entity_s** entities;
+list_t* entities;
 } Game;
 
 Game* get_game();
@@ -41,5 +43,17 @@ void start_menu(Game* game);
 
 //Will toggle on and off an info popup
 void info_popup();
+
+//Adds an entity onto the entity stack
+void add_entity(Game* game, entity_s* entity);
+
+//Initializes the game
+void init_game(Game* game);
+
+//Loops through Entities and calls render function based on type
+void render_entities(SDL_Renderer* renderer, Game* game);
+
+
+
 
 #endif
