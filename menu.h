@@ -2,15 +2,7 @@
 #define MENU_H
 
 #include <stdbool.h>
-
-
-void include_test();
-
-void exit_game();
-
-void start_game();
-
-void game_info();
+#include <SDL2/SDL.h>
 
 struct MenuButton;
 
@@ -24,5 +16,14 @@ bool interactible;
 void (*on_click)(struct MenuButton* self);
 } MenuButton;
 
+void include_test();
+
+void exit_game_button(struct MenuButton* self);
+
+void start_game_button(struct MenuButton* self);
+
+void game_info_button(struct MenuButton* self);
+
+void render_button(SDL_Renderer* renderer, MenuButton* button);
 
 #endif

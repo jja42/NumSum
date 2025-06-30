@@ -29,7 +29,17 @@ int main(int argc, char* argv[]) {
 
     include_test();
 
-        bool running = true;
+    MenuButton testbutton = {    
+    .x_pos = 250,
+    .y_pos = 200,
+    .interactible = true,
+    .name = "Test",
+    .width = 300,
+    .height = 150,
+    .on_click = game_info_button
+};
+
+    bool running = true;
     SDL_Event e;
 
     while (running) {
@@ -48,6 +58,9 @@ int main(int argc, char* argv[]) {
 
         SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
         SDL_RenderClear(ren);
+
+        render_button(ren, &testbutton);
+
         SDL_RenderPresent(ren);
     }
 
