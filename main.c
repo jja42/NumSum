@@ -4,11 +4,14 @@
 #include "menu.h"
 
 int main(int argc, char* argv[]) {
+
+    //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         printf("SDL_Init Error: %s\n", SDL_GetError());
         return 1;
     }
 
+    //Create SDL Window
     SDL_Window* win = SDL_CreateWindow("Mouse Input Example",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
     if (!win) {
@@ -17,6 +20,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    //Create SDL Renderer
     SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
     if (!ren) {
         printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
@@ -29,6 +33,7 @@ int main(int argc, char* argv[]) {
 
     include_test();
 
+    //Create a Button for Testing
     MenuButton testbutton = {    
     .x_pos = 250,
     .y_pos = 200,
@@ -42,13 +47,16 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event e;
 
+    //Game Loop
     while (running) {
         while (SDL_PollEvent(&e)) {
             switch (e.type) {
+                //If we close out
                 case SDL_QUIT:
                     running = false;
                     break;
 
+                //Click Handling
                 case SDL_MOUSEBUTTONDOWN:
                     printf("Mouse button %d pressed at (%d, %d)\n",
                            e.button.button, e.button.x, e.button.y);
@@ -56,16 +64,25 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        //Set Background Color
         SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
+
+        //Clear what has been rendered
         SDL_RenderClear(ren);
 
+        //Render our Button, Not Yet Responsive
         render_button(ren, &testbutton);
 
+        //Refresh our Render
         SDL_RenderPresent(ren);
-        SDL_Delay(16); //16 ms delay
+
+         //16 ms delay for our CPU's sake
+        SDL_Delay(16);
     }
 
     printf("Closing Game\n");
+
+    //Clean Up and Exit
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
     SDL_Quit();
