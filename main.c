@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
 
     SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
     if (!ren) {
-        printf("SDL_CreateRenderer Error");
+        printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
         SDL_DestroyWindow(win);
         SDL_Quit();
         return 1;
