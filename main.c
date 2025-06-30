@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "menu.h"
 
 int main(int argc, char* argv[]) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -25,6 +26,8 @@ int main(int argc, char* argv[]) {
     }
 
     printf("Success!\n");
+
+    include_test();
 
         bool running = true;
     SDL_Event e;
