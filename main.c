@@ -62,6 +62,7 @@ int main(int argc, char* argv[]) {
         render_button(ren, &testbutton);
 
         SDL_RenderPresent(ren);
+        SDL_Delay(16); //16 ms delay
     }
 
     printf("Closing Game\n");
