@@ -9,14 +9,16 @@ void add_entity(Game *game, entity_s *entity)
     list_add(game->entities, entity);
 }
 
-Game* init_game(){
+Game* init_game(SDL_Renderer* renderer){
     Game* game = malloc(sizeof(Game));
     game->state = START,
     game->entities = new_list(100);
+    game->renderer = renderer;
     return game;
 }
 
-void render_entities(SDL_Renderer* renderer, Game* game){
+void render_entities(Game* game){
+    SDL_Renderer* renderer = game->renderer;
     //loop through entities
     for(int i = 0; i< game->entities->capacity; i++){
         //ignore NULL
@@ -93,15 +95,9 @@ void free_entities(Game* game){
     }
 }
 
-//Free any lingering entity data
-//Then clear entity list
-void clear_scene(Game* game){
-    free_entities(game);
-    clear_list(game->entities);
-}
-
-//As Clear Scene but frees the list for cleanup
+//Free our Entities and our List
 void free_game(Game* game){
     free_entities(game);
     free_list(game->entities);
+    free(game);
 }

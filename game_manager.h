@@ -19,6 +19,7 @@ END
 typedef struct {
 GameState state;
 list_t* entities;
+SDL_Renderer* renderer;
 } Game;
 
 //Will change game state to PAUSED which will stop timers and bring up pause menu
@@ -46,19 +47,16 @@ void info_popup();
 void add_entity(Game* game, entity_s* entity);
 
 //Initializes the game
-Game* init_game();
+Game* init_game(SDL_Renderer* renderer);
 
 //Loops through Entities and calls render function based on type
-void render_entities(SDL_Renderer* renderer, Game* game);
+void render_entities(Game* game);
 
 //Loops through Entities and checks if their position is within Mouse Click
 void check_entity_click(Game* game, int mouseX, int mouseY);
 
 //Loop through Entities, call any associated Free Functions
 void free_entities(Game* game);
-
-//Clear the Entire "Scene" by removing all entities
-void clear_scene(Game* game);
 
 //Wrapper for free_entities and freeing the list
 void free_game(Game* game);
