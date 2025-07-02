@@ -35,8 +35,8 @@ void game_info_button(Button* self);
 //Renders a Button to the Screen with a render and button info
 void render_button(SDL_Renderer* renderer, Button* button);
 
-//Take a newly created button and set it up, also creates a text texture
-void init_button(Button* button, char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*on_click)(struct Button* self), SDL_Renderer* ren);
+//Create a new button and set it up, also creates a text texture
+Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(struct Button* self), SDL_Renderer* ren);
 
 //Frees Button Data
 void free_button(Button *button);

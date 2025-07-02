@@ -1,5 +1,5 @@
 #include "ui_manager.h"
-#include "stdio.h"
+#include "game_manager.h"
 
 void free_ui(UI* ui){
     //loop through fonts
@@ -36,4 +36,21 @@ UI* init_ui(){
     UI* ui = malloc(sizeof(UI));
     ui->fonts = new_list(10);
     return ui;
+}
+
+void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, 
+    void (*click_function)(struct Button* self), Game* game)
+{
+    TTF_Font* font = get_font(font_name, game->ui_manager);
+    
+    Button* testbutton = init_button(button_name, x, y, w, h, text, font, click_function, game->renderer);
+
+    entity_s* ent = init_entity(BUTTON, testbutton);
+
+    add_entity(game, ent);
+}
+
+void ui_render_button(SDL_Renderer* ren, void* button_data){
+    Button* button = (Button*)button_data;
+    render_button(ren, button);
 }

@@ -1,7 +1,5 @@
 #include "button.h"
 #include <stdio.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 
 void exit_game_button(Button *self)
 {
@@ -17,8 +15,9 @@ void game_info_button(Button *self)
     printf("Button is Working\n");
 }
 
-void init_button(Button* button, char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(struct Button* self), SDL_Renderer* ren)
+Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(struct Button* self), SDL_Renderer* ren)
 {
+    Button* button = malloc(sizeof(Button));
     //Set our params
     button->name = button_name;
     button->x_pos = x;
@@ -50,6 +49,8 @@ void init_button(Button* button, char* button_name, int x, int y, int w, int h, 
     //Assign our text refs here for rendering later
     button->text_texture = text_texture;
     button->text_rect = text_rect;
+
+    return button;
     
 }
 

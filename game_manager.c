@@ -1,13 +1,17 @@
 #include "game_manager.h"
-#include "ui_manager.h"
-#include <stdlib.h>
-#include "button.h"
-#include <SDL2/SDL.h>
 #include <stdio.h>
 
 void add_entity(Game *game, entity_s *entity)
 {
     list_add(game->entities, entity);
+}
+
+entity_s* init_entity(Entity_Type type, void* entity_data){
+    //Initialize an Entity
+    entity_s *ent = malloc(sizeof(entity_s));
+    ent->type = BUTTON;
+    ent->data = entity_data;
+    return ent;
 }
 
 Game* init_game(SDL_Renderer* renderer){
@@ -34,7 +38,7 @@ void render_entities(Game* game){
         {
         //if button, render button
         case BUTTON:
-            render_button(renderer,(Button*) entity->data);
+            ui_render_button(renderer, entity->data);
             break;
         
         default:

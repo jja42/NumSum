@@ -1,9 +1,8 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
-#include "entity.h"
-#include "list.h"
 #include <SDL2/SDL.h>
+#include "list.h"
 #include "ui_manager.h"
 
 //Various states for the game that will trigger functions when swapped
@@ -23,6 +22,19 @@ list_t* entities;
 SDL_Renderer* renderer;
 UI* ui_manager;
 } Game;
+
+typedef enum {
+BUTTON,
+NUMBER,
+GROUP
+} Entity_Type;
+
+//Container Type to Loop through for Game Manager
+typedef struct{
+Entity_Type type;
+void* data;
+} entity_s;
+
 
 //Will change game state to PAUSED which will stop timers and bring up pause menu
 void pause_game(Game* game);
@@ -62,5 +74,8 @@ void free_entities(Game* game);
 
 //Frees all of the Game Struct's Data
 void free_game(Game* game);
+
+//Create and Return and Entity
+entity_s* init_entity(Entity_Type type, void* entity_data);
 
 #endif
