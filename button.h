@@ -9,6 +9,7 @@ struct Button;
 
 //A Button!
 //It has a name, a position, a size, even a bool and a function
+//Now also holds text and text accessories
 typedef struct Button{
 char* name;
 int x_pos;

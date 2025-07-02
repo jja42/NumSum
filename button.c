@@ -19,6 +19,7 @@ void game_info_button(Button *self)
 
 void init_button(Button* button, char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(struct Button* self), SDL_Renderer* ren)
 {
+    //Set our params
     button->name = button_name;
     button->x_pos = x;
     button->y_pos = y;
@@ -27,21 +28,26 @@ void init_button(Button* button, char* button_name, int x, int y, int w, int h, 
     button->on_click = click_function;
     button->interactible = true;
 
+    //Create Text Surface and Texture
     SDL_Color black = {0, 0, 0};
     SDL_Surface* text_surface = TTF_RenderText_Blended(font, text, black);
     SDL_Texture* text_texture = SDL_CreateTextureFromSurface(ren, text_surface);
 
+    //Get these for centering
     int text_width = text_surface->w;
     int text_height = text_surface->h;
 
+    //FREE
     SDL_FreeSurface(text_surface);
 
+    //Create a rect
     SDL_Rect text_rect = {
     button->x_pos + (button->width - text_width) / 2,
     button->y_pos + (button->height - text_height) / 2,
     text_width,
     text_height};
 
+    //Assign our text refs here for rendering later
     button->text_texture = text_texture;
     button->text_rect = text_rect;
     
@@ -65,6 +71,7 @@ void render_button(SDL_Renderer* renderer, Button* button) {
     //Draws Rect onto Render
     SDL_RenderDrawRect(renderer, &rect);
 
+    //Render the text for our button
     SDL_RenderCopy(renderer, button->text_texture, NULL, &button->text_rect);
 }
 
