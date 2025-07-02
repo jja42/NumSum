@@ -1,4 +1,5 @@
 #include "game_manager.h"
+#include "ui_manager.h"
 #include <stdlib.h>
 #include "button.h"
 #include <SDL2/SDL.h>
@@ -14,6 +15,7 @@ Game* init_game(SDL_Renderer* renderer){
     game->state = START,
     game->entities = new_list(100);
     game->renderer = renderer;
+    game->ui_manager = init_ui();
     return game;
 }
 
@@ -84,7 +86,7 @@ void free_entities(Game* game){
         //look at entity type
         switch (entity->type)
         {
-        //if button, check position against pos and size
+        //if button, free button
         case BUTTON:
             Button* button = (Button*) entity->data;
             free_button(button);
@@ -92,12 +94,14 @@ void free_entities(Game* game){
         default:
             break;
         }
+        free(entity);
     }
 }
 
-//Free our Entities and our List
+//Free our Entities, UI Manager and our List
 void free_game(Game* game){
     free_entities(game);
     free_list(game->entities);
+    free_ui(game->ui_manager);
     free(game);
 }

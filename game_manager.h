@@ -4,6 +4,7 @@
 #include "entity.h"
 #include "list.h"
 #include <SDL2/SDL.h>
+#include "ui_manager.h"
 
 //Various states for the game that will trigger functions when swapped
 typedef enum {
@@ -20,6 +21,7 @@ typedef struct {
 GameState state;
 list_t* entities;
 SDL_Renderer* renderer;
+UI* ui_manager;
 } Game;
 
 //Will change game state to PAUSED which will stop timers and bring up pause menu
@@ -58,7 +60,7 @@ void check_entity_click(Game* game, int mouseX, int mouseY);
 //Loop through Entities, call any associated Free Functions
 void free_entities(Game* game);
 
-//Wrapper for free_entities and freeing the list
+//Frees all of the Game Struct's Data
 void free_game(Game* game);
 
 #endif

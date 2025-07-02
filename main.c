@@ -45,13 +45,11 @@ int main(int argc, char* argv[]) {
     }
 
     //Init Game Manager
-    Game* game = init_game();
+    Game* game = init_game(ren);
 
-    //Init UI Manager
-    init_ui();
+    add_font(font, game->ui_manager);
 
-    //Load Start Menu
-    load_start_menu(game, ren);
+    load_scene(START_MENU, game);
 
     bool running = true;
     SDL_Event e;
@@ -71,7 +69,7 @@ int main(int argc, char* argv[]) {
 
                     //On Left Click
                     if(e.button.button == 1){ 
-                        check_entity_click(&game,e.button.x, e.button.y);
+                        check_entity_click(game,e.button.x, e.button.y);
                     }
                     break;
             }
@@ -84,7 +82,7 @@ int main(int argc, char* argv[]) {
         SDL_RenderClear(ren);
 
         //Render our Entities
-        render_entities(ren, game);
+        render_entities(game);
 
         //Refresh our Render
         SDL_RenderPresent(ren);
@@ -96,7 +94,8 @@ int main(int argc, char* argv[]) {
     printf("Closing Game\n");
 
     //Clean Up and Exit
-    
+    free_game(game);
+    TTF_Quit();
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
     SDL_Quit();

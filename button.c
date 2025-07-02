@@ -75,7 +75,8 @@ void render_button(SDL_Renderer* renderer, Button* button) {
     SDL_RenderCopy(renderer, button->text_texture, NULL, &button->text_rect);
 }
 
-//Destroys Allocated Text Texture
+//Free Text Texture and Button
 void free_button(Button *button){
     SDL_DestroyTexture(button->text_texture);
+    free(button);
 }
