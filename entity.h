@@ -7,8 +7,6 @@ NUMBER,
 GROUP
 } Entity_Type;
 
-
-//Will Hold Data Eventually
 //Container Type to Loop through for Game Manager
 typedef struct{
 Entity_Type type;

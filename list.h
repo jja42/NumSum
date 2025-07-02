@@ -19,4 +19,7 @@ void list_remove(list_t* list, void* item);
 //responsible memory management.
 void free_list(list_t* list);
 
+//remove all values from the list
+void clear_list(list_t* list);
+
 #endif

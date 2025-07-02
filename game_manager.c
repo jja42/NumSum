@@ -1,6 +1,6 @@
 #include "game_manager.h"
 #include <stdlib.h>
-#include "menu.h"
+#include "button.h"
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
@@ -9,9 +9,11 @@ void add_entity(Game *game, entity_s *entity)
     list_add(game->entities, entity);
 }
 
-void init_game(Game* game){
+Game* init_game(){
+    Game* game = malloc(sizeof(Game));
     game->state = START,
     game->entities = new_list(100);
+    return game;
 }
 
 void render_entities(SDL_Renderer* renderer, Game* game){
@@ -89,4 +91,11 @@ void free_entities(Game* game){
             break;
         }
     }
+}
+
+//Free any lingering entity data
+//Then clear entity list
+void clear_scene(Game* game){
+    free_entities(game);
+    clear_list(game->entities);
 }

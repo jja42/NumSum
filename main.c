@@ -5,9 +5,7 @@
 #include "game_manager.h"
 #include "list.h"
 #include <SDL2/SDL_ttf.h>
-
-//Declare Game in Global Scope
-Game game;
+#include "startmenu.h"
 
 int main(int argc, char* argv[]) {
 
@@ -47,15 +45,8 @@ int main(int argc, char* argv[]) {
     printf("Failed to load font: %s\n", TTF_GetError());
     }
 
-    //Create a Button for Testing
-    Button testbutton;
-    init_button(&testbutton, "Test",250, 250, 300, 150, "Click Me", font, game_info_button, ren);
-
-    //Initialize an Entity
-    entity_s ent = {BUTTON, &testbutton};
-
-    init_game(&game);
-    add_entity(&game,&ent);
+    //Init Game Manager
+    Game* game = init_game();
 
     bool running = true;
     SDL_Event e;
@@ -88,20 +79,20 @@ int main(int argc, char* argv[]) {
         SDL_RenderClear(ren);
 
         //Render our Entities
-        render_entities(ren, &game);
+        render_entities(ren, game);
 
         //Refresh our Render
         SDL_RenderPresent(ren);
 
-         //16 ms delay for our CPU's sake
-        SDL_Delay(16);
+         //20 ms delay for our CPU's sake
+        SDL_Delay(20);
     }
 
     printf("Closing Game\n");
 
     //Clean Up and Exit
-    free_entities(&game);
-    free_list(game.entities);
+    free_entities(game);
+    free_list(game->entities);
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
     SDL_Quit();

@@ -82,3 +82,10 @@ list_t* new_list(int capacity) {
 
   return list;
 }
+
+//Loop through list and set values to NULL
+void clear_list(list_t* list){
+  for (int i = 0; i < list->capacity; i++) {
+    list->data[i] = NULL;
+    }
+}

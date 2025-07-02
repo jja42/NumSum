@@ -48,7 +48,7 @@ void info_popup();
 void add_entity(Game* game, entity_s* entity);
 
 //Initializes the game
-void init_game(Game* game);
+Game* init_game();
 
 //Loops through Entities and calls render function based on type
 void render_entities(SDL_Renderer* renderer, Game* game);
@@ -59,5 +59,7 @@ void check_entity_click(Game* game, int mouseX, int mouseY);
 //Loop through Entities, call any associated Free Functions
 void free_entities(Game* game);
 
+//Clear the Entire "Scene" by removing all entities
+void clear_scene(Game* game);
 
 #endif
