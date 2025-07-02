@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "game_manager.h"
 #include "list.h"
+#include <SDL2/SDL_ttf.h>
 
 //Declare Game in Global Scope
 Game game;
@@ -34,6 +35,30 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    //Initialize SDL Text
+    if (TTF_Init() == -1) {
+    printf("TTF_Init error: %s\n", TTF_GetError());
+    exit(1);
+    }
+
+    //Load Font
+    TTF_Font* font = TTF_OpenFont("/mnt/c/Windows/Fonts/arial.ttf", 24);
+    if (!font) {
+    printf("Failed to load font: %s\n", TTF_GetError());
+    }
+
+    SDL_Color black = {0, 0, 0};
+    SDL_Surface* text_surface = TTF_RenderText_Blended(font, "Click Me", black);
+    SDL_Texture* text_texture = SDL_CreateTextureFromSurface(ren, text_surface);
+
+    int text_width = text_surface->w;
+    int text_height = text_surface->h;
+
+    SDL_FreeSurface(text_surface);
+
+
+
+
     //Create a Button for Testing
     MenuButton testbutton = {    
     .x_pos = 250,
@@ -43,6 +68,13 @@ int main(int argc, char* argv[]) {
     .width = 300,
     .height = 150,
     .on_click = game_info_button
+};
+
+SDL_Rect text_rect = {
+    testbutton.x_pos + (testbutton.width - text_width) / 2,
+    testbutton.y_pos + (testbutton.height - text_height) / 2,
+    text_width,
+    text_height
 };
 
     //Initialize an Entity
@@ -85,6 +117,8 @@ int main(int argc, char* argv[]) {
         //render_button(ren, &testbutton);
         render_entities(ren, &game);
 
+        SDL_RenderCopy(ren, text_texture, NULL, &text_rect);
+
         //Refresh our Render
         SDL_RenderPresent(ren);
 
@@ -99,5 +133,6 @@ int main(int argc, char* argv[]) {
 
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
+    SDL_DestroyTexture(text_texture);
     SDL_Quit();
 }
