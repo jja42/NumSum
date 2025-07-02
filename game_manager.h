@@ -21,8 +21,6 @@ GameState state;
 list_t* entities;
 } Game;
 
-Game* get_game();
-
 //Will change game state to PAUSED which will stop timers and bring up pause menu
 void pause_game(Game* game);
 
@@ -61,5 +59,8 @@ void free_entities(Game* game);
 
 //Clear the Entire "Scene" by removing all entities
 void clear_scene(Game* game);
+
+//Wrapper for free_entities and freeing the list
+void free_game(Game* game);
 
 #endif

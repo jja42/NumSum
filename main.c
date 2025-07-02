@@ -1,11 +1,10 @@
-#include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "button.h"
-#include "game_manager.h"
-#include "list.h"
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include "startmenu.h"
+#include "game_manager.h"
+#include "ui_manager.h"
+#include "scene_manager.h"
 
 int main(int argc, char* argv[]) {
 
@@ -47,6 +46,12 @@ int main(int argc, char* argv[]) {
 
     //Init Game Manager
     Game* game = init_game();
+
+    //Init UI Manager
+    init_ui();
+
+    //Load Start Menu
+    load_start_menu(game, ren);
 
     bool running = true;
     SDL_Event e;
@@ -91,8 +96,7 @@ int main(int argc, char* argv[]) {
     printf("Closing Game\n");
 
     //Clean Up and Exit
-    free_entities(game);
-    free_list(game->entities);
+    
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
     SDL_Quit();

@@ -99,3 +99,9 @@ void clear_scene(Game* game){
     free_entities(game);
     clear_list(game->entities);
 }
+
+//As Clear Scene but frees the list for cleanup
+void free_game(Game* game){
+    free_entities(game);
+    free_list(game->entities);
+}
