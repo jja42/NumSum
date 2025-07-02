@@ -28,7 +28,7 @@ void render_entities(SDL_Renderer* renderer, Game* game){
         {
         //if button, render button
         case BUTTON:
-            render_button(renderer,(MenuButton*) entity->data);
+            render_button(renderer,(Button*) entity->data);
             break;
         
         default:
@@ -51,7 +51,7 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
         {
         //if button, check position against pos and size
         case BUTTON:
-            MenuButton* button = (MenuButton*) entity->data;
+            Button* button = (Button*) entity->data;
             //check x bounds
             if(mouseX <= button->x_pos + button->width && mouseX >= button->x_pos){
                 //check y bounds
@@ -82,7 +82,7 @@ void free_entities(Game* game){
         {
         //if button, check position against pos and size
         case BUTTON:
-            MenuButton* button = (MenuButton*) entity->data;
+            Button* button = (Button*) entity->data;
             free_button(button);
             break;
         default:

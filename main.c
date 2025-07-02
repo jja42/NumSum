@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "menu.h"
+#include "button.h"
 #include "game_manager.h"
 #include "list.h"
 #include <SDL2/SDL_ttf.h>
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
     }
 
     //Create a Button for Testing
-    MenuButton testbutton;
+    Button testbutton;
     init_button(&testbutton, "Test",250, 250, 300, 150, "Click Me", font, game_info_button, ren);
 
     //Initialize an Entity
