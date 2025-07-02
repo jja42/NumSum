@@ -47,35 +47,9 @@ int main(int argc, char* argv[]) {
     printf("Failed to load font: %s\n", TTF_GetError());
     }
 
-    SDL_Color black = {0, 0, 0};
-    SDL_Surface* text_surface = TTF_RenderText_Blended(font, "Click Me", black);
-    SDL_Texture* text_texture = SDL_CreateTextureFromSurface(ren, text_surface);
-
-    int text_width = text_surface->w;
-    int text_height = text_surface->h;
-
-    SDL_FreeSurface(text_surface);
-
-
-
-
     //Create a Button for Testing
-    MenuButton testbutton = {    
-    .x_pos = 250,
-    .y_pos = 200,
-    .interactible = true,
-    .name = "Test",
-    .width = 300,
-    .height = 150,
-    .on_click = game_info_button
-};
-
-SDL_Rect text_rect = {
-    testbutton.x_pos + (testbutton.width - text_width) / 2,
-    testbutton.y_pos + (testbutton.height - text_height) / 2,
-    text_width,
-    text_height
-};
+    MenuButton testbutton;
+    init_button(&testbutton, "Test",250, 250, 300, 150, "Click Me", font, game_info_button, ren);
 
     //Initialize an Entity
     entity_s ent = {BUTTON, &testbutton};
@@ -113,11 +87,8 @@ SDL_Rect text_rect = {
         //Clear what has been rendered
         SDL_RenderClear(ren);
 
-        //Render our Button, Not Yet Responsive
-        //render_button(ren, &testbutton);
+        //Render our Entities
         render_entities(ren, &game);
-
-        SDL_RenderCopy(ren, text_texture, NULL, &text_rect);
 
         //Refresh our Render
         SDL_RenderPresent(ren);
@@ -129,10 +100,9 @@ SDL_Rect text_rect = {
     printf("Closing Game\n");
 
     //Clean Up and Exit
+    free_entities(&game);
     free_list(game.entities);
-
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
-    SDL_DestroyTexture(text_texture);
     SDL_Quit();
 }

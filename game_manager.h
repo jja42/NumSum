@@ -56,7 +56,8 @@ void render_entities(SDL_Renderer* renderer, Game* game);
 //Loops through Entities and checks if their position is within Mouse Click
 void check_entity_click(Game* game, int mouseX, int mouseY);
 
-
+//Loop through Entities, call any associated Free Functions
+void free_entities(Game* game);
 
 
 #endif

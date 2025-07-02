@@ -67,3 +67,26 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
         }
     }
 }
+
+void free_entities(Game* game){
+    //loop through entities
+    for(int i = 0; i< game->entities->capacity; i++){
+        //ignore NULL
+        if(game->entities->data[i] == NULL){
+            continue;
+        }
+        //get entity
+        entity_s *entity = (entity_s*)game->entities->data[i];
+        //look at entity type
+        switch (entity->type)
+        {
+        //if button, check position against pos and size
+        case BUTTON:
+            MenuButton* button = (MenuButton*) entity->data;
+            free_button(button);
+            break;
+        default:
+            break;
+        }
+    }
+}
