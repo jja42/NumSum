@@ -22,5 +22,7 @@ void clear_scene(Game* game){
 void load_start_menu(Game* game){
     clear_scene(game);
 
-    add_button_to_scene("Test", 250, 250, 300, 150, "Click Me", ARIAL, game_info_button, game);
+    add_button_to_scene("StartButton", 250, 50, 200, 100, "Start", ARIAL, game_info_button, game);
+    add_button_to_scene("InfoButton", 250, 200, 200, 100, "Info", ARIAL, game_info_button, game);
+    add_button_to_scene("ExitButton", 250, 350, 200, 100, "Exit", ARIAL, game_info_button, game);
 }

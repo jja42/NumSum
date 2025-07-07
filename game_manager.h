@@ -16,7 +16,7 @@ END
 
 //Contains our Game State and a List of Entities
 //We will use this to track our game and loop through our entities
-typedef struct {
+typedef struct Game{
 GameState state;
 list_t* entities;
 SDL_Renderer* renderer;

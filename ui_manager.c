@@ -38,8 +38,7 @@ UI* init_ui(){
     return ui;
 }
 
-void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, 
-    void (*click_function)(struct Button* self), Game* game)
+void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, void (*click_function)(Button* self), Game* game)
 {
     TTF_Font* font = get_font(font_name, game->ui_manager);
     

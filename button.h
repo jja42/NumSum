@@ -5,7 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-struct Button;
+typedef struct Button Button;
 
 //A Button!
 //It has a name, a position, a size, even a bool and a function
@@ -17,7 +17,7 @@ int y_pos;
 int width;
 int height;
 bool interactible;
-void (*on_click)(struct Button* self);
+void (*on_click)(Button* self);
 char* button_text;
 SDL_Texture* text_texture;
 SDL_Rect text_rect;
