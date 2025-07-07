@@ -1,0 +1,29 @@
+{
+  "scene": "start_menu",
+  "buttons": [
+    {
+      "name": "StartButton",
+      "position": { "x": 300, "y": 50 },
+      "size": { "width": 200, "height": 100 },
+      "text": "Start",
+      "font": "ARIAL",
+      "function": "START"
+    },
+    {
+      "name": "InfoButton",
+      "position": { "x": 300, "y": 50 },
+      "size": { "width": 200, "height": 100 },
+      "text": "Info",
+      "font": "ARIAL",
+      "function": "INFO"
+    },
+    {
+      "name": "ExitButton",
+      "position": { "x": 300, "y": 450 },
+      "size": { "width": 200, "height": 100 },
+      "text": "Exit",
+      "font": "ARIAL",
+      "function": "EXIT"
+    }
+    ]
+}
