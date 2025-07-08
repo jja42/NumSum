@@ -2,13 +2,11 @@
   "scenes": [
     {
       "name": "start_menu",
-      "file": "scenes/start_menu.json",
-      "description": "The game's main start menu"
+      "file": "start_menu.json"
     },
     {
-      "name": "level_1",
-      "file": "scenes/level_1.json",
-      "description": "First gameplay level"
+      "name": "main_scene",
+      "file": "main_scene.json"
     }
   ]
 }
