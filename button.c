@@ -18,6 +18,13 @@ void game_info_button(Button *self)
 Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(struct Button* self), SDL_Renderer* ren)
 {
     Button* button = malloc(sizeof(Button));
+
+    //Handle Malloc Error
+    if(button == NULL){
+         printf("Failed to allocate Button.\n");
+         return NULL;
+    }
+
     //Set our params
     button->name = button_name;
     button->x_pos = x;

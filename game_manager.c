@@ -9,6 +9,11 @@ void add_entity(Game *game, entity_s *entity)
 entity_s* init_entity(Entity_Type type, void* entity_data){
     //Initialize an Entity
     entity_s *ent = malloc(sizeof(entity_s));
+    //Handle Malloc Error
+    if(ent == NULL){
+         printf("Failed to allocate Entity.\n");
+         return NULL;
+    }
     ent->type = BUTTON;
     ent->data = entity_data;
     return ent;
@@ -16,6 +21,11 @@ entity_s* init_entity(Entity_Type type, void* entity_data){
 
 Game* init_game(SDL_Renderer* renderer){
     Game* game = malloc(sizeof(Game));
+    //Handle Malloc Error
+    if(game == NULL){
+         printf("Failed to allocate Game.\n");
+         return NULL;
+    }
     game->state = START,
     game->entities = new_list(100);
     game->renderer = renderer;

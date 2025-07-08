@@ -1,6 +1,6 @@
 #include "json_parser.h"
 
-list_t* read_json_manifest(char* filepath){
+list_t* read_json_into_objects(char* filepath){
     //Open File
     FILE *file;
     file = fopen(filepath,"r");
@@ -17,11 +17,31 @@ list_t* read_json_manifest(char* filepath){
     //Allocate a Buffer to Check
     char* buffer = malloc(sizeof(char) * (size + 1));
 
+    //Error handling
+    if (buffer == NULL)
+    {
+        printf("Failed to allocate buffer for file at %s",filepath);
+        fclose(file);
+        return NULL;
+    }
+
+    //Check Proper JSON formatting
+    if(buffer[0] != '{'){
+        printf("Invalid JSON formatting. Must begin with '{'.\n");
+        return NULL;
+    }
+
     //Read JSON File to get data
-    //Realizing the other part of this will need to be finished first, rip.
+    do
+    {
+        fgetc(file);
+    } while (!feof(file));
 
     //Set up A list. WIP
     list_t* manifest_list = new_list(2);
+
+    //Close File
+    fclose(file);
     return manifest_list;
 }
 

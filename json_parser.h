@@ -4,19 +4,26 @@
 #include "list.h"
 #include <stdio.h>
 
+typedef enum {
+INT,
+STRING,
+ARRAY,
+BOOL,
+JSON,
+NONE
+} ObjType;
+
 typedef struct {
 char* key;
-char* value;
+ObjType type;
+void* value;
 } JsonObj;
 
 //Read our manifest file which details the scenes we'll have in the game and their filepaths
 list_t* read_json_manifest(char* filepath);
 
-//Read our scene json into a char* buffer
-char* read_json_into_buffer(char* filename);
-
-//Read from our buffer and make objects that we can get data from. Refer to JsonObj
-void read_buffer_into_objects();
+//Read from our json into a buffer and make objects that we can get data from. Refer to JsonObj
+list_t* read_json_into_objects(char* filename);
 
 //Returns the number of chars in the file. 
 long get_filesize(FILE* file);

@@ -61,6 +61,7 @@ list_t* new_list(int capacity) {
   //malloc list
   list_t* list = malloc(sizeof(list_t));
   if (list == NULL) {
+    printf("Failed to Allocate List.\n");
     return NULL;
   }
 

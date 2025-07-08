@@ -34,6 +34,11 @@ void add_font(TTF_Font* font, UI* ui){
 
 UI* init_ui(){
     UI* ui = malloc(sizeof(UI));
+    //Handle Malloc Error
+    if(ui == NULL){
+         printf("Failed to allocate UI Manager.\n");
+         return NULL;
+    }
     ui->fonts = new_list(10);
     return ui;
 }
