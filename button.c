@@ -3,10 +3,12 @@
 
 void exit_game_button(Button *self)
 {
+
 }
 
 void start_game_button(Button *self)
 {
+    
 }
 
 //Just Prints for Now. Not Yet Connected
