@@ -84,14 +84,20 @@ list_t* read_buffer_into_objects(char* buffer){
             return NULL;
         }
 
+        curr_index = val_index + 1;
+        
+        //Skip Whitespace
+        while (isspace(buffer[curr_index])) curr_index++;
+
         //get the type of object we're working with
-        ObjType type = get_value_type(buffer, val_index + 1);
+        ObjType type = get_value_type(buffer, curr_index);
 
         if(type == NULL){
             printf("Invalid JSON formatting. Values must be proceeded by ':' .\n");
             free(key);
             return NULL;
         }
+ 
     }
 
     free(buffer);
@@ -145,10 +151,6 @@ int find_next_value(char* buffer, int index){
 }
 
 ObjType get_value_type(char* buffer, int index){
-
-    //Skip Whitespace
-    while (isspace(buffer[index])) index++;
-
     switch (buffer[index])
     {
     case '\"':
