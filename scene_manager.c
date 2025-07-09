@@ -1,7 +1,15 @@
 #include "scene_manager.h"
 #include "ui_manager.h"
 
-void load_scene(char* scene_name, Game* game){
+void load_scene(Scene scene_name, Game* game){
+    switch (scene_name)
+    {
+    case START_MENU:
+        load_start_menu(game);
+        break;
+    default:
+        break;
+    }
 }
 
 //Free any lingering entity data

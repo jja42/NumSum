@@ -8,10 +8,18 @@ typedef struct Game Game;
 typedef struct{
     char* name;
     list_t* objects;
-} Scene;
+} Scene_s;
+
+typedef enum{
+    START_MENU,
+    MAIN_GAME,
+    HELP,
+    LOSS,
+    VICTORY
+}Scene;
 
 //Switch Statement with enum to load correct scene
-void load_scene(char* scene_name, Game* game);
+void load_scene(Scene scene_name, Game* game);
 
 //Loads the start menu with its buttons and text
 void load_start_menu(Game* game);
