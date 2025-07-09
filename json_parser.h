@@ -3,6 +3,7 @@
 
 #include "list.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 typedef enum {
 INT,
@@ -32,7 +33,19 @@ list_t* read_buffer_into_objects(char* buffer);
 int find_next_string(char* buffer, int index);
 
 //return the string given a starting index
-char* parse_string(char* buffer, int index);
+char* parse_string(char* buffer, int* index);
+
+//return the int given a starting index
+int* parse_int(char* buffer, int* index);
+
+//return the bool given a starting index
+bool* parse_bool(char* buffer, int* index);
+
+//return the array given a starting index
+list_t* parse_array(char* buffer, int* index);
+
+//return the json given a starting index
+list_t* parse_json(char* buffer, int index);
 
 //return the index of the next delimiter
 int find_next_value(char* buffer, int index);
@@ -40,7 +53,22 @@ int find_next_value(char* buffer, int index);
 //Get the obj type of the json value
 ObjType get_value_type(char* buffer, int index);
 
+//Get the value as a void ptr
+void* get_value(char* buffer, int* index, ObjType type);
+
 //Returns the number of chars in the file. 
 long get_filesize(FILE* file);
+
+//Create and return new Json Object
+JsonObj* init_json_object(char* key, void* value, ObjType type);
+
+//return the index of the comma separating the next object
+int get_next_obj_index(char* buffer,int index);
+
+//return the index of the ending brace for the array
+int get_array_end(char* buffer, int index);
+
+//return the index of the ending brace for the json object
+int get_json_end(char* buffer, int index);
 
 #endif
