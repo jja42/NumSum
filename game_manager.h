@@ -3,7 +3,6 @@
 
 #include <SDL2/SDL.h>
 #include "list.h"
-#include "ui_manager.h"
 
 //Various states for the game that will trigger functions when swapped
 typedef enum {
@@ -14,6 +13,16 @@ PAUSED,
 END
 } GameState;
 
+typedef struct{
+list_t* fonts;
+} UI;
+
+typedef struct{
+    list_t* manifest;
+    list_t* scenes;
+} SceneManager;
+
+
 //Contains our Game State and a List of Entities
 //We will use this to track our game and loop through our entities
 typedef struct Game{
@@ -21,6 +30,7 @@ GameState state;
 list_t* entities;
 SDL_Renderer* renderer;
 UI* ui_manager;
+SceneManager* scene_manager;
 } Game;
 
 typedef enum {
@@ -30,7 +40,7 @@ GROUP
 } Entity_Type;
 
 //Container Type to Loop through for Game Manager
-typedef struct{
+typedef struct entity_s{
 Entity_Type type;
 void* data;
 } entity_s;

@@ -1,6 +1,7 @@
 #include "json_parser.h"
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 list_t* read_json_into_objects(char* filename){
     char* buffer = read_json_into_buffer(filename);

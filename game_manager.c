@@ -1,5 +1,7 @@
 #include "game_manager.h"
 #include <stdio.h>
+#include "ui_manager.h"
+#include "scene_manager.h"
 
 void add_entity(Game *game, entity_s *entity)
 {
@@ -30,6 +32,7 @@ Game* init_game(SDL_Renderer* renderer){
     game->entities = new_list(100);
     game->renderer = renderer;
     game->ui_manager = init_ui();
+    game->scene_manager = init_scene_management();
     return game;
 }
 
@@ -71,15 +74,7 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
         {
         //if button, check position against pos and size
         case BUTTON:
-            Button* button = (Button*) entity->data;
-            //check x bounds
-            if(mouseX <= button->x_pos + button->width && mouseX >= button->x_pos){
-                //check y bounds
-                if(mouseY <= button->y_pos + button->height && mouseY >= button->y_pos){
-                    //if within bounds, call on_click
-                    button->on_click(button);
-                }
-            }
+            ui_click_button(entity, mouseX, mouseY);
             break;
         
         default:
@@ -117,5 +112,6 @@ void free_game(Game* game){
     free_entities(game);
     free_list(game->entities);
     free_ui(game->ui_manager);
+    free_scenes(game->scene_manager);
     free(game);
 }

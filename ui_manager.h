@@ -3,18 +3,16 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include "list.h"
 #include "button.h"
+#include "game_manager.h"
 
 typedef struct Game Game;
+
+typedef struct entity_s entity_s;
 
 typedef enum{
 ARIAL
 } FONT;
-
-typedef struct{
-list_t* fonts;
-} UI;
 
 //Returns a font from our list of fonts
 TTF_Font* get_font(FONT font, UI* ui);
@@ -33,5 +31,8 @@ void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* te
 
 //Wrapper for Rendering Buttons so that Game Manager can defer this to the UI Manager
 void ui_render_button(SDL_Renderer* ren, void* button_data);
+
+//Wrapper for Clicking Buttons so that the Game Manager can defer this to the UI Manager
+void ui_click_button(entity_s* entity, int mouseX, int mouseY);
 
 #endif

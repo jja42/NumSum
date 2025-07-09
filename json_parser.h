@@ -45,7 +45,7 @@ bool* parse_bool(char* buffer, int* index);
 list_t* parse_array(char* buffer, int* index);
 
 //return the json given a starting index
-list_t* parse_json(char* buffer, int index);
+list_t* parse_json(char* buffer, int* index);
 
 //return the index of the next delimiter
 int find_next_value(char* buffer, int index);

@@ -58,3 +58,15 @@ void ui_render_button(SDL_Renderer* ren, void* button_data){
     Button* button = (Button*)button_data;
     render_button(ren, button);
 }
+
+void ui_click_button(entity_s* entity, int mouseX, int mouseY){
+    Button* button = (Button*) entity->data;
+    //check x bounds
+    if(mouseX <= button->x_pos + button->width && mouseX >= button->x_pos){
+    //check y bounds
+        if(mouseY <= button->y_pos + button->height && mouseY >= button->y_pos){
+        //if within bounds, call on_click
+            button->on_click(button);
+        }
+    }
+}
