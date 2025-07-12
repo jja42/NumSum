@@ -26,21 +26,14 @@ void list_remove(list_t* list, void* item){
             return;
         }
     }
-    printf("Could Not Remove Item.");
+    printf("Could Not Remove Item.\n");
     return;
 }
 
 void list_add(list_t* list, void* item) {
-
   //resize list if too small
   if (list->count == list->capacity) {
-    list->capacity *= 2;
-    void **temp = realloc(list->data, list->capacity * sizeof(void *));
-    if (temp == NULL) {
-      list->capacity /= 2;
-      exit(1);
-    }
-    list->data = temp;
+    resize_list(list);
   }
 
   //if slot is null, change it to item data
@@ -52,8 +45,24 @@ void list_add(list_t* list, void* item) {
         }
     }
 
-    printf("Unable to Add Item to List");
+    printf("Unable to Add Item to List\n");
     return;
+}
+
+void resize_list(list_t* list){
+  int new_capacity =  list->capacity * 2;
+  void **temp = realloc(list->data, new_capacity * sizeof(void *));
+  if (temp == NULL) {
+      printf("Unable to resize list.\n");
+      exit(1);
+  }
+    list->data = temp;
+
+  for (int i = list->capacity; i < new_capacity; i++) {
+        list->data[i] = NULL;
+  }
+  
+  list->capacity = new_capacity;
 }
 
 

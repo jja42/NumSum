@@ -74,7 +74,7 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
         {
         //if button, check position against pos and size
         case BUTTON:
-            ui_click_button(entity, mouseX, mouseY);
+            ui_click_button(entity, mouseX, mouseY, game);
             break;
         
         default:
@@ -114,4 +114,8 @@ void free_game(Game* game){
     free_ui(game->ui_manager);
     free_scenes(game->scene_manager);
     free(game);
+}
+
+void exit_game(Game* game){
+    game->state = END;
 }

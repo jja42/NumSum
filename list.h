@@ -7,7 +7,7 @@ typedef struct List {
   void **data;
 } list_t;
 
-//Makes a new list. all spots are null
+//Makes a new list. all spots are null. NEVER SET THE CAPACITY TO 0
 list_t* new_list(int capacity);
 
 //adds a value to the first non null space
@@ -21,5 +21,8 @@ void free_list(list_t* list);
 
 //remove all values from the list
 void clear_list(list_t* list);
+
+//resizes a list
+void resize_list(list_t* list);
 
 #endif

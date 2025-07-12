@@ -6,10 +6,10 @@
 #include <stdbool.h>
 
 typedef enum {
-INT,
-STRING,
-ARRAY,
-BOOL,
+J_INT,
+J_STRING,
+J_ARRAY,
+J_BOOL,
 JSON,
 NONE
 } ObjType;
@@ -27,7 +27,7 @@ list_t* read_json_into_objects(char* filename);
 char* read_json_into_buffer(char* filename);
 
 //Read from our buffer and make objects that we can get data from. Refer to JsonObj
-list_t* read_buffer_into_objects(char* buffer);
+list_t* read_buffer_into_objects(char* buffer, bool is_substring);
 
 //Finds the starting index of the next string in the buffer
 int find_next_string(char* buffer, int index);
@@ -70,5 +70,14 @@ int get_array_end(char* buffer, int index);
 
 //return the index of the ending brace for the json object
 int get_json_end(char* buffer, int index);
+
+//print the json to stdout
+void print_json(list_t* json_objects);
+
+//Remove Leading and Trailing Whitespace in file
+void trim_whitespace(char *str);
+
+//look for nested json
+int find_next_json(char* buffer, int index);
 
 #endif

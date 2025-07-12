@@ -43,7 +43,7 @@ UI* init_ui(){
     return ui;
 }
 
-void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, void (*click_function)(Button* self), Game* game)
+void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, void (*click_function)(Game* game), Game* game)
 {
     TTF_Font* font = get_font(font_name, game->ui_manager);
     
@@ -59,14 +59,14 @@ void ui_render_button(SDL_Renderer* ren, void* button_data){
     render_button(ren, button);
 }
 
-void ui_click_button(entity_s* entity, int mouseX, int mouseY){
+void ui_click_button(entity_s* entity, int mouseX, int mouseY, Game* game){
     Button* button = (Button*) entity->data;
     //check x bounds
     if(mouseX <= button->x_pos + button->width && mouseX >= button->x_pos){
     //check y bounds
         if(mouseY <= button->y_pos + button->height && mouseY >= button->y_pos){
         //if within bounds, call on_click
-            button->on_click(button);
+            button->on_click(game);
         }
     }
 }

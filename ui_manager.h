@@ -27,12 +27,12 @@ UI* init_ui();
 void free_ui(UI* ui);
 
 //Called by Scene Manager to add a button. Creates a Button and adds it to Game Manager's entities
-void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, void (*click_function)(Button* self), Game* game);
+void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, void (*click_function)(Game* game), Game* game);
 
 //Wrapper for Rendering Buttons so that Game Manager can defer this to the UI Manager
 void ui_render_button(SDL_Renderer* ren, void* button_data);
 
 //Wrapper for Clicking Buttons so that the Game Manager can defer this to the UI Manager
-void ui_click_button(entity_s* entity, int mouseX, int mouseY);
+void ui_click_button(entity_s* entity, int mouseX, int mouseY, Game* game);
 
 #endif

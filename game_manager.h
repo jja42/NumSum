@@ -88,4 +88,7 @@ void free_game(Game* game);
 //Create and Return and Entity
 entity_s* init_entity(Entity_Type type, void* entity_data);
 
+//Ends the Game by changing our state to END
+void exit_game(Game* game);
+
 #endif

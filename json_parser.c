@@ -5,7 +5,7 @@
 
 list_t* read_json_into_objects(char* filename){
     char* buffer = read_json_into_buffer(filename);
-    list_t* objs = read_buffer_into_objects(buffer);
+    list_t* objs = read_buffer_into_objects(buffer,false);
     free(buffer);
     return objs;
 }
@@ -30,7 +30,7 @@ char* read_json_into_buffer(char* filepath){
     //Error handling
     if (buffer == NULL)
     {
-        printf("Failed to allocate buffer for file at %s",filepath);
+        printf("Failed to allocate buffer for file at %s\n",filepath);
         fclose(file);
         return NULL;
     }
@@ -38,12 +38,14 @@ char* read_json_into_buffer(char* filepath){
     //Read into the buffer
     fread(buffer, sizeof(char), size, file);
 
+    buffer[size] = '\0';
+
     //Close File
     fclose(file);
     return buffer;
 }
 
-list_t* read_buffer_into_objects(char* buffer){
+list_t* read_buffer_into_objects(char* buffer, bool is_substring){
     size_t length = strlen(buffer);
     
     //Check Length
@@ -52,9 +54,12 @@ list_t* read_buffer_into_objects(char* buffer){
     return NULL;
     }
 
+    if(!is_substring){
+
     //Check Proper JSON formatting
     if(buffer[0] != '{'){
         printf("Invalid JSON formatting. Must begin with '{'.\n");
+        printf("Starts with:%c\n", buffer[5]);
         return NULL;
     }
 
@@ -62,9 +67,11 @@ list_t* read_buffer_into_objects(char* buffer){
         printf("Invalid JSON formatting. Must end with '}'.\n");
         return NULL;
     }
+}
 
     int curr_index = 0;
-    list_t* object_list = new_list(0);
+    //NEVER SET THE CAPACITY TO 0
+    list_t* object_list = new_list(1);
     if(object_list == NULL){
         printf("Failed to Create Object List.\n");
         return NULL;
@@ -72,6 +79,56 @@ list_t* read_buffer_into_objects(char* buffer){
 
     while (curr_index < length)
     {
+        //if substring, look for nested json
+        if(is_substring){
+            int index = find_next_json(buffer, curr_index);
+            //we hit gold
+            if(index != -1){
+                curr_index = index;
+                //Loop through buffer and look for }
+                for(int i = index; buffer[i] != '\0'; i++){
+                    if(buffer[i] == '}'){
+                        index = i;
+                        break;
+                    } 
+                    else{
+                        index = -1;
+                    }
+                }
+                //we got em
+                if(index != -1){
+                    //Get our value
+                    void* value = parse_json(buffer, &curr_index);
+
+                    if(value == NULL){
+                        printf("Failed to obtain value.\n");
+                        free_list(object_list);
+                        return NULL;
+                    }
+
+                    //create a json object for our data
+                    JsonObj* obj = init_json_object(NULL, value, JSON);
+
+                    //Handle Malloc Error
+                    if(obj == NULL){
+                        printf("Failed to allocate JsonObj.\n");
+                        free(value);
+                        free_list(object_list);
+                        return NULL;
+                    }
+
+                    list_add(object_list, obj);
+                    printf("Object of type %d added to List\n", 4);
+
+                    curr_index = index;
+                    if(get_next_obj_index(buffer,curr_index) == -1){
+                        break;
+                    }
+                    continue;
+                }
+            }
+        }
+
         //Start identifying Key:Value Pairs
         curr_index = find_next_string(buffer, curr_index);
         
@@ -119,7 +176,7 @@ list_t* read_buffer_into_objects(char* buffer){
         void* value = get_value(buffer, &curr_index, type);
 
         if(value == NULL){
-            printf("Failed to obtain value.");
+            printf("Failed to obtain value.\n");
             free(key);
             free_list(object_list);
             return NULL;
@@ -138,6 +195,7 @@ list_t* read_buffer_into_objects(char* buffer){
         }
 
         list_add(object_list, obj);
+        printf("Object of type %d added to List\n", type);
 
         curr_index = get_next_obj_index(buffer,curr_index);
         if(curr_index == -1){
@@ -156,7 +214,7 @@ int find_next_string(char* buffer, int index){
             return i;
         }
     }
-    printf("ERROR: No String Found.");
+    printf("ERROR: No String Found.\n");
     return -1;
 }
 
@@ -167,7 +225,7 @@ int find_next_value(char* buffer, int index){
             return i;
         }
     }
-    printf("ERROR: No Delimiter Found.");
+    printf("ERROR: No Delimiter Found.\n");
     return -1;
 }
 
@@ -175,17 +233,17 @@ ObjType get_value_type(char* buffer, int index){
     switch (buffer[index])
     {
     case '\"':
-        return STRING;
+        return J_STRING;
     case '{':
         return JSON;
     case '[':
-        return ARRAY;
+        return J_ARRAY;
     default:
         if(isdigit(buffer[index])){
-            return INT;
+            return J_INT;
         }
         if(strncmp(buffer + index, "true", 4) == 0 || strncmp(buffer + index, "false", 5) == 0){
-            return BOOL;
+            return J_BOOL;
         }
         return NONE;
     }
@@ -194,15 +252,14 @@ ObjType get_value_type(char* buffer, int index){
 void* get_value(char* buffer, int* index, ObjType type){
     switch (type)
     {
-    case STRING:
-        return parse_string(buffer, index);
-        break;
-    case INT:
+    case J_INT:
         return parse_int(buffer,index);
-    case BOOL:
-        return parse_bool(buffer, index);
-    case ARRAY:
+    case J_STRING:
+        return parse_string(buffer, index);
+    case J_ARRAY:
         return parse_array(buffer, index);
+    case J_BOOL:
+        return parse_bool(buffer, index);
     case JSON:
         return parse_json(buffer, index);
     default:
@@ -257,7 +314,8 @@ int* parse_int(char* buffer, int* index){
     }
 
     //get end of int
-    int end_index = get_next_obj_index(buffer, *index) - 1;
+    int end_index = *index;
+    while (isdigit(buffer[end_index])) end_index++;
 
     int length = end_index - *index;
 
@@ -278,10 +336,10 @@ int* parse_int(char* buffer, int* index){
     //convert string value into int
     *i = atoi(str);
 
-    free(str);
-
     //update index
     *index = end_index;
+
+    free(str);
 
     return i;
 }
@@ -306,14 +364,15 @@ bool* parse_bool(char* buffer, int* index){
 }
 
 list_t* parse_array(char* buffer, int* index){
-    //get index of ]
+    
+    //get index of ] - 1
     int end_index  = get_array_end(buffer, *index) - 1;
     if(end_index == -1){
-        printf("Invalid JSON format. Missing matching array bracket.");
+        printf("Invalid JSON format. Missing matching array bracket.\n");
         return NULL;
     }
 
-    int length = end_index - *index;
+    int length = end_index - (*index+1);
     //malloc a substring
     char* sub_buffer = malloc(sizeof(char) * (length + 1));
 
@@ -326,7 +385,7 @@ list_t* parse_array(char* buffer, int* index){
     sub_buffer[length] = '\0';
 
     //recursion
-    list_t* array_elements = read_buffer_into_objects(sub_buffer);
+    list_t* array_elements = read_buffer_into_objects(sub_buffer,true);
     
     free(sub_buffer);
 
@@ -336,13 +395,13 @@ list_t* parse_array(char* buffer, int* index){
 }
 
 list_t* parse_json(char* buffer, int* index){
-    //get index of }
+    //get index of } - 1
     int end_index  = get_json_end(buffer, *index) - 1;
     if(end_index == -1){
-        printf("Invalid JSON format. Missing matching closing brace.");
+        printf("Invalid JSON format. Missing matching closing brace.\n");
         return NULL;
     }
-    int length = end_index - *index;
+    int length = end_index - (*index +1);
     //malloc a substring
     char* sub_buffer = malloc(sizeof(char) * (length + 1));
 
@@ -355,7 +414,7 @@ list_t* parse_json(char* buffer, int* index){
     sub_buffer[length] = '\0';
 
     //recursion
-    list_t* object_elements = read_buffer_into_objects(sub_buffer);
+    list_t* object_elements = read_buffer_into_objects(sub_buffer,true);
     
     free(sub_buffer);
 
@@ -405,4 +464,63 @@ int get_json_end(char* buffer, int index){
         }
     }
     return strlen(buffer);
+}
+
+void print_json(list_t* json_objects){
+    //loop through objects
+    for(int i = 0; i<json_objects->count; i++){
+        //ignore NULL
+        if(json_objects->data[i] == NULL){
+            continue;
+        }
+
+        JsonObj* object = (JsonObj*)json_objects->data[i];
+        
+        char* key = object->key;
+
+        switch (object->type)
+        {
+        case J_STRING:
+            char* value = (char*)object->value;
+            printf("%s : %s\n", key, value);
+            break;
+
+        case J_INT:
+            int* val = (int*)object->value;
+            printf("%s : %d\n", key, *val);
+            break;
+
+        case J_BOOL:
+            bool* b = (bool*)object->value;
+            printf("%s : %d\n", key, *b);
+            break;
+
+        case J_ARRAY:
+            list_t* array = (list_t*)object->value;
+            printf("%s : [\n", key);
+            print_json(array);
+            printf("]\n");
+            break;
+
+        case JSON:
+            list_t* json = (list_t*)object->value;
+            printf("Json Obj:\n{\n");
+            print_json(json);
+            printf("}\n");
+            break;
+        
+        default:
+            break;
+        }
+    }
+}
+
+int find_next_json(char* buffer, int index){
+    //Loop through buffer and look for {
+    for(int i = index; buffer[i] != '\0'; i++){
+        if(buffer[i] == '{'){
+            return i;
+        }
+    }
+    return -1;
 }

@@ -47,6 +47,8 @@ int main(int argc, char* argv[]) {
     //Init Game Manager
     Game* game = init_game(ren);
 
+    load_scene_manifest("scenes.json",game->scene_manager);
+
     add_font(font, game->ui_manager);
 
     load_scene(START_MENU, game);
@@ -55,7 +57,7 @@ int main(int argc, char* argv[]) {
     SDL_Event e;
 
     //Game Loop
-    while (running) {
+    while (running && game->state != END) {
         while (SDL_PollEvent(&e)) {
             switch (e.type) {
                 //If we close out

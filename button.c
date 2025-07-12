@@ -1,23 +1,23 @@
 #include "button.h"
 #include <stdio.h>
 
-void exit_game_button(Button *self)
+void exit_game_button(Game* game)
 {
-
+    exit_game(game);
 }
 
-void start_game_button(Button *self)
+void start_game_button(Game* game)
 {
     
 }
 
 //Just Prints for Now. Not Yet Connected
-void game_info_button(Button *self)
+void game_info_button(Game* game)
 {
     printf("Button is Working\n");
 }
 
-Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(struct Button* self), SDL_Renderer* ren)
+Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(Game* game), SDL_Renderer* ren)
 {
     Button* button = malloc(sizeof(Button));
 
