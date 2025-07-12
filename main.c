@@ -48,6 +48,7 @@ int main(int argc, char* argv[]) {
     Game* game = init_game(ren);
 
     load_scene_manifest("scenes.json",game->scene_manager);
+    load_scene_manifest("start_menu.json",game->scene_manager);
 
     add_font(font, game->ui_manager);
 
