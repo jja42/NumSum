@@ -96,10 +96,44 @@ void read_scene_manifest(list_t* manifest, SceneManager* manager){
             continue;
         }
         else{
-            JsonObj* object = (JsonObj*) manifest->data[i];
-            Scene* scene = malloc(sizeof(Scene*));
+            //Key = Scenes
+            //Value = Array
+            JsonObj* array = (JsonObj*) manifest->data[i];
+            list_t* array_elements = (list_t*)array->value;
 
+            char* scene_path = NULL;
+
+            for(int i = 0; i <array_elements->capacity; i++){
+                Scene* scene = malloc(sizeof(Scene));
+                
+                //Handle Malloc Error
+                if(scene == NULL){
+                    printf("Failed to allocate Scene.\n");
+                    return;
+                }
+                
+                if(array_elements->data[i] == NULL){
+                    free(scene);
+                    continue;
+                }
+
+                else{
+                    //Nested JSON
+                    //name : Name
+                    //file : Filepath
+                    JsonObj* json = (JsonObj*)array_elements->data[i];
+                    list_t* json_elements = (list_t*)json->value;
+                    
+                    JsonObj* object = json_list_get(json_elements,"name");
+                    scene->name = strdup((char*)object->value);
+                    printf("Name: %s\n", scene->name);
+                    object = json_list_get(json_elements,"file");
+                    scene_path = (char*)object->value;
+                    printf("Path: %s\n", scene_path);
+                }
+            scene->objects = read_json_into_objects(scene_path);
             list_add(manager->scenes,scene);
+            }
         }
     }
 }

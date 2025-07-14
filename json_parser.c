@@ -544,3 +544,20 @@ void free_json(JsonObj* obj){
     }
     free(obj);
 }
+
+
+JsonObj* json_list_get(list_t* json_elements, char* key){
+    for(int j = 0; j <json_elements->capacity; j++){
+        if(json_elements->data[j] == NULL){
+            continue;
+            }
+        else{
+            JsonObj* object = (JsonObj*)json_elements->data[j];
+            if(strcmp(object->key, key) == 0){
+                return object;
+            }
+        }
+    }
+    printf("Could Not Find Item Named: %s in JSON List", key);
+    return NULL;
+}

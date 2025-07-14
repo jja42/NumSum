@@ -1,0 +1,15 @@
+{
+  "scene_name": "main_scene",
+  "buttons": [
+    {
+      "name": "InfoButton",
+      "x": 300, 
+      "y": 200 ,
+      "width": 200, 
+      "height": 100,
+      "text": "Info",
+      "font": "ARIAL",
+      "function": "INFO"
+    }
+    ]
+}
