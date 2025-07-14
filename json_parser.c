@@ -118,7 +118,7 @@ list_t* read_buffer_into_objects(char* buffer, bool is_substring){
                     }
 
                     list_add(object_list, obj);
-                    printf("Object of type %d added to List\n", 4);
+                    //printf("Object of type %d added to List\n", 4);
 
                     curr_index = index;
                     if(get_next_obj_index(buffer,curr_index) == -1){
@@ -195,7 +195,7 @@ list_t* read_buffer_into_objects(char* buffer, bool is_substring){
         }
 
         list_add(object_list, obj);
-        printf("Object of type %d added to List\n", type);
+        //printf("Object of type %d added to List\n", type);
 
         curr_index = get_next_obj_index(buffer,curr_index);
         if(curr_index == -1){

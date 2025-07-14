@@ -36,4 +36,7 @@ void free_scenes(SceneManager* scene_management);
 //Initialize the Scene Manager
 SceneManager* init_scene_management();
 
+//read through scene manifest objects and initiliaze our scene manager's scenes list
+void read_scene_manifest(list_t* manifest, SceneManager* scene_management);
+
 #endif

@@ -29,12 +29,13 @@ void load_start_menu(Game* game){
 }
 
 void load_scene_manifest(char* filepath, SceneManager* manager){
-    list_t* objects = read_json_into_objects(filepath);
-    if(objects == NULL){
+    list_t* manifest = read_json_into_objects(filepath);
+    if(manifest == NULL){
         printf("Failed to read JSON.\n");
          return;
     }
-    print_json(objects);
+    //print_json(manifest);
+    read_scene_manifest(manifest, manager);
 }
 
 void free_scenes(SceneManager* scene_management){
@@ -49,4 +50,8 @@ SceneManager* init_scene_management(){
          return NULL;
     }
     return manager;
+}
+
+void read_scene_manifest(list_t* manifest, SceneManager* scene_management){
+    
 }

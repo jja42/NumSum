@@ -18,7 +18,6 @@ list_t* fonts;
 } UI;
 
 typedef struct{
-    list_t* manifest;
     list_t* scenes;
 } SceneManager;
 
