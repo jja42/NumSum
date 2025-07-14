@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
     //Init Game Manager
     Game* game = init_game(ren);
 
-    load_scene_manifest("scenes.json",game->scene_manager);
+    load_scene_manifest("scenes/scenes.json",game->scene_manager);
     //load_scene_manifest("start_menu.json",game->scene_manager);
 
     add_font(font, game->ui_manager);

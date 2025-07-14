@@ -2,11 +2,11 @@
   "scenes": [
     {
       "name": "start_scene",
-      "file": "start_scene.json"
+      "file": "scenes/start_scene.json"
     },
     {
       "name": "main_scene",
-      "file": "main_scene.json"
+      "file": "scenes/main_scene.json"
     }
   ]
 }
