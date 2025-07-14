@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
 
     add_font(font, game->ui_manager);
 
-    load_scene(START_MENU, game);
+    load_scene_name(START_MENU, game);
 
     bool running = true;
     SDL_Event e;

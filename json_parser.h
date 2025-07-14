@@ -80,4 +80,7 @@ void trim_whitespace(char *str);
 //look for nested json
 int find_next_json(char* buffer, int index);
 
+//frees a json object
+void free_json(JsonObj* obj);
+
 #endif

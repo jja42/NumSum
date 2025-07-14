@@ -524,3 +524,23 @@ int find_next_json(char* buffer, int index){
     }
     return -1;
 }
+
+void free_json(JsonObj* obj){
+    free(obj->key);
+    if(obj->type == JSON || obj->type == J_ARRAY){
+        list_t* l = (list_t*)obj->value;
+        for(int i = 0; i < l->capacity; i++){
+            if(l->data[i] == NULL){
+                continue;
+            }
+            else{
+                free_json(l->data[i]);
+            }
+        }
+        free_list(l);
+    }
+    else{
+        free(obj->value);
+    }
+    free(obj);
+}
