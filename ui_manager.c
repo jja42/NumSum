@@ -70,3 +70,25 @@ void ui_click_button(entity_s* entity, int mouseX, int mouseY, Game* game){
         }
     }
 }
+
+FONT parse_font(char* font){
+    if(strcmp(font, "ARIAL") == 0){
+        return ARIAL;
+    }
+    printf("Could not find matching FONT for:  %s\n", font);
+    return ARIAL;
+}
+
+OnClick parse_button_function(char* function){
+    if(strcmp(function,"START") == 0){
+        return start_button_func;
+    }
+    if(strcmp(function,"INFO") == 0){
+        return info_button_func;
+    }
+    if(strcmp(function,"EXIT") == 0){
+        return exit_button_func;
+    }
+    printf("Could not find matching Function for: %s\n", function);
+    return NULL;
+}

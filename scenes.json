@@ -1,8 +1,8 @@
 {
   "scenes": [
     {
-      "name": "start_menu",
-      "file": "start_menu.json"
+      "name": "start_scene",
+      "file": "start_scene.json"
     },
     {
       "name": "main_scene",

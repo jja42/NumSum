@@ -470,47 +470,46 @@ void print_json(list_t* json_objects){
     //loop through objects
     for(int i = 0; i<json_objects->count; i++){
         //ignore NULL
-        if(json_objects->data[i] == NULL){
-            continue;
-        }
+        if(json_objects->data[i] != NULL){
 
-        JsonObj* object = (JsonObj*)json_objects->data[i];
+            JsonObj* object = (JsonObj*)json_objects->data[i];
         
-        char* key = object->key;
+            char* key = object->key;
 
-        switch (object->type)
-        {
-        case J_STRING:
-            char* value = (char*)object->value;
-            printf("%s : %s\n", key, value);
-            break;
+            switch (object->type)
+            {
+            case J_STRING:
+                char* value = (char*)object->value;
+                printf("%s : %s\n", key, value);
+                break;
 
-        case J_INT:
-            int* val = (int*)object->value;
-            printf("%s : %d\n", key, *val);
-            break;
+            case J_INT:
+                int* val = (int*)object->value;
+                printf("%s : %d\n", key, *val);
+                break;
 
-        case J_BOOL:
-            bool* b = (bool*)object->value;
-            printf("%s : %d\n", key, *b);
-            break;
+            case J_BOOL:
+                bool* b = (bool*)object->value;
+                printf("%s : %d\n", key, *b);
+                break;
 
-        case J_ARRAY:
-            list_t* array = (list_t*)object->value;
-            printf("%s : [\n", key);
-            print_json(array);
-            printf("]\n");
-            break;
+            case J_ARRAY:
+                list_t* array = (list_t*)object->value;
+                printf("%s : [\n", key);
+                print_json(array);
+                printf("]\n");
+                break;
 
-        case JSON:
-            list_t* json = (list_t*)object->value;
-            printf("Json Obj:\n{\n");
-            print_json(json);
-            printf("}\n");
-            break;
+            case JSON:
+                list_t* json = (list_t*)object->value;
+                printf("Json Obj:\n{\n");
+                print_json(json);
+                printf("}\n");
+                break;
         
-        default:
-            break;
+            default:
+                break;
+            }
         }
     }
 }
@@ -530,10 +529,7 @@ void free_json(JsonObj* obj){
     if(obj->type == JSON || obj->type == J_ARRAY){
         list_t* l = (list_t*)obj->value;
         for(int i = 0; i < l->capacity; i++){
-            if(l->data[i] == NULL){
-                continue;
-            }
-            else{
+            if(l->data[i] != NULL){
                 free_json(l->data[i]);
             }
         }
@@ -548,10 +544,7 @@ void free_json(JsonObj* obj){
 
 JsonObj* json_list_get(list_t* json_elements, char* key){
     for(int j = 0; j <json_elements->capacity; j++){
-        if(json_elements->data[j] == NULL){
-            continue;
-            }
-        else{
+        if(json_elements->data[j] != NULL){
             JsonObj* object = (JsonObj*)json_elements->data[j];
             if(strcmp(object->key, key) == 0){
                 return object;

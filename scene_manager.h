@@ -21,8 +21,8 @@ typedef enum{
 //Switch Statement with enum to load correct scene
 void load_scene_name(Scene_Name scene_name, Game* game);
 
-//Loads the start menu with its buttons and text
-void load_start_menu(Game* game);
+//Clears current scene. Then loads a scene from Json Objects stored in Scene Manager's scenes
+void load_scene(char* name, Game* game);
 
 //Clear the Entire "Scene" by removing all entities
 void clear_scene(Game* game);
@@ -43,6 +43,9 @@ SceneManager* init_scene_management();
 void read_scene_manifest(list_t* manifest, SceneManager* manager);
 
 //read a scene from a filepath and return a list of its json objects
-list_t* load_scene(char* filepath);
+list_t* load_scene_file(char* filepath);
+
+//load all of the objects in a scene into the game
+void load_scene_objects(Scene* scene, list_t* scene_objects, Game* game);
 
 #endif

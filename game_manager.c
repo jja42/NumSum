@@ -41,21 +41,19 @@ void render_entities(Game* game){
     //loop through entities
     for(int i = 0; i< game->entities->capacity; i++){
         //ignore NULL
-        if(game->entities->data[i] == NULL){
-            continue;
-        }
-        //get entity
-        entity_s *entity = (entity_s*)game->entities->data[i];
-        //look at entity type
-        switch (entity->type)
-        {
-        //if button, render button
-        case BUTTON:
-            ui_render_button(renderer, entity->data);
-            break;
-        
-        default:
-            break;
+        if(game->entities->data[i] != NULL){
+            //get entity
+            entity_s *entity = (entity_s*)game->entities->data[i];
+            //look at entity type
+            switch (entity->type)
+            {
+            //if button, render button
+            case BUTTON:
+                ui_render_button(renderer, entity->data);
+                break;
+            default:
+                break;
+            }
         }
     }
 }
@@ -64,21 +62,19 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
     //loop through entities
     for(int i = 0; i< game->entities->capacity; i++){
         //ignore NULL
-        if(game->entities->data[i] == NULL){
-            continue;
-        }
-        //get entity
-        entity_s *entity = (entity_s*)game->entities->data[i];
-        //look at entity type
-        switch (entity->type)
-        {
-        //if button, check position against pos and size
-        case BUTTON:
-            ui_click_button(entity, mouseX, mouseY, game);
-            break;
-        
-        default:
-            break;
+        if(game->entities->data[i] != NULL){
+            //get entity
+            entity_s *entity = (entity_s*)game->entities->data[i];
+            //look at entity type
+            switch (entity->type)
+            {
+            //if button, check position against pos and size
+            case BUTTON:
+                ui_click_button(entity, mouseX, mouseY, game);
+                break;
+            default:
+                break;
+            }
         }
     }
 }
@@ -87,23 +83,22 @@ void free_entities(Game* game){
     //loop through entities
     for(int i = 0; i< game->entities->capacity; i++){
         //ignore NULL
-        if(game->entities->data[i] == NULL){
-            continue;
+        if(game->entities->data[i] != NULL){
+            //get entity
+            entity_s *entity = (entity_s*)game->entities->data[i];
+            //look at entity type
+            switch (entity->type)
+            {
+            //if button, free button
+            case BUTTON:
+                Button* button = (Button*) entity->data;
+                free_button(button);
+                break;
+            default:
+                break;
+            }
+            free(entity);
         }
-        //get entity
-        entity_s *entity = (entity_s*)game->entities->data[i];
-        //look at entity type
-        switch (entity->type)
-        {
-        //if button, free button
-        case BUTTON:
-            Button* button = (Button*) entity->data;
-            free_button(button);
-            break;
-        default:
-            break;
-        }
-        free(entity);
     }
 }
 

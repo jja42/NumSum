@@ -1,18 +1,18 @@
 #include "button.h"
 #include <stdio.h>
 
-void exit_game_button(Game* game)
+void exit_button_func(Game* game)
 {
     exit_game(game);
 }
 
-void start_game_button(Game* game)
+void start_button_func(Game* game)
 {
     
 }
 
 //Just Prints for Now. Not Yet Connected
-void game_info_button(Game* game)
+void info_button_func(Game* game)
 {
     printf("Button is Working\n");
 }

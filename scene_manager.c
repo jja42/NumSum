@@ -6,7 +6,7 @@ void load_scene_name(Scene_Name scene_name, Game* game){
     switch (scene_name)
     {
     case START_MENU:
-        load_start_menu(game);
+        load_scene("start_scene",game);
         break;
     default:
         break;
@@ -20,12 +20,58 @@ void clear_scene(Game* game){
     clear_list(game->entities);
 }
 
-void load_start_menu(Game* game){
+void load_scene(char* name, Game* game){
     clear_scene(game);
 
-    add_button_to_scene("StartButton", 250, 50, 200, 100, "Start", ARIAL, game_info_button, game);
-    add_button_to_scene("InfoButton", 250, 200, 200, 100, "Info", ARIAL, game_info_button, game);
-    add_button_to_scene("ExitButton", 250, 350, 200, 100, "Exit", ARIAL, exit_game_button, game);
+    SceneManager* manager  = game->scene_manager;
+    list_t* scenes = manager->scenes;
+
+    for(int i = 0; i<scenes->capacity; i++){
+        if(scenes->data[i] != NULL){
+            Scene* scene = (Scene*)scenes->data[i];
+            if(strcmp(scene->name, name) == 0){
+                list_t* scene_objects = scene->objects;
+                load_scene_objects(scene, scene_objects, game);
+                return;
+            }
+        }
+    }
+
+    printf("Could Not Find Scene Named: %s in Scene List", name);
+    return;
+}
+
+void load_scene_objects(Scene* scene, list_t* scene_objects, Game* game){
+    JsonObj* json_obj = NULL;
+    list_t* json = NULL;
+    list_t* elements = NULL;
+    JsonObj* obj = NULL;
+    
+    //Load Buttons
+    json_obj = json_list_get(scene_objects,"buttons");
+    list_t* buttons = (list_t*)json_obj->value;
+    for(int i = 0; i<buttons->capacity; i++){
+        if(buttons->data[i] != NULL){
+            //Button JSON
+            json_obj = (JsonObj*)buttons->data[i];
+
+            //Button JSON List
+            json = (list_t*)json_obj->value;
+
+            char* name = (char*)json_list_get(json,"name")->value;
+            int* x = (int*)json_list_get(json,"x")->value;
+            int* y = (int*)json_list_get(json,"y")->value;
+            int* width = (int*)json_list_get(json,"width")->value;
+            int* height = (int*)json_list_get(json,"height")->value;
+            char* text = (char*)json_list_get(json,"text")->value;
+            char* font = (char*)json_list_get(json,"font")->value;
+            FONT f = parse_font(font);
+            char* function = (char*)json_list_get(json,"function")->value;
+            OnClick func = parse_button_function(function);
+
+            add_button_to_scene(name, *x, *y, *width, *height, text, f, func, game);
+        }
+    }
 }
 
 void load_scene_manifest(char* filepath, SceneManager* manager){
@@ -38,7 +84,7 @@ void load_scene_manifest(char* filepath, SceneManager* manager){
     read_scene_manifest(manifest, manager);
 }
 
-list_t* load_scene(char* filepath){
+list_t* load_scene_file(char* filepath){
     list_t* scene = read_json_into_objects(filepath);
 
     if(scene == NULL){
@@ -52,10 +98,7 @@ list_t* load_scene(char* filepath){
 
 void free_scenes(SceneManager* manager){
     for(int i = 0; i<manager->scenes->capacity; i++){
-        if(manager->scenes->data[i] == NULL){
-            continue;
-        }
-        else{
+        if(manager->scenes->data[i] != NULL){
             free_scene(manager->scenes->data[i]);
         }
     }
@@ -66,10 +109,7 @@ void free_scenes(SceneManager* manager){
 void free_scene(Scene* scene){
     free(scene->name);
     for(int i = 0; i<scene->objects->capacity; i++){
-        if(scene->objects->data[i] == NULL){
-            continue;
-        }
-        else{
+        if(scene->objects->data[i] != NULL){
             free_json(scene->objects->data[i]);
         }
     }
@@ -92,10 +132,7 @@ SceneManager* init_scene_management(){
 
 void read_scene_manifest(list_t* manifest, SceneManager* manager){
     for(int i = 0; i<manifest->capacity; i++){
-        if(manifest->data[i] == NULL){
-            continue;
-        }
-        else{
+        if(manifest->data[i] != NULL){
             //Key = Scenes
             //Value = Array
             JsonObj* array = (JsonObj*) manifest->data[i];
@@ -126,10 +163,8 @@ void read_scene_manifest(list_t* manifest, SceneManager* manager){
                     
                     JsonObj* object = json_list_get(json_elements,"name");
                     scene->name = strdup((char*)object->value);
-                    printf("Name: %s\n", scene->name);
                     object = json_list_get(json_elements,"file");
                     scene_path = (char*)object->value;
-                    printf("Path: %s\n", scene_path);
                 }
             scene->objects = read_json_into_objects(scene_path);
             list_add(manager->scenes,scene);

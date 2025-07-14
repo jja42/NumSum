@@ -1,5 +1,5 @@
 {
-  "scene_name": "start_menu",
+  "scene_name": "start_scene",
   "buttons": [
     {
       "name": "StartButton",
