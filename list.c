@@ -50,7 +50,9 @@ void list_add(list_t* list, void* item) {
 }
 
 void resize_list(list_t* list){
+  //create new capacity
   int new_capacity =  list->capacity * 2;
+  //attempt realloc
   void **temp = realloc(list->data, new_capacity * sizeof(void *));
   if (temp == NULL) {
       printf("Unable to resize list.\n");
@@ -58,10 +60,12 @@ void resize_list(list_t* list){
   }
     list->data = temp;
 
+  //null new data
   for (int i = list->capacity; i < new_capacity; i++) {
         list->data[i] = NULL;
   }
   
+  //update capacity
   list->capacity = new_capacity;
 }
 

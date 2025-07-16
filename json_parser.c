@@ -4,7 +4,9 @@
 #include <ctype.h>
 
 list_t* read_json_into_objects(char* filename){
+    //read the file
     char* buffer = read_json_into_buffer(filename);
+    //transform the file's contents into json objects
     list_t* objs = read_buffer_into_objects(buffer,false);
     free(buffer);
     return objs;
@@ -197,6 +199,7 @@ list_t* read_buffer_into_objects(char* buffer, bool is_substring){
         list_add(object_list, obj);
         //printf("Object of type %d added to List\n", type);
 
+        //Look for our next object
         curr_index = get_next_obj_index(buffer,curr_index);
         if(curr_index == -1){
             break;
@@ -350,6 +353,7 @@ bool* parse_bool(char* buffer, int* index){
         printf("Failed to allocate bool.\n");
         return NULL;
     }
+    //manual string comparison for true/false
     if(strncmp(buffer + *index, "true", 4) == 0){
         *b = true;
         *index += 4;
@@ -493,6 +497,7 @@ void print_json(list_t* json_objects){
                 printf("%s : %d\n", key, *b);
                 break;
 
+            //print [ then print each object and then print ]
             case J_ARRAY:
                 list_t* array = (list_t*)object->value;
                 printf("%s : [\n", key);
@@ -500,6 +505,7 @@ void print_json(list_t* json_objects){
                 printf("]\n");
                 break;
 
+            //print { then print each object and then print }
             case JSON:
                 list_t* json = (list_t*)object->value;
                 printf("Json Obj:\n{\n");
@@ -525,7 +531,10 @@ int find_next_json(char* buffer, int index){
 }
 
 void free_json(JsonObj* obj){
+    //free our key which is a dynamically allocated string
     free(obj->key);
+    //if we are a json holder or an array we have multiple child objects
+    //we must loop through our list and free recursively
     if(obj->type == JSON || obj->type == J_ARRAY){
         list_t* l = (list_t*)obj->value;
         for(int i = 0; i < l->capacity; i++){
@@ -543,8 +552,10 @@ void free_json(JsonObj* obj){
 
 
 JsonObj* json_list_get(list_t* json_elements, char* key){
+    //go through the list provided
     for(int j = 0; j <json_elements->capacity; j++){
         if(json_elements->data[j] != NULL){
+            //cast to JsonObj and check if key matches string
             JsonObj* object = (JsonObj*)json_elements->data[j];
             if(strcmp(object->key, key) == 0){
                 return object;

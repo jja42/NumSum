@@ -13,10 +13,13 @@ PAUSED,
 END
 } GameState;
 
+//Holds our fonts. 
+//May also hold images and such if used
 typedef struct{
 list_t* fonts;
 } UI;
 
+//Holds our scenes
 typedef struct{
     list_t* scenes;
 } SceneManager;
