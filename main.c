@@ -8,6 +8,10 @@
 
 int main(int argc, char* argv[]) {
 
+    //initialize our randomness
+    //because for some reason we have to seed to get ... unseeded results
+    srand(time(NULL));
+
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         printf("SDL_Init Error: %s\n", SDL_GetError());
