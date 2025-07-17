@@ -81,7 +81,7 @@ FONT parse_font(char* font){
 
 OnClick parse_button_function(char* function){
     if(strcmp(function,"START") == 0){
-        return start_button_func;
+        return main_scene_button_func;
     }
     if(strcmp(function,"INFO") == 0){
         return info_button_func;

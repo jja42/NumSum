@@ -114,3 +114,33 @@ void free_game(Game* game){
 void exit_game(Game* game){
     game->state = END;
 }
+
+void main_scene(Game* game){
+    if(game->state == START){
+        load_scene(MAIN_GAME, game);
+    }
+    game->state = RUNNING;
+}
+
+void resume_game(Game* game){
+    if(game->state == PAUSED){
+        game->state = RUNNING;    
+    }
+}
+
+void pause_game(Game* game){
+    if(game->state == RUNNING){
+        game->state = PAUSED;
+    }
+}
+
+void start_scene(Game* game){
+    if(game->state == PAUSED || game->state == RUNNING){
+        load_scene(START_MENU, game);
+    }
+    game->state = START;
+}
+
+void info_popup(Game* game){
+    
+}

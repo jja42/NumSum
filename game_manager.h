@@ -3,12 +3,12 @@
 
 #include <SDL2/SDL.h>
 #include "list.h"
+#include "num.h"
 
 //Various states for the game that will trigger functions when swapped
 typedef enum {
 START,
 RUNNING,
-LOADING,
 PAUSED,
 END
 } GameState;
@@ -54,20 +54,17 @@ void pause_game(Game* game);
 //Will change game state to RUNNING and will close Pause Menu
 void resume_game(Game* game);
 
-//Will change game state to RUNNING and transition us from the Start Menu into Loading
-void start_game(Game* game);
-
-//Will change game state to LOADING which will start Level Gen and Prepare Grid
-void load_game(Game* game);
+//Will change game state to RUNNING and transition us from the Start Menu into the Main Scene
+void main_scene(Game* game);
 
 //Will change game state to END which will cause game to stop running and exit
 void exit_game(Game* game);
 
-//Will change game state to START and bring us to the start menu
-void start_menu(Game* game);
+//Will change game state to START and bring us to the start scene
+void start_scene(Game* game);
 
 //Will toggle on and off an info popup
-void info_popup();
+void info_popup(Game* game);
 
 //Adds an entity onto the entity stack
 void add_entity(Game* game, entity_s* entity);
@@ -92,5 +89,8 @@ entity_s* init_entity(Entity_Type type, void* entity_data);
 
 //Ends the Game by changing our state to END
 void exit_game(Game* game);
+
+//Given a grid, initialize the entities needed
+void setup_grid_entities(Game* game, Grid* grid);
 
 #endif

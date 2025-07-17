@@ -6,9 +6,13 @@ void exit_button_func(Game* game, void* data)
     exit_game(game);
 }
 
-void start_button_func(Game* game, void* data)
+void main_scene_button_func(Game* game, void* data)
 {
     
+}
+
+void start_menu_button_func(Game* game, void* data){
+
 }
 
 //Just Prints for Now. Not Yet Connected

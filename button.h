@@ -28,8 +28,11 @@ void* data;
 //Will call game_manager's exit function. 
 void exit_button_func(Game* game, void* data);
 
-//Will call game_manager's start function.
-void start_button_func(Game* game, void* data);
+//Will call game_manager's main scene function.
+void main_scene_button_func(Game* game, void* data);
+
+//Will call game_manager's start menu function
+void start_menu_button_func(Game* game, void* data);
 
 //Will display a popup
 void info_button_func(Game* game, void* data);
