@@ -80,7 +80,7 @@ FONT parse_font(char* font){
 }
 
 OnClick parse_button_function(char* function){
-    if(strcmp(function,"START") == 0){
+    if(strcmp(function,"MAIN") == 0){
         return main_scene_button_func;
     }
     if(strcmp(function,"INFO") == 0){
@@ -88,6 +88,9 @@ OnClick parse_button_function(char* function){
     }
     if(strcmp(function,"EXIT") == 0){
         return exit_button_func;
+    }
+    if(strcmp(function,"START") == 0){
+        return start_menu_button_func;
     }
     printf("Could not find matching Function for: %s\n", function);
     return NULL;

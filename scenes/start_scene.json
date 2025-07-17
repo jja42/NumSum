@@ -4,18 +4,18 @@
     {
       "name": "StartButton",
       "x": 300, 
-      "y": 50,
+      "y": 100,
       "width": 200,
       "height": 100 ,
       "text": "Start",
       "font": "ARIAL",
-      "function": "START",
+      "function": "MAIN",
       "data": "NONE"
     },
     {
       "name": "InfoButton",
       "x": 300, 
-      "y": 200 ,
+      "y": 250 ,
       "width": 200, 
       "height": 100,
       "text": "Info",
@@ -26,7 +26,7 @@
     {
       "name": "ExitButton",
       "x": 300, 
-      "y": 350,
+      "y": 400,
       "width": 200,
       "height": 100 ,
       "text": "Exit",

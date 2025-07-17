@@ -117,9 +117,9 @@ void exit_game(Game* game){
 
 void main_scene(Game* game){
     if(game->state == START){
-        load_scene(MAIN_GAME, game);
+        load_scene_name(MAIN_GAME, game);
+        game->state = RUNNING;
     }
-    game->state = RUNNING;
 }
 
 void resume_game(Game* game){
@@ -136,11 +136,11 @@ void pause_game(Game* game){
 
 void start_scene(Game* game){
     if(game->state == PAUSED || game->state == RUNNING){
-        load_scene(START_MENU, game);
+        load_scene_name(START_MENU, game);
+        game->state = START;
     }
-    game->state = START;
 }
 
 void info_popup(Game* game){
-    
+
 }

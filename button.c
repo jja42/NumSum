@@ -8,11 +8,11 @@ void exit_button_func(Game* game, void* data)
 
 void main_scene_button_func(Game* game, void* data)
 {
-    
+    main_scene(game);
 }
 
 void start_menu_button_func(Game* game, void* data){
-
+    start_scene(game);
 }
 
 //Just Prints for Now. Not Yet Connected

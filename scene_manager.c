@@ -8,6 +8,9 @@ void load_scene_name(Scene_Name scene_name, Game* game){
     case START_MENU:
         load_scene("start_scene",game);
         break;
+    case MAIN_GAME:
+        load_scene("main_scene",game);
+        break;
     default:
         break;
     }

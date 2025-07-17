@@ -9,7 +9,19 @@
       "height": 100,
       "text": "Info",
       "font": "ARIAL",
-      "function": "INFO"
+      "function": "INFO",
+      "data" : "NONE"
+    },
+    {
+      "name": "BackButton",
+      "x": 500, 
+      "y": 400 ,
+      "width": 200, 
+      "height": 100,
+      "text": "Start Menu",
+      "font": "ARIAL",
+      "function": "START",
+      "data" : "NONE"
     }
     ]
 }
