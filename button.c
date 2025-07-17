@@ -1,23 +1,23 @@
 #include "button.h"
 #include <stdio.h>
 
-void exit_button_func(Game* game)
+void exit_button_func(Game* game, void* data)
 {
     exit_game(game);
 }
 
-void start_button_func(Game* game)
+void start_button_func(Game* game, void* data)
 {
     
 }
 
 //Just Prints for Now. Not Yet Connected
-void info_button_func(Game* game)
+void info_button_func(Game* game, void* data)
 {
     printf("Button is Working\n");
 }
 
-Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(Game* game), SDL_Renderer* ren)
+Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font,  OnClick click_function, SDL_Renderer* ren, void* data)
 {
     Button* button = malloc(sizeof(Button));
 
@@ -34,6 +34,7 @@ Button* init_button(char* button_name, int x, int y, int w, int h, char* text, T
     button->width = w;
     button->height = h;
     button->on_click = click_function;
+    button->data = data;
     button->interactible = true;
 
     //Create Text Surface and Texture

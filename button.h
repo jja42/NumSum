@@ -6,7 +6,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "game_manager.h"
 
-typedef void (*OnClick)(Game* game);
+typedef void (*OnClick)(Game* game, void* data);
 
 //A Button!
 //It has a name, a position, a size, even a bool and a function
@@ -22,22 +22,23 @@ OnClick on_click;
 char* button_text;
 SDL_Texture* text_texture;
 SDL_Rect text_rect;
+void* data;
 } Button;
 
 //Will call game_manager's exit function. 
-void exit_button_func(Game* game);
+void exit_button_func(Game* game, void* data);
 
 //Will call game_manager's start function.
-void start_button_func(Game* game);
+void start_button_func(Game* game, void* data);
 
 //Will display a popup
-void info_button_func(Game* game);
+void info_button_func(Game* game, void* data);
 
 //Renders a Button to the Screen with a render and button info
 void render_button(SDL_Renderer* renderer, Button* button);
 
 //Create a new button and set it up, also creates a text texture
-Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font, void (*click_function)(Game* game), SDL_Renderer* ren);
+Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font,  OnClick click_function, SDL_Renderer* ren, void* data);
 
 //Frees Button Data
 void free_button(Button *button);

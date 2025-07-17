@@ -43,11 +43,11 @@ UI* init_ui(){
     return ui;
 }
 
-void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, void (*click_function)(Game* game), Game* game)
+void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, OnClick click_function, Game* game, void* data)
 {
     TTF_Font* font = get_font(font_name, game->ui_manager);
     
-    Button* testbutton = init_button(button_name, x, y, w, h, text, font, click_function, game->renderer);
+    Button* testbutton = init_button(button_name, x, y, w, h, text, font, click_function, game->renderer, data);
 
     entity_s* ent = init_entity(BUTTON, testbutton);
 
@@ -66,7 +66,7 @@ void ui_click_button(entity_s* entity, int mouseX, int mouseY, Game* game){
     //check y bounds
         if(mouseY <= button->y_pos + button->height && mouseY >= button->y_pos){
         //if within bounds, call on_click
-            button->on_click(game);
+            button->on_click(game, button->data);
         }
     }
 }

@@ -9,7 +9,8 @@
       "height": 100 ,
       "text": "Start",
       "font": "ARIAL",
-      "function": "START"
+      "function": "START",
+      "data": "NONE"
     },
     {
       "name": "InfoButton",
@@ -19,7 +20,8 @@
       "height": 100,
       "text": "Info",
       "font": "ARIAL",
-      "function": "INFO"
+      "function": "INFO",
+      "data": "NONE"
     },
     {
       "name": "ExitButton",
@@ -29,7 +31,8 @@
       "height": 100 ,
       "text": "Exit",
       "font": "ARIAL",
-      "function": "EXIT"
+      "function": "EXIT",
+      "data": "NONE"
     }
     ]
 }

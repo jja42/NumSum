@@ -68,8 +68,9 @@ void load_scene_objects(Scene* scene, list_t* scene_objects, Game* game){
             FONT f = parse_font(font);
             char* function = (char*)json_list_get(json,"function")->value;
             OnClick func = parse_button_function(function);
+            void* data = json_list_get(json,"data")->value;
 
-            add_button_to_scene(name, *x, *y, *width, *height, text, f, func, game);
+            add_button_to_scene(name, *x, *y, *width, *height, text, f, func, game, data);
         }
     }
 }

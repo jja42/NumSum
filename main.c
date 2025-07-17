@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     //Init Grid for testing
     Grid* grid = create_grid(8); //makes an 8 x 8
 
-    print_grid(grid);
+    //print_grid(grid);
 
     //Load our list of scenes
     load_scene_manifest("scenes/scenes.json",game->scene_manager);
