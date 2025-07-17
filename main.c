@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "game_manager.h"
 #include "ui_manager.h"
 #include "scene_manager.h"
+#include "num.h"
 
 int main(int argc, char* argv[]) {
 
@@ -51,6 +53,10 @@ int main(int argc, char* argv[]) {
     //Init Game Manager
     Game* game = init_game(ren);
 
+    //Init Grid for testing
+    Grid* grid = create_grid(8); //makes an 8 x 8
+
+    print_grid(grid);
 
     //Load our list of scenes
     load_scene_manifest("scenes/scenes.json",game->scene_manager);
@@ -103,6 +109,7 @@ int main(int argc, char* argv[]) {
 
     //Clean Up and Exit
     free_game(game);
+    free_grid(grid);
     TTF_Quit();
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);

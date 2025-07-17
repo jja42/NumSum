@@ -2,6 +2,7 @@
 #define NUM_H
 
 #include "list.h"
+#include <stdbool.h>
 
 #define ROW 0
 #define COL 1
@@ -37,5 +38,14 @@ int check_dupe(int num, int arr[], int size);
 
 //function to compare our values for sorting
 int compare(const void *n1, const void *n2);
+
+//function to randomly shuffle our index array
+void shuffle(int* arr, int size);
+
+//cleanup our memory
+void free_grid(Grid* g);
+
+//testing to visualize our grid
+void print_grid(Grid* g);
 
 #endif

@@ -112,11 +112,11 @@ list_t* list_join(list_t* list1, list_t* list2){
   }
 
   for(int i = 0; i<list1->capacity; i++){
-    new_l->data[i] = list1->data[i];
+    list_add(new_l,list1->data[i]);
   }
 
   for(int j = 0; j<list2->capacity; j++){
-    new_l->data[list1->capacity + j] = list2->data[j];
+    list_add(new_l,list2->data[j]);
   }
 
   free_list(list1);
