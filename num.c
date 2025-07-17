@@ -18,6 +18,14 @@ Grid* create_grid(int size){
         return NULL;
     }
 
+    g->size = size;
+
+    return g;
+}
+
+void generate_grid(Grid* g){
+    int size = g->size;
+
     //Generate our numbers
     for(int i = 0; i < size; i++){
         
@@ -30,25 +38,15 @@ Grid* create_grid(int size){
         
         //Handle Malloc Error
         if (col == NULL) {
-            printf("Failed to Allocate Grid List.\n");
+            printf("Failed to Generate Grid.\n");
             return NULL;
         }
 
-        grid->data[i] = col;
+        g->grid->data[i] = col;
     }
-
-    g->size = size;
-
-    return g;
 }
 
-//fill out our grid. use create nums to create random plausible sum components. make rows and columns. set valid numbers. derive sums. 
-void generate_grid(Grid* grid){
-    return;
-}
-
-//Creates a number at position x,y with value of val. is_valid set to false by default
-Num* create_num(int val, int x, int y){
+Num* create_num(int val){
     Num* n = malloc(sizeof(Num));
     
     //Handle Malloc Error
@@ -56,6 +54,8 @@ Num* create_num(int val, int x, int y){
         printf("Failed to Allocate Num.\n");
         return NULL;
     }
+    
+    n->value = val;
 
     return n;
 }
@@ -126,7 +126,8 @@ list_t* create_nums(int val, int num_count){
     parts[num_count - 1] = val - last_split;
 
     for(int p = 0; p<num_count; p++){
-        list_add(nums, parts[p]);
+        Num* n = create_num(parts[p]);
+        list_add(nums, n);
     }
 
     return nums;

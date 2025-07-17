@@ -8,8 +8,6 @@
 
 typedef struct Num{
     int value;
-    int x;
-    int y;
     bool is_valid;
 }Num;
 
@@ -28,8 +26,8 @@ Grid* create_grid(int size);
 //fill out our grid. use create nums to create random plausible sum components. make rows and columns. set valid numbers. derive sums. 
 void generate_grid(Grid* grid);
 
-//Creates a number at position x,y with value of val. is_valid set to false by default
-Num* create_num(int val, int x, int y);
+//Creates a number with value of val. is_valid set to false by default
+Num* create_num(int val);
 
 //creates a list of num_count numbers that add to a sum
 list_t* create_nums(int sum, int num_count);
