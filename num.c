@@ -1,16 +1,74 @@
 #include "num.h"
 #include <stdlib.h>
 
-Sum* create_sum(int val, int num_count){
-    Sum* s = malloc(sizeof(Sum));
+Grid* create_grid(int size){
+    Grid* g = malloc(sizeof(Grid));
     
     //Handle Malloc Error
-    if (s == NULL) {
-    printf("Failed to Allocate Sum.\n");
-    return NULL;
+    if (g == NULL) {
+        printf("Failed to Allocate Grid.\n");
+        return NULL;
     }
 
-    s->value = val;
+    list_t* grid = new_list(size);
+   
+    //Handle Malloc Error
+    if (grid == NULL) {
+        printf("Failed to Allocate Grid List.\n");
+        return NULL;
+    }
+
+    //Generate our numbers
+    for(int i = 0; i < size; i++){
+        
+        int rand_num = rand() % (size - 1) + 1;
+        
+        list_t* section_1 = create_nums(rand_num,size/2);
+        list_t* section_2 = create_nums(rand_num,size/2);
+
+        list_t* col = list_join(section_1,section_2);
+        
+        //Handle Malloc Error
+        if (col == NULL) {
+            printf("Failed to Allocate Grid List.\n");
+            return NULL;
+        }
+
+        grid->data[i] = col;
+    }
+
+    g->size = size;
+
+    return g;
+}
+
+//fill out our grid. use create nums to create random plausible sum components. make rows and columns. set valid numbers. derive sums. 
+void generate_grid(Grid* grid){
+    return;
+}
+
+//Creates a number at position x,y with value of val. is_valid set to false by default
+Num* create_num(int val, int x, int y){
+    Num* n = malloc(sizeof(Num));
+    
+    //Handle Malloc Error
+    if (n == NULL) {
+        printf("Failed to Allocate Num.\n");
+        return NULL;
+    }
+
+    return n;
+}
+
+
+list_t* create_nums(int val, int num_count){
+    list_t* nums = new_list(val);
+
+    //Handle Malloc Error
+    if (nums == NULL) {
+        printf("Failed to Allocate Num List.\n");
+        return NULL;
+    }
 
     //to split into num_count parts we must do that many splits minus 1
     int splits = num_count - 1;
@@ -67,22 +125,11 @@ Sum* create_sum(int val, int num_count){
     //ie if our total is 20 and our last split is 17, our last part is 3
     parts[num_count - 1] = val - last_split;
 
-    list_t* valid = new_list(val);
-
-    //Handle Malloc Error
-    if (valid == NULL) {
-    free(s);
-    printf("Failed to Allocate Valid Num List for Sum.\n");
-    return NULL;
-    }
-
     for(int p = 0; p<num_count; p++){
-        list_add(valid, parts[p]);
+        list_add(nums, parts[p]);
     }
 
-    s->valid_nums = valid;
-
-    return s;
+    return nums;
 }
 
 int check_dupe(int num, int arr[], int size){
@@ -104,16 +151,4 @@ int compare(const void *n1, const void *n2) {
     //return the difference
     //qsort can use that to sort them
     return (*(int *)n1 - *(int *)n2);
-}
-
-Sum* derive_sum(Grid* grid, int c_r){
-    if(c_r == ROW){
-
-    }
-    if(c_r == COL){
-
-    }
-
-    printf("2nd Argument passed to Derive Sum is not an Accepted Value");
-    return NULL;
 }

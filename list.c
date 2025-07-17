@@ -103,3 +103,24 @@ void clear_list(list_t* list){
     list->data[i] = NULL;
     }
 }
+
+list_t* list_join(list_t* list1, list_t* list2){
+  int new_capacity = list1->capacity + list2->capacity;
+  list_t* new_l = new_list(new_capacity);
+  if(new_l == NULL){
+    return NULL;
+  }
+
+  for(int i = 0; i<list1->capacity; i++){
+    new_l->data[i] = list1->data[i];
+  }
+
+  for(int j = 0; j<list2->capacity; j++){
+    new_l->data[list1->capacity + j] = list2->data[j];
+  }
+
+  free_list(list1);
+  free_list(list2);
+
+  return new_l;
+}

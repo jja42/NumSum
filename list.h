@@ -25,4 +25,7 @@ void clear_list(list_t* list);
 //resizes a list
 void resize_list(list_t* list);
 
+//add two lists together
+list_t* list_join(list_t* list1, list_t* list2);
+
 #endif
