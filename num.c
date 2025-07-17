@@ -295,6 +295,8 @@ void shuffle(int* arr, int size){
 }
 
 void free_grid(Grid* g){
+
+    //free our sums
     for(int j = 0; j< g->size; j++){
         int* sum_c = (int*)g->sums_c->data[j];
         int* sum_r = (int*)g->sums_r->data[j];
@@ -304,6 +306,7 @@ void free_grid(Grid* g){
     free_list(g->sums_c);
     free_list(g->sums_r);
 
+    //free our nums
     list_t* rows = g->grid;
     for(int i = 0; i< g->size; i++){
         list_t* column = (list_t*)rows->data[i];
