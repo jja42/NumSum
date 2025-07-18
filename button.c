@@ -23,7 +23,7 @@ void info_button_func(Game* game, void* data)
 
 void grid_entity_button_func(Game* game, void* data){
     Num* n = (Num*)data;
-    printf("Number clicked: %d. At Position [%d,%d]\n", n->value, n->x, n->y);
+    printf("Number clicked: %d. At Position [%d,%d]. Is Valid: %d\n", n->value, n->x, n->y, n->is_valid);
 }
 
 Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font,  OnClick click_function, SDL_Renderer* ren, void* data)
@@ -75,7 +75,7 @@ Button* init_button(char* button_name, int x, int y, int w, int h, char* text, T
 
 void render_button(SDL_Renderer* renderer, Button* button) {
     //Creates an SDL Rect for the Button's Border First
-    SDL_Rect border = { button->x_pos - 7.5, button->y_pos - 7.5, button->width + 15, button->height + 15 };
+    SDL_Rect border = { button->x_pos - 5, button->y_pos - 5, button->width + 10, button->height + 10};
     
     //Sets Border Color (Blue)
     SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);

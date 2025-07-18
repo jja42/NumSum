@@ -70,7 +70,10 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
             {
             //if button, check position against pos and size
             case BUTTON:
-                ui_click_button(entity, mouseX, mouseY, game);
+                if(ui_check_button(entity,mouseX,mouseY)){
+                    ui_click_button(entity, game);
+                    return;
+                }
                 break;
             default:
                 break;

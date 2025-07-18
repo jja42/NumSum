@@ -33,7 +33,9 @@ void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* te
 void ui_render_button(SDL_Renderer* ren, void* button_data);
 
 //Wrapper for Clicking Buttons so that the Game Manager can defer this to the UI Manager
-void ui_click_button(entity_s* entity, int mouseX, int mouseY, Game* game);
+void ui_click_button(entity_s* entity, Game* game);
+
+bool ui_check_button(entity_s* entity, int mouseX, int mouseY);
 
 //return a font given a string
 FONT parse_font(char* font);
