@@ -13,6 +13,7 @@ typedef struct{
 typedef enum{
     START_MENU,
     MAIN_GAME,
+    INFO,
     LOSS,
     VICTORY
 }Scene_Name;

@@ -1,4 +1,4 @@
-#include "button.h"
+#include "ui_elements.h"
 #include <stdio.h>
 
 void exit_button_func(Game* game, void* data)
@@ -18,7 +18,7 @@ void start_menu_button_func(Game* game, void* data){
 //Just Prints for Now. Not Yet Connected
 void info_button_func(Game* game, void* data)
 {
-    printf("Button is Working\n");
+    info_popup(game);
 }
 
 void grid_entity_button_func(Game* game, void* data){
@@ -73,6 +73,48 @@ Button* init_button(char* button_name, int x, int y, int w, int h, char* text, T
     
 }
 
+TextPanel* init_text_panel(char* name, int x, int y, int w, int h, char* text, TTF_Font* font, SDL_Renderer* ren){
+    TextPanel* text_panel = malloc(sizeof(TextPanel));
+
+    //Handle Malloc Error
+    if(text_panel == NULL){
+         printf("Failed to allocate Text Panel.\n");
+         return NULL;
+    }
+
+    //Set our params
+    text_panel->name = name;
+    text_panel->x_pos = x;
+    text_panel->y_pos = y;
+    text_panel->width = w;
+    text_panel->height = h;
+
+    //Create Text Surface and Texture
+    SDL_Color black = {0, 0, 0};
+    SDL_Surface* text_surface = TTF_RenderText_Blended_Wrapped(font, text, black,0);
+    SDL_Texture* text_texture = SDL_CreateTextureFromSurface(ren, text_surface);
+
+    //Get these for centering
+    int text_width = text_surface->w;
+    int text_height = text_surface->h;
+
+    //FREE
+    SDL_FreeSurface(text_surface);
+
+    //Create a rect
+    SDL_Rect text_rect = {
+    text_panel->x_pos + (text_panel->width - text_width) / 2,
+    text_panel->y_pos + (text_panel->height - text_height) / 2,
+    text_width,
+    text_height};
+
+    //Assign our text refs here for rendering later
+    text_panel->text_texture = text_texture;
+    text_panel->text_rect = text_rect;
+
+    return text_panel;
+}
+
 void render_button(SDL_Renderer* renderer, Button* button) {
     //Creates an SDL Rect for the Button's Border First
     SDL_Rect border = { button->x_pos - 5, button->y_pos - 5, button->width + 10, button->height + 10};
@@ -81,7 +123,7 @@ void render_button(SDL_Renderer* renderer, Button* button) {
     SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);
     SDL_RenderFillRect(renderer, &border);
 
-    //Crreat Rect for Button Itself
+    //Create Rect for Button Itself
     SDL_Rect rect = { button->x_pos, button->y_pos, button->width, button->height };
 
     //Sets Color (White)
@@ -95,8 +137,36 @@ void render_button(SDL_Renderer* renderer, Button* button) {
     SDL_RenderCopy(renderer, button->text_texture, NULL, &button->text_rect);
 }
 
+void render_text_panel(SDL_Renderer* renderer, TextPanel* text_panel){
+    //Creates an SDL Rect for the Text Panel's Border First
+    SDL_Rect border = { text_panel->x_pos - 10, text_panel->y_pos - 10, text_panel->width + 20, text_panel->height + 20};
+    
+    //Sets Border Color (Blue)
+    SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);
+    SDL_RenderFillRect(renderer, &border);
+
+    //Create Rect for Text Panel Itself
+    SDL_Rect rect = { text_panel->x_pos, text_panel->y_pos, text_panel->width, text_panel->height };
+
+    //Sets Color (White)
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(renderer, &rect);
+
+    //Draws Rect onto Render
+    SDL_RenderDrawRect(renderer, &rect);
+
+    //Render the text for our Text Panel
+    SDL_RenderCopy(renderer, text_panel->text_texture, NULL, &text_panel->text_rect);
+}
+
 //Free Text Texture and Button
 void free_button(Button *button){
     SDL_DestroyTexture(button->text_texture);
     free(button);
+}
+
+//Free Text Texture and Text Panel
+void free_text_panel(TextPanel *text_panel){
+    SDL_DestroyTexture(text_panel->text_texture);
+    free(text_panel);
 }

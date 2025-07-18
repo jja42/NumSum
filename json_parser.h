@@ -83,7 +83,10 @@ int find_next_json(char* buffer, int index);
 //frees a json object
 void free_json(JsonObj* obj);
 
+//given a key, get a list of nested json objects.
+list_t* json_list_get(list_t* json, char* key);
+
 //given a key, get a json object from a list of json objects.
-JsonObj* json_list_get(list_t* json_elements, char* key);
+JsonObj* json_obj_get(list_t* json_elements, char* key);
 
 #endif

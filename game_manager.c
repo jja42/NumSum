@@ -16,7 +16,7 @@ entity_s* init_entity(Entity_Type type, void* entity_data){
          printf("Failed to allocate Entity.\n");
          return NULL;
     }
-    ent->type = BUTTON;
+    ent->type = type;
     ent->data = entity_data;
     return ent;
 }
@@ -28,7 +28,7 @@ Game* init_game(SDL_Renderer* renderer){
          printf("Failed to allocate Game.\n");
          return NULL;
     }
-    game->state = START,
+    game->state = RUNNING,
     game->entities = new_list(100);
     game->renderer = renderer;
     game->ui_manager = init_ui();
@@ -51,6 +51,10 @@ void render_entities(Game* game){
             case BUTTON:
                 ui_render_button(renderer, entity->data);
                 break;
+            //if text panel, render text panel
+            case TEXTPANEL:
+                ui_render_text_panel(renderer, entity->data);
+                break;
             default:
                 break;
             }
@@ -70,7 +74,7 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
             {
             //if button, check position against pos and size
             case BUTTON:
-                if(ui_check_button(entity,mouseX,mouseY)){
+                if(ui_check_button(entity, mouseX, mouseY)){
                     ui_click_button(entity, game);
                     return;
                 }
@@ -97,6 +101,11 @@ void free_entities(Game* game){
                 Button* button = (Button*) entity->data;
                 free_button(button);
                 break;
+             //if text panel, free text panel
+            case TEXTPANEL:
+                TextPanel* text_panel = (TextPanel*) entity->data;
+                free_text_panel(text_panel);
+                break;
             default:
                 break;
             }
@@ -119,10 +128,7 @@ void exit_game(Game* game){
 }
 
 void main_scene(Game* game){
-    if(game->state == START){
-        load_scene_name(MAIN_GAME, game);
-        game->state = RUNNING;
-    }
+    load_scene_name(MAIN_GAME, game);
 }
 
 void resume_game(Game* game){
@@ -138,13 +144,10 @@ void pause_game(Game* game){
 }
 
 void start_scene(Game* game){
-    if(game->state == PAUSED || game->state == RUNNING){
-        load_scene_name(START_MENU, game);
-        game->state = START;
-    }
+    load_scene_name(START_MENU, game);
 }
 
 void info_popup(Game* game){
-
+    load_scene_name(INFO, game);
 }
 

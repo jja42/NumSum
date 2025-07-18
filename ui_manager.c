@@ -47,11 +47,30 @@ void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* te
 {
     TTF_Font* font = get_font(font_name, game->ui_manager);
     
-    Button* testbutton = init_button(button_name, x, y, w, h, text, font, click_function, game->renderer, data);
+    Button* button = init_button(button_name, x, y, w, h, text, font, click_function, game->renderer, data);
 
-    entity_s* ent = init_entity(BUTTON, testbutton);
+    entity_s* ent = init_entity(BUTTON, button);
 
     add_entity(game, ent);
+}
+
+void add_text_panel_to_scene(char* name, int x, int y, int w, int h, char* text, FONT font_name, Game* game, int active){
+    TTF_Font* font = get_font(font_name, game->ui_manager);
+
+    TextPanel* text_panel = init_text_panel(name, x, y, w, h, text, font, game->renderer);
+
+    if(active == 0){
+        text_panel->active = false;
+    }
+
+    entity_s* ent = init_entity(TEXTPANEL, text_panel);
+
+    add_entity(game, ent);
+}
+
+void ui_render_text_panel(SDL_Renderer* ren, void* text_panel_data){
+    TextPanel* text_panel = (TextPanel*)text_panel_data;
+    render_text_panel(ren, text_panel);
 }
 
 void ui_render_button(SDL_Renderer* ren, void* button_data){
@@ -66,6 +85,10 @@ void ui_click_button(entity_s* entity, Game* game){
 
 bool ui_check_button(entity_s* entity, int mouseX, int mouseY){
     Button* button = (Button*) entity->data;
+
+    if(!button->interactible){
+        return false;
+    }
     
     //check x bounds
     if(mouseX <= button->x_pos + button->width && mouseX >= button->x_pos){

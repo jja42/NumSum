@@ -14,6 +14,8 @@ void load_scene_name(Scene_Name scene_name, Game* game){
         load_scene("main_scene",game);
         setup_grid_entities(game);
         break;
+    case INFO:
+        load_scene("info_scene",game);
     default:
         break;
     }
@@ -48,35 +50,61 @@ void load_scene(char* name, Game* game){
 }
 
 void load_scene_objects(Scene* scene, list_t* scene_objects, Game* game){
+    
+    list_t* json_elements = NULL;
     JsonObj* json_obj = NULL;
-    list_t* json = NULL;
-    list_t* elements = NULL;
-    JsonObj* obj = NULL;
     
     //Load Buttons
-    json_obj = json_list_get(scene_objects,"buttons");
-    list_t* buttons = (list_t*)json_obj->value;
-    for(int i = 0; i<buttons->capacity; i++){
-        if(buttons->data[i] != NULL){
-            //Button JSON
-            json_obj = (JsonObj*)buttons->data[i];
+    list_t* buttons = json_list_get(scene_objects,"buttons");
+    if(buttons != NULL){
+        for(int i = 0; i<buttons->capacity; i++){
+            if(buttons->data[i] != NULL){
+                //Button JSON
+                json_obj = (JsonObj*)buttons->data[i];
 
-            //Button JSON List
-            json = (list_t*)json_obj->value;
+                //Button JSON List
+                json_elements = (list_t*)json_obj->value;
 
-            char* name = (char*)json_list_get(json,"name")->value;
-            int* x = (int*)json_list_get(json,"x")->value;
-            int* y = (int*)json_list_get(json,"y")->value;
-            int* width = (int*)json_list_get(json,"width")->value;
-            int* height = (int*)json_list_get(json,"height")->value;
-            char* text = (char*)json_list_get(json,"text")->value;
-            char* font = (char*)json_list_get(json,"font")->value;
-            FONT f = parse_font(font);
-            char* function = (char*)json_list_get(json,"function")->value;
-            OnClick func = parse_button_function(function);
-            void* data = json_list_get(json,"data")->value;
+                char* name = (char*)json_obj_get(json_elements,"name")->value;
+                int* x = (int*)json_obj_get(json_elements,"x")->value;
+                int* y = (int*)json_obj_get(json_elements,"y")->value;
+                int* width = (int*)json_obj_get(json_elements,"width")->value;
+                int* height = (int*)json_obj_get(json_elements,"height")->value;
+                char* text = (char*)json_obj_get(json_elements,"text")->value;
+                char* font = (char*)json_obj_get(json_elements,"font")->value;
+                FONT f = parse_font(font);
+                char* function = (char*)json_obj_get(json_elements,"function")->value;
+                OnClick func = parse_button_function(function);
+                void* data = json_obj_get(json_elements,"data")->value;
 
-            add_button_to_scene(name, *x, *y, *width, *height, text, f, func, game, data);
+                add_button_to_scene(name, *x, *y, *width, *height, text, f, func, game, data);
+            }
+        }
+    }
+
+    //Load Text Panels
+    list_t* text_panels = json_list_get(scene_objects,"text_panels");
+    if(text_panels != NULL){
+        for(int i = 0; i<text_panels->capacity; i++){
+            if(text_panels->data[i] != NULL){
+                //Text Panel JSON
+                json_obj = (JsonObj*)text_panels->data[i];
+
+                //Tex Panel JSON List
+                json_elements = (list_t*)json_obj->value;
+
+                char* name = (char*)json_obj_get(json_elements,"name")->value;
+                int* x = (int*)json_obj_get(json_elements,"x")->value;
+                int* y = (int*)json_obj_get(json_elements,"y")->value;
+                int* width = (int*)json_obj_get(json_elements,"width")->value;
+                int* height = (int*)json_obj_get(json_elements,"height")->value;
+                char* text = (char*)json_obj_get(json_elements,"text")->value;
+                char* font = (char*)json_obj_get(json_elements,"font")->value;
+                FONT f = parse_font(font);
+                int* active = (int*)json_obj_get(json_elements,"active")->value;
+
+                add_text_panel_to_scene(name, *x, *y, *width, *height, text, f, game, *active);
+            }
         }
     }
 }
@@ -168,9 +196,9 @@ void read_scene_manifest(list_t* manifest, SceneManager* manager){
                     JsonObj* json = (JsonObj*)array_elements->data[i];
                     list_t* json_elements = (list_t*)json->value;
                     
-                    JsonObj* object = json_list_get(json_elements,"name");
+                    JsonObj* object = json_obj_get(json_elements,"name");
                     scene->name = strdup((char*)object->value);
-                    object = json_list_get(json_elements,"file");
+                    object = json_obj_get(json_elements,"file");
                     scene_path = (char*)object->value;
                 }
             scene->objects = read_json_into_objects(scene_path);

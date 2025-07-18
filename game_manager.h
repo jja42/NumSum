@@ -7,7 +7,6 @@
 
 //Various states for the game that will trigger functions when swapped
 typedef enum {
-START,
 RUNNING,
 PAUSED,
 END
@@ -38,8 +37,7 @@ Grid* grid;
 
 typedef enum {
 BUTTON,
-NUMBER,
-GROUP
+TEXTPANEL
 } Entity_Type;
 
 //Container Type to Loop through for Game Manager

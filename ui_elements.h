@@ -1,5 +1,5 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef UI_ELEM_H
+#define UI_ELEM_H
 
 #include <stdbool.h>
 #include <SDL2/SDL.h>
@@ -25,6 +25,18 @@ SDL_Rect text_rect;
 void* data;
 } Button;
 
+typedef struct TextPanel{
+    char* name;
+    int x_pos;
+    int y_pos;
+    int width;
+    int height;
+    char* text;
+    bool active;
+    SDL_Texture* text_texture;
+    SDL_Rect text_rect;
+} TextPanel;
+
 //Will call game_manager's exit function. 
 void exit_button_func(Game* game, void* data);
 
@@ -48,5 +60,14 @@ void free_button(Button *button);
 
 //Button function for our grid entities
 void grid_entity_button_func(Game* game, void* data);
+
+//Creates a new Text Panel
+TextPanel* init_text_panel(char* name, int x, int y, int w, int h, char* text, TTF_Font* font, SDL_Renderer* ren);
+
+//Renders a Text Panel to the Screen
+void render_text_panel(SDL_Renderer* renderer, TextPanel* text_panel);
+
+//Frees Text Panel Data
+void free_text_panel(TextPanel *text_panel);
 
 #endif

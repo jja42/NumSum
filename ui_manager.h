@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include "button.h"
+#include "ui_elements.h"
 #include "game_manager.h"
 
 typedef struct Game Game;
@@ -42,5 +42,11 @@ FONT parse_font(char* font);
 
 //return a button function given a string
 OnClick parse_button_function(char* function);
+
+//Called by Scene Manager to add a Text Panel. Creates a Text Panel and adds it to Game Manager's entities. Also sets active.
+void add_text_panel_to_scene(char* name, int x, int y, int w, int h, char* text, FONT font_name, Game* game, int active);
+
+//Wrapper for Rendering Text Panels so that Game Manager can defer this to the UI Manager
+void ui_render_text_panel(SDL_Renderer* ren, void* text_panel_data);
 
 #endif

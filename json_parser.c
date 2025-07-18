@@ -551,7 +551,21 @@ void free_json(JsonObj* obj){
 }
 
 
-JsonObj* json_list_get(list_t* json_elements, char* key){
+list_t* json_list_get(list_t* json, char* key){
+    //go through the list provided
+    for(int j = 0; j <json->capacity; j++){
+        if(json->data[j] != NULL){
+            //cast to JsonObj and check if key matches string
+            JsonObj* object = (JsonObj*)json->data[j];
+            if(strcmp(object->key, key) == 0){
+                return (list_t*)object->value;
+            }
+        }
+    }
+    return NULL;
+}
+
+JsonObj* json_obj_get(list_t* json_elements, char* key){
     //go through the list provided
     for(int j = 0; j <json_elements->capacity; j++){
         if(json_elements->data[j] != NULL){
@@ -562,6 +576,6 @@ JsonObj* json_list_get(list_t* json_elements, char* key){
             }
         }
     }
-    printf("Could Not Find Item Named: %s in JSON List", key);
+    printf("Could Not Find Item Named: %s in JSON List\n", key);
     return NULL;
 }
