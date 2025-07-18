@@ -3,8 +3,8 @@
   "buttons": [
     {
       "name": "InfoButton",
-      "x": 300, 
-      "y": 500 ,
+      "x": 25, 
+      "y": 525 ,
       "width": 150, 
       "height": 50,
       "text": "Info",
@@ -15,8 +15,8 @@
     },
     {
       "name": "BackButton",
-      "x": 500, 
-      "y": 500 ,
+      "x": 625, 
+      "y": 525 ,
       "width": 150, 
       "height": 50,
       "text": "Start Menu",
@@ -48,6 +48,26 @@
       "text": "____________________Goal____________________\nMark all the valid numbers in the grid.\nUse the row and column sums as clues!\n\n_________________How to Play_________________\n1. Deduce which numbers are valid or invalid\n2. Select Mark and click a Number to Mark it.\n3. Select Erase and click a Number to Erase it.\n\nIf you incorrectly mark or erase a number\nyou'll lose a life.",
       "font": "ARIAL",
       "active": 0
+    },
+    {
+      "name": "ColSums",
+      "x": 150, 
+      "y": 20 ,
+      "width": 500, 
+      "height": 35,
+      "text": "Column Sums",
+      "font": "ARIAL",
+      "active": 1
+    },
+    {
+      "name": "RowSums",
+      "x": 50, 
+      "y": 150 ,
+      "width": 35, 
+      "height": 300,
+      "text": "R\no\nw\n\nS\nu\nm\ns",
+      "font": "ARIAL",
+      "active": 1
     }
     ]
 }

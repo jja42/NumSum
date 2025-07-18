@@ -208,6 +208,14 @@ void read_scene_manifest(list_t* manifest, SceneManager* manager){
 }
 
 void setup_grid_entities(Game* game){
+    //For Centering
+    int cellSize = 45;
+    int gridSize = game->grid->size * cellSize;
+    int startX = (800 - gridSize) / 2;
+    startX -= 15;
+    int startY = (600 - gridSize) / 2;
+
+    //Make Buttons for each Grid Cell
     for(int i = 0; i<game->grid->size; i++){
         list_t* columns = (list_t*)game->grid->rows->data[i];
         for(int j = 0; j<game->grid->size; j++){
@@ -218,9 +226,11 @@ void setup_grid_entities(Game* game){
             n->x = j;
             n->y = i;
             void* data = n;
-            int x  = 200 + (j * 50);
-            int y = 50 + (i * 50);
+            int x  = startX + (j * 50);
+            int y = startY + (i * 50);
             add_button_to_scene(name, x, y, 45, 45, text, ARIAL, grid_entity_button_func, game, data, 1);
         }
     }
+
+    //Put Sums on Top and Side
 }
