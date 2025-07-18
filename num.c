@@ -52,13 +52,14 @@ void generate_grid(Grid* g){
     for(int i = 0; i < size; i++){
         
         int max_size =  size * 2;
-        int min_size = size/2 + 1;
+        //Odd Nums become Even and round up. Even Nums become odd and round down.
+        int min_size = (size + 1)/2 + 1;
         //generate random number. modulo our max gives 0 through max - 1. Add 1 for 0 through max. 
         //minus min for the modulo and add it back after to give us the correct lower bound
-        int rand_num = rand() % (max_size - min_size) + min_size;
+        int rand_num = rand() % (max_size - min_size + 1) + min_size;
         
         //generate twice to provide plausible invalid nums
-        list_t* section_1 = create_nums(rand_num,size/2);
+        list_t* section_1 = create_nums(rand_num,(size+1)/2); //Allows us to handle odd nums
         list_t* section_2 = create_nums(rand_num,size/2);
 
         list_t* col = list_join(section_1,section_2);
