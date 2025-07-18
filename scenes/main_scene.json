@@ -3,14 +3,15 @@
   "buttons": [
     {
       "name": "InfoButton",
-      "x": 250, 
+      "x": 300, 
       "y": 500 ,
       "width": 150, 
       "height": 50,
       "text": "Info",
       "font": "ARIAL",
       "function": "INFO",
-      "data" : "NONE"
+      "data" : "NONE",
+      "active": 1
     },
     {
       "name": "BackButton",
@@ -21,7 +22,32 @@
       "text": "Start Menu",
       "font": "ARIAL",
       "function": "START",
-      "data" : "NONE"
+      "data" : "NONE",
+      "active": 1
+    },
+    {
+      "name": "CloseButton",
+      "x": 300, 
+      "y": 500 ,
+      "width": 150, 
+      "height": 50,
+      "text": "Close Info",
+      "font": "ARIAL",
+      "function": "CLOSE_INFO",
+      "data" : "NONE",
+      "active": 0
+    }
+    ],
+    "text_panels": [
+    {
+      "name": "InfoPanel",
+      "x": 200, 
+      "y": 100 ,
+      "width": 400, 
+      "height": 200,
+      "text": "This is text.\nThis is test text for testing\nPlease see if this works.",
+      "font": "ARIAL",
+      "active": 0
     }
     ]
 }

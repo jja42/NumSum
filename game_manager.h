@@ -42,8 +42,10 @@ TEXTPANEL
 
 //Container Type to Loop through for Game Manager
 typedef struct entity_s{
+char* name;
 Entity_Type type;
 void* data;
+bool active;
 } entity_s;
 
 
@@ -63,7 +65,7 @@ void exit_game(Game* game);
 void start_scene(Game* game);
 
 //Will toggle on and off an info popup
-void info_popup(Game* game);
+void info_popup(Game* game, bool active);
 
 //Adds an entity onto the entity stack
 void add_entity(Game* game, entity_s* entity);
@@ -84,9 +86,21 @@ void free_entities(Game* game);
 void free_game(Game* game);
 
 //Create and Return and Entity
-entity_s* init_entity(Entity_Type type, void* entity_data);
+entity_s* init_entity(Entity_Type type, void* entity_data, int active, char* name);
 
 //Ends the Game by changing our state to END
 void exit_game(Game* game);
+
+//Find an entity and set it active
+void entity_set_active(char* name, Game* game);
+
+//Find an entity and set it inactive
+void entity_set_inactive(char* name, Game* game);
+
+//Set all entities active
+void entity_set_all_active(Game* game);
+
+//Set all entities inactive
+void entity_set_all_inactive(Game* game);
 
 #endif

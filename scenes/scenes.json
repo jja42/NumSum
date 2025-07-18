@@ -7,10 +7,6 @@
     {
       "name": "main_scene",
       "file": "scenes/main_scene.json"
-    },
-    {
-      "name": "info_scene",
-      "file": "scenes/info_scene.json"
     }
   ]
 }

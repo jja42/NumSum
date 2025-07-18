@@ -14,8 +14,6 @@ void load_scene_name(Scene_Name scene_name, Game* game){
         load_scene("main_scene",game);
         setup_grid_entities(game);
         break;
-    case INFO:
-        load_scene("info_scene",game);
     default:
         break;
     }
@@ -76,8 +74,9 @@ void load_scene_objects(Scene* scene, list_t* scene_objects, Game* game){
                 char* function = (char*)json_obj_get(json_elements,"function")->value;
                 OnClick func = parse_button_function(function);
                 void* data = json_obj_get(json_elements,"data")->value;
+                int* active = (int*)json_obj_get(json_elements,"active")->value;
 
-                add_button_to_scene(name, *x, *y, *width, *height, text, f, func, game, data);
+                add_button_to_scene(name, *x, *y, *width, *height, text, f, func, game, data, *active);
             }
         }
     }
@@ -221,7 +220,7 @@ void setup_grid_entities(Game* game){
             void* data = n;
             int x  = 200 + (j * 50);
             int y = 50 + (i * 50);
-            add_button_to_scene(name, x, y, 45, 45, text, ARIAL, grid_entity_button_func, game, data);
+            add_button_to_scene(name, x, y, 45, 45, text, ARIAL, grid_entity_button_func, game, data, 1);
         }
     }
 }

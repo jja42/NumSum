@@ -32,7 +32,6 @@ typedef struct TextPanel{
     int width;
     int height;
     char* text;
-    bool active;
     SDL_Texture* text_texture;
     SDL_Rect text_rect;
 } TextPanel;
@@ -47,7 +46,10 @@ void main_scene_button_func(Game* game, void* data);
 void start_menu_button_func(Game* game, void* data);
 
 //Will display a popup
-void info_button_func(Game* game, void* data);
+void open_info_button_func(Game* game, void* data);
+
+//Wil close the popup
+void close_info_button_func(Game* game, void* data);
 
 //Renders a Button to the Screen with a render and button info
 void render_button(SDL_Renderer* renderer, Button* button);

@@ -15,10 +15,14 @@ void start_menu_button_func(Game* game, void* data){
     start_scene(game);
 }
 
-//Just Prints for Now. Not Yet Connected
-void info_button_func(Game* game, void* data)
+void open_info_button_func(Game* game, void* data)
 {
-    info_popup(game);
+    info_popup(game, true);
+}
+
+void close_info_button_func(Game* game, void* data)
+{
+    info_popup(game, false);
 }
 
 void grid_entity_button_func(Game* game, void* data){
@@ -75,8 +79,6 @@ Button* init_button(char* button_name, int x, int y, int w, int h, char* text, T
 
 TextPanel* init_text_panel(char* name, int x, int y, int w, int h, char* text, TTF_Font* font, SDL_Renderer* ren){
     TextPanel* text_panel = malloc(sizeof(TextPanel));
-
-    printf("Text Panel Text: %s\n", text);
 
     //Handle Malloc Error
     if(text_panel == NULL){

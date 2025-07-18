@@ -8,7 +8,7 @@ void add_entity(Game *game, entity_s *entity)
     list_add(game->entities, entity);
 }
 
-entity_s* init_entity(Entity_Type type, void* entity_data){
+entity_s* init_entity(Entity_Type type, void* entity_data, int active, char* name){
     //Initialize an Entity
     entity_s *ent = malloc(sizeof(entity_s));
     //Handle Malloc Error
@@ -16,8 +16,17 @@ entity_s* init_entity(Entity_Type type, void* entity_data){
          printf("Failed to allocate Entity.\n");
          return NULL;
     }
+    ent->name = name;
     ent->type = type;
     ent->data = entity_data;
+
+    if(active == 0){
+        ent->active = false;
+    }
+    else{
+        ent->active = true;
+    }
+
     return ent;
 }
 
@@ -44,6 +53,10 @@ void render_entities(Game* game){
         if(game->entities->data[i] != NULL){
             //get entity
             entity_s *entity = (entity_s*)game->entities->data[i];
+            //Do Not Render if Inactive
+            if(entity->active == 0){
+                continue;
+            }
             //look at entity type
             switch (entity->type)
             {
@@ -69,6 +82,10 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
         if(game->entities->data[i] != NULL){
             //get entity
             entity_s *entity = (entity_s*)game->entities->data[i];
+            //Do not click Inactive Entities
+            if(!entity->active){
+                continue;
+            }
             //look at entity type
             switch (entity->type)
             {
@@ -147,7 +164,68 @@ void start_scene(Game* game){
     load_scene_name(START_MENU, game);
 }
 
-void info_popup(Game* game){
-    load_scene_name(INFO, game);
+void info_popup(Game* game, bool active){
+    if(active){
+        entity_set_all_inactive(game);
+        entity_set_active("InfoPanel", game);
+        entity_set_active("CloseButton", game);
+    }
+    else{
+        entity_set_all_active(game);
+        entity_set_inactive("InfoPanel", game);
+        entity_set_inactive("CloseButton", game);
+    }
+}
+
+void entity_set_active(char* name, Game* game){
+    //loop through entities
+    for(int i = 0; i< game->entities->capacity; i++){
+        //ignore NULL
+        if(game->entities->data[i] != NULL){
+            //get entity
+            entity_s *entity = (entity_s*)game->entities->data[i];
+            if(strcmp(entity->name, name) == 0){
+                entity->active = true;
+            }
+        }
+    }
+}
+
+void entity_set_inactive(char* name, Game* game){
+    //loop through entities
+    for(int i = 0; i< game->entities->capacity; i++){
+        //ignore NULL
+        if(game->entities->data[i] != NULL){
+            //get entity
+            entity_s *entity = (entity_s*)game->entities->data[i];
+            if(strcmp(entity->name, name) == 0){
+                entity->active = false;
+            }
+        }
+    }
+}
+
+void entity_set_all_active(Game* game){
+    //loop through entities
+    for(int i = 0; i< game->entities->capacity; i++){
+        //ignore NULL
+        if(game->entities->data[i] != NULL){
+            //get entity
+            entity_s *entity = (entity_s*)game->entities->data[i];
+            entity->active = true;
+        }
+    }
+}
+
+void entity_set_all_inactive(Game* game){
+    //loop through entities
+    for(int i = 0; i< game->entities->capacity; i++){
+        //ignore NULL
+        if(game->entities->data[i] != NULL){
+            //get entity
+            entity_s *entity = (entity_s*)game->entities->data[i];
+            entity->active = false;
+        }
+    }
 }
 

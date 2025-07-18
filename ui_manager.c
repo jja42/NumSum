@@ -43,13 +43,13 @@ UI* init_ui(){
     return ui;
 }
 
-void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, OnClick click_function, Game* game, void* data)
+void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, OnClick click_function, Game* game, void* data, int active)
 {
     TTF_Font* font = get_font(font_name, game->ui_manager);
     
     Button* button = init_button(button_name, x, y, w, h, text, font, click_function, game->renderer, data);
 
-    entity_s* ent = init_entity(BUTTON, button);
+    entity_s* ent = init_entity(BUTTON, button, active, button_name);
 
     add_entity(game, ent);
 }
@@ -59,11 +59,7 @@ void add_text_panel_to_scene(char* name, int x, int y, int w, int h, char* text,
 
     TextPanel* text_panel = init_text_panel(name, x, y, w, h, text, font, game->renderer);
 
-    if(active == 0){
-        text_panel->active = false;
-    }
-
-    entity_s* ent = init_entity(TEXTPANEL, text_panel);
+    entity_s* ent = init_entity(TEXTPANEL, text_panel, active, name);
 
     add_entity(game, ent);
 }
@@ -115,13 +111,16 @@ OnClick parse_button_function(char* function){
         return main_scene_button_func;
     }
     if(strcmp(function,"INFO") == 0){
-        return info_button_func;
+        return open_info_button_func;
     }
     if(strcmp(function,"EXIT") == 0){
         return exit_button_func;
     }
     if(strcmp(function,"START") == 0){
         return start_menu_button_func;
+    }
+    if(strcmp(function,"CLOSE_INFO") == 0){
+        return close_info_button_func;
     }
     printf("Could not find matching Function for: %s\n", function);
     return NULL;
