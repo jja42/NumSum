@@ -122,6 +122,28 @@ OnClick parse_button_function(char* function){
     if(strcmp(function,"CLOSE_INFO") == 0){
         return close_info_button_func;
     }
+    if(strcmp(function,"MARK") == 0){
+        return mark_button_func;
+    }
+    if(strcmp(function,"ERASE") == 0){
+        return erase_button_func;
+    }
     printf("Could not find matching Function for: %s\n", function);
     return NULL;
+}
+
+void ui_change_button_border(entity_s* ent, char* color){
+    Button* b = (Button*)ent->data;
+    if(strcmp(color,"blue") == 0){
+        b->border_color = BLUE;
+    }
+    if(strcmp(color,"green") == 0){
+        b->border_color = GREEN;
+    }
+    if(strcmp(color,"gold") == 0){
+        b->border_color = GOLD;
+    }
+    if(strcmp(color,"red") == 0){
+        b->border_color = RED;
+    }
 }

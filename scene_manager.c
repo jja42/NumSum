@@ -239,8 +239,8 @@ void setup_grid_entities(Game* game){
 
     //Put Sums on Top and Side
     for(int r = 0; r<game->grid->sums_r->count; r++){
-        int x = startX - 75; 
-        int y = startY + (r * 55);
+        int x = startX - 50; 
+        int y = startY + (r * 50);
         
         //Get Num
         Num* n = (Num*)game->grid->sums_r->data[r];
@@ -254,8 +254,8 @@ void setup_grid_entities(Game* game){
     }
 
     for(int c = 0; c<game->grid->sums_c->count; c++){
-        int x = startX + (c * 55); 
-        int y = startY - 75 ;
+        int x = startX + (c * 50); 
+        int y = startY - 50 ;
         
         //Get Num
         Num* n = (Num*)game->grid->sums_c->data[c];

@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
     Game* game = init_game(ren);
 
     //Init Grid for testing
-    Grid* grid = create_grid(3); //makes an 8 x 8
+    Grid* grid = create_grid(8); //N x N grid
 
     game->grid = grid;
 
@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
     SDL_Event e;
 
     //Game Loop
-    while (running && game->state != END) {
+    while (running && game->mode != END) {
         while (SDL_PollEvent(&e)) {
             switch (e.type) {
                 //If we close out

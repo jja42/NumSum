@@ -36,6 +36,30 @@
       "function": "CLOSE_INFO",
       "data" : "NONE",
       "active": 0
+    },
+    {
+      "name": "MarkButton",
+      "x": 200, 
+      "y": 530 ,
+      "width": 150, 
+      "height": 50,
+      "text": "Mark Mode",
+      "font": "ARIAL",
+      "function": "MARK",
+      "data" : "NONE",
+      "active": 1
+    },
+    {
+      "name": "EraseButton",
+      "x": 400, 
+      "y": 530 ,
+      "width": 150, 
+      "height": 50,
+      "text": "Erase Mode",
+      "font": "ARIAL",
+      "function": "ERASE",
+      "data" : "NONE",
+      "active": 1
     }
     ],
     "text_panels": [

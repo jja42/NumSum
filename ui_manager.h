@@ -49,4 +49,7 @@ void add_text_panel_to_scene(char* name, int x, int y, int w, int h, char* text,
 //Wrapper for Rendering Text Panels so that Game Manager can defer this to the UI Manager
 void ui_render_text_panel(SDL_Renderer* ren, void* text_panel_data);
 
+//Change the border color of a button
+void ui_change_button_border(entity_s* ent, char* color);
+
 #endif

@@ -8,6 +8,14 @@
 
 typedef void (*OnClick)(Game* game, void* data);
 
+typedef enum {
+BLUE,
+GREEN,
+RED,
+GOLD
+}Color;
+
+
 //A Button!
 //It has a name, a position, a size, even a bool and a function
 //Now also holds text and text accessories
@@ -23,6 +31,7 @@ char* button_text;
 SDL_Texture* text_texture;
 SDL_Rect text_rect;
 void* data;
+Color border_color;
 } Button;
 
 typedef struct TextPanel{
@@ -71,5 +80,11 @@ void render_text_panel(SDL_Renderer* renderer, TextPanel* text_panel);
 
 //Frees Text Panel Data
 void free_text_panel(TextPanel *text_panel);
+
+//Sets Mode to Mark. Changes Mark Button Border
+void mark_button_func(Game* game, void* data);
+
+//Sets Mode to Erase. Changes Erase Button Border
+void erase_button_func(Game* game, void* data);
 
 #endif

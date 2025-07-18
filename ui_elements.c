@@ -25,6 +25,14 @@ void close_info_button_func(Game* game, void* data)
     info_popup(game, false);
 }
 
+void mark_button_func(Game* game, void* data){
+    mark_mode(game);
+}
+
+void erase_button_func(Game* game, void* data){
+    erase_mode(game);
+}
+
 void grid_entity_button_func(Game* game, void* data){
     Num* n = (Num*)data;
     printf("Number clicked: %d. At Position [%d,%d]. Is Valid: %d\n", n->value, n->x, n->y, n->is_valid);
@@ -124,7 +132,24 @@ void render_button(SDL_Renderer* renderer, Button* button) {
     SDL_Rect border = { button->x_pos - 5, button->y_pos - 5, button->width + 10, button->height + 10};
     
     //Sets Border Color (Blue)
-    SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);
+    switch (button->border_color)
+    {
+    case BLUE:
+        SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);
+        break;
+    case RED:
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        break;
+    case GOLD:
+        SDL_SetRenderDrawColor(renderer, 255, 215, 0, 255);
+        break;
+    case GREEN:
+        SDL_SetRenderDrawColor(renderer, 144, 238, 144, 255);
+        break;
+    default:
+        SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);
+        break;
+    }
     SDL_RenderFillRect(renderer, &border);
 
     //Create Rect for Button Itself
@@ -143,10 +168,10 @@ void render_button(SDL_Renderer* renderer, Button* button) {
 
 void render_text_panel(SDL_Renderer* renderer, TextPanel* text_panel){
     //Creates an SDL Rect for the Text Panel's Border First
-    SDL_Rect border = { text_panel->x_pos - 7.5, text_panel->y_pos - 7.5, text_panel->width + 15, text_panel->height + 15};
+    SDL_Rect border = { text_panel->x_pos - 5, text_panel->y_pos - 5, text_panel->width + 10, text_panel->height + 10};
     
-    //Sets Border Color (Blue)
-    SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);
+    //Sets Border Color (Green)
+    SDL_SetRenderDrawColor(renderer, 144, 238, 144, 255);
     SDL_RenderFillRect(renderer, &border);
 
     //Create Rect for Text Panel Itself

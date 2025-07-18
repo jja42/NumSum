@@ -37,7 +37,8 @@ Game* init_game(SDL_Renderer* renderer){
          printf("Failed to allocate Game.\n");
          return NULL;
     }
-    game->state = RUNNING,
+    game->mode = START;
+    game->paused = false;
     game->entities = new_list(100);
     game->renderer = renderer;
     game->ui_manager = init_ui();
@@ -141,7 +142,7 @@ void free_game(Game* game){
 }
 
 void exit_game(Game* game){
-    game->state = END;
+    game->mode = END;
 }
 
 void main_scene(Game* game){
@@ -149,15 +150,11 @@ void main_scene(Game* game){
 }
 
 void resume_game(Game* game){
-    if(game->state == PAUSED){
-        game->state = RUNNING;    
-    }
+    game->mode = START;
 }
 
 void pause_game(Game* game){
-    if(game->state == RUNNING){
-        game->state = PAUSED;
-    }
+    game->mode = START;
 }
 
 void start_scene(Game* game){
@@ -177,7 +174,7 @@ void info_popup(Game* game, bool active){
     }
 }
 
-void entity_set_active(char* name, Game* game){
+entity_s* get_entity(char* name, Game* game){
     //loop through entities
     for(int i = 0; i< game->entities->capacity; i++){
         //ignore NULL
@@ -185,24 +182,18 @@ void entity_set_active(char* name, Game* game){
             //get entity
             entity_s *entity = (entity_s*)game->entities->data[i];
             if(strcmp(entity->name, name) == 0){
-                entity->active = true;
+                return entity;
             }
         }
     }
 }
 
+void entity_set_active(char* name, Game* game){
+    get_entity(name, game)->active = true;
+}
+
 void entity_set_inactive(char* name, Game* game){
-    //loop through entities
-    for(int i = 0; i< game->entities->capacity; i++){
-        //ignore NULL
-        if(game->entities->data[i] != NULL){
-            //get entity
-            entity_s *entity = (entity_s*)game->entities->data[i];
-            if(strcmp(entity->name, name) == 0){
-                entity->active = false;
-            }
-        }
-    }
+    get_entity(name, game)->active = false;
 }
 
 void entity_set_all_active(Game* game){
@@ -229,3 +220,23 @@ void entity_set_all_inactive(Game* game){
     }
 }
 
+
+void mark_mode(Game* game){
+    game->mode = MARK;
+
+    entity_s* ent = get_entity("MarkButton", game);
+    ui_change_button_border(ent,"gold");
+
+    ent = get_entity("EraseButton", game);
+    ui_change_button_border(ent,"blue");
+}
+
+void erase_mode(Game* game){
+    game->mode = ERASE;
+
+    entity_s* ent = get_entity("EraseButton", game);
+    ui_change_button_border(ent,"gold");
+
+    ent = get_entity("MarkButton", game);
+    ui_change_button_border(ent,"blue");
+}

@@ -5,12 +5,13 @@
 #include "list.h"
 #include "num.h"
 
-//Various states for the game that will trigger functions when swapped
+//Various modes for the game depending on intended functionality
 typedef enum {
-RUNNING,
-PAUSED,
+MARK,
+ERASE,
+START,
 END
-} GameState;
+} GameMode;
 
 //Holds our fonts. 
 //May also hold images and such if used
@@ -27,12 +28,13 @@ typedef struct{
 //Contains our Game State and a List of Entities
 //We will use this to track our game and loop through our entities
 typedef struct Game{
-GameState state;
+GameMode mode;
 list_t* entities;
 SDL_Renderer* renderer;
 UI* ui_manager;
 SceneManager* scene_manager;
 Grid* grid;
+bool paused;
 } Game;
 
 typedef enum {
@@ -49,20 +51,26 @@ bool active;
 } entity_s;
 
 
-//Will change game state to PAUSED which will stop timers and bring up pause menu
+//Stop timers and bring up pause menu
 void pause_game(Game* game);
 
-//Will change game state to RUNNING and will close Pause Menu
+//Close Pause Menu
 void resume_game(Game* game);
 
-//Will change game state to RUNNING and transition us from the Start Menu into the Main Scene
+//Transition us from the Start Menu into the Main Scene
 void main_scene(Game* game);
 
-//Will change game state to END which will cause game to stop running and exit
+//Change game mode to END which will cause game to stop running and exit
 void exit_game(Game* game);
 
-//Will change game state to START and bring us to the start scene
+//Bring us to the start scene
 void start_scene(Game* game);
+
+//Set our mode to mark, highlight the mark button
+void mark_mode(Game* game);
+
+//Set our mode to mark, highlight the erase button
+void erase_mode(Game* game);
 
 //Will toggle on and off an info popup
 void info_popup(Game* game, bool active);
@@ -90,6 +98,9 @@ entity_s* init_entity(Entity_Type type, void* entity_data, int active, char* nam
 
 //Ends the Game by changing our state to END
 void exit_game(Game* game);
+
+//Find an entity by name
+entity_s* get_entity(char* name, Game* game);
 
 //Find an entity and set it active
 void entity_set_active(char* name, Game* game);
