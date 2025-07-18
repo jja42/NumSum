@@ -20,7 +20,7 @@
       "y": 100 ,
       "width": 400, 
       "height": 200,
-      "text": "This is a text.\n This is test text for testing\nPlease see if this works.",
+      "text": "This is text.\n This is test text for testing\nPlease see if this works.",
       "font": "ARIAL",
       "active": 1
     }

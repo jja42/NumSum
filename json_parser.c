@@ -298,6 +298,30 @@ char* parse_string(char* buffer, int* start_index){
     //Excludes the starting quotation mark
     memcpy(string,buffer + *start_index + 1,length);
 
+    //Replace \\n with \n
+    bool contains_newline = false;
+    do{
+        int index = -1;
+        contains_newline = false;
+        for (int i = 0; i < length; i++) {
+            if (string[i] == '\\' && string[i+1] == 'n') {
+                contains_newline = true;
+                index = i;
+                break;
+            }
+        }
+
+        if(contains_newline){
+            string[index] = '\n';
+            for (int s = index+1; s < length; s++) {
+                string[s] = string[s+1];
+            }
+            length -= 1;
+        }
+
+    } while (contains_newline);
+    
+
     //Add a terminator
     string[length] = '\0';
     

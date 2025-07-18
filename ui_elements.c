@@ -76,6 +76,8 @@ Button* init_button(char* button_name, int x, int y, int w, int h, char* text, T
 TextPanel* init_text_panel(char* name, int x, int y, int w, int h, char* text, TTF_Font* font, SDL_Renderer* ren){
     TextPanel* text_panel = malloc(sizeof(TextPanel));
 
+    printf("Text Panel Text: %s\n", text);
+
     //Handle Malloc Error
     if(text_panel == NULL){
          printf("Failed to allocate Text Panel.\n");
