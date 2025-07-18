@@ -1,6 +1,8 @@
 #include "scene_manager.h"
 #include "ui_manager.h"
 #include "json_parser.h"
+#include <string.h>
+
 
 void load_scene_name(Scene_Name scene_name, Game* game){
     switch (scene_name)
@@ -10,6 +12,7 @@ void load_scene_name(Scene_Name scene_name, Game* game){
         break;
     case MAIN_GAME:
         load_scene("main_scene",game);
+        setup_grid_entities(game);
         break;
     default:
         break;
@@ -173,6 +176,24 @@ void read_scene_manifest(list_t* manifest, SceneManager* manager){
             scene->objects = read_json_into_objects(scene_path);
             list_add(manager->scenes,scene);
             }
+        }
+    }
+}
+
+void setup_grid_entities(Game* game){
+    for(int i = 0; i<game->grid->size; i++){
+        list_t* columns = (list_t*)game->grid->rows->data[i];
+        for(int j = 0; j<game->grid->size; j++){
+            Num* n = (Num*)columns->data[j];
+            char* name = "Grid Cell";
+            char text[4];
+            SDL_itoa(n->value,text,10);
+            n->x = j;
+            n->y = i;
+            void* data = n;
+            int x  = 200 + (j * 50);
+            int y = 50 + (i * 50);
+            add_button_to_scene(name, x, y, 45, 45, text, ARIAL, grid_entity_button_func, game, data);
         }
     }
 }

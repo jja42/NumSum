@@ -3,8 +3,8 @@
   "buttons": [
     {
       "name": "InfoButton",
-      "x": 300, 
-      "y": 200 ,
+      "x": 250, 
+      "y": 450 ,
       "width": 200, 
       "height": 100,
       "text": "Info",
@@ -15,7 +15,7 @@
     {
       "name": "BackButton",
       "x": 500, 
-      "y": 400 ,
+      "y": 450 ,
       "width": 200, 
       "height": 100,
       "text": "Start Menu",

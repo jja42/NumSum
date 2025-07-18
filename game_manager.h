@@ -33,6 +33,7 @@ list_t* entities;
 SDL_Renderer* renderer;
 UI* ui_manager;
 SceneManager* scene_manager;
+Grid* grid;
 } Game;
 
 typedef enum {
@@ -89,8 +90,5 @@ entity_s* init_entity(Entity_Type type, void* entity_data);
 
 //Ends the Game by changing our state to END
 void exit_game(Game* game);
-
-//Given a grid, initialize the entities needed
-void setup_grid_entities(Game* game, Grid* grid);
 
 #endif

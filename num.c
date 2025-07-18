@@ -36,7 +36,7 @@ Grid* create_grid(int size){
     }
 
     g->size = size;
-    g->grid = rows;
+    g->rows = rows;
     g->sums_c = sum_c;
     g->sums_r = sum_r;
 
@@ -69,7 +69,7 @@ void generate_grid(Grid* g){
             return;
         }
 
-        list_add(g->grid,col);
+        list_add(g->rows,col);
     }
 
     //Set valid numbers randomly
@@ -86,7 +86,7 @@ void generate_grid(Grid* g){
 
         //Mark shuffled list as valid up to count
         for (int i = 0; i < valid_count; i++) {
-            list_t* row_list = (list_t*)g->grid->data[row];
+            list_t* row_list = (list_t*)g->rows->data[row];
             Num* n = (Num*)row_list->data[index_arr[i]];
             n->is_valid = true;
         }
@@ -105,7 +105,7 @@ void generate_grid(Grid* g){
         }
 
         //get all the valid nums from each column in our row
-        list_t* column = (list_t*)g->grid->data[row];
+        list_t* column = (list_t*)g->rows->data[row];
         for(int col = 0; col < size; col++){
             Num* n = (Num*)column->data[col];
             if(n->is_valid){
@@ -148,7 +148,7 @@ void generate_grid(Grid* g){
         //loop through our rows
         for(int row = 0; row < size; row++){
             //get all the valid nums from only the designated column in each row
-            list_t* column = (list_t*)g->grid->data[row];
+            list_t* column = (list_t*)g->rows->data[row];
             Num* n = (Num*)column->data[col];
             if(n->is_valid){
                 list_add(valid_nums,n);
@@ -307,7 +307,7 @@ void free_grid(Grid* g){
     free_list(g->sums_r);
 
     //free our nums
-    list_t* rows = g->grid;
+    list_t* rows = g->rows;
     for(int i = 0; i< g->size; i++){
         list_t* column = (list_t*)rows->data[i];
         for(int j = 0; j< g->size; j++){
@@ -316,7 +316,7 @@ void free_grid(Grid* g){
         }
         free_list(column);
     }
-    free_list(g->grid);
+    free_list(g->rows);
     free(g);
 }
 
@@ -331,7 +331,7 @@ void print_grid(Grid* g){
 
     printf("\n");
 
-    list_t* rows = g->grid;
+    list_t* rows = g->rows;
     for(int i = 0; i< g->size; i++){
         int* sum = (int*)g->sums_r->data[i];
         printf("%d| ", *sum);

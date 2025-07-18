@@ -10,12 +10,14 @@
 typedef struct Num{
     int value;
     bool is_valid;
+    int x;
+    int y;
 }Num;
 
 //Will hold an in-game representation of the grid to iterate through as well as info about the grid
 //such as its dimensions and the sums associated with it
 typedef struct Grid{
-    list_t* grid; //Double List [X,Y]
+    list_t* rows; //Double List [X,Y]
     int size;
     list_t* sums_c; //the sums for each column, size of X
     list_t* sums_r; //the sums for each row, size of Y

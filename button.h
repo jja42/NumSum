@@ -46,4 +46,7 @@ Button* init_button(char* button_name, int x, int y, int w, int h, char* text, T
 //Frees Button Data
 void free_button(Button *button);
 
+//Button function for our grid entities
+void grid_entity_button_func(Game* game, void* data);
+
 #endif

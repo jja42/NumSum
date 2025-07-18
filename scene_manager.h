@@ -47,4 +47,7 @@ list_t* load_scene_file(char* filepath);
 //load all of the objects in a scene into the game
 void load_scene_objects(Scene* scene, list_t* scene_objects, Game* game);
 
+//Get our game's grid, initialize the entities needed
+void setup_grid_entities(Game* game);
+
 #endif

@@ -21,6 +21,11 @@ void info_button_func(Game* game, void* data)
     printf("Button is Working\n");
 }
 
+void grid_entity_button_func(Game* game, void* data){
+    Num* n = (Num*)data;
+    printf("Number clicked: %d. At Position [%d,%d]\n", n->value, n->x, n->y);
+}
+
 Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font,  OnClick click_function, SDL_Renderer* ren, void* data)
 {
     Button* button = malloc(sizeof(Button));
