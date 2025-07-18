@@ -143,7 +143,7 @@ void render_button(SDL_Renderer* renderer, Button* button) {
 
 void render_text_panel(SDL_Renderer* renderer, TextPanel* text_panel){
     //Creates an SDL Rect for the Text Panel's Border First
-    SDL_Rect border = { text_panel->x_pos - 10, text_panel->y_pos - 10, text_panel->width + 20, text_panel->height + 20};
+    SDL_Rect border = { text_panel->x_pos - 7.5, text_panel->y_pos - 7.5, text_panel->width + 15, text_panel->height + 15};
     
     //Sets Border Color (Blue)
     SDL_SetRenderDrawColor(renderer, 0, 128, 255, 255);

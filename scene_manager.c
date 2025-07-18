@@ -219,13 +219,18 @@ void setup_grid_entities(Game* game){
     for(int i = 0; i<game->grid->size; i++){
         list_t* columns = (list_t*)game->grid->rows->data[i];
         for(int j = 0; j<game->grid->size; j++){
+            //Get Num
             Num* n = (Num*)columns->data[j];
             char* name = "Grid Cell";
+            //Convert Value to Text
             char text[4];
             SDL_itoa(n->value,text,10);
+            //Set Number Position
             n->x = j;
             n->y = i;
+            //Button Data
             void* data = n;
+            //Position
             int x  = startX + (j * 50);
             int y = startY + (i * 50);
             add_button_to_scene(name, x, y, 45, 45, text, ARIAL, grid_entity_button_func, game, data, 1);
@@ -233,4 +238,33 @@ void setup_grid_entities(Game* game){
     }
 
     //Put Sums on Top and Side
+    for(int r = 0; r<game->grid->sums_r->count; r++){
+        int x = startX - 75; 
+        int y = startY + (r * 55);
+        
+        //Get Num
+        Num* n = (Num*)game->grid->sums_r->data[r];
+        char* name = "Row Sum";
+
+        //Convert Value to Text
+        char text[4];
+        SDL_itoa(n->value,text,10);
+
+        add_text_panel_to_scene(name,x,y,35,35,text,ARIAL,game,1);
+    }
+
+    for(int c = 0; c<game->grid->sums_c->count; c++){
+        int x = startX + (c * 55); 
+        int y = startY - 75 ;
+        
+        //Get Num
+        Num* n = (Num*)game->grid->sums_c->data[c];
+        char* name = "Column Sum";
+
+        //Convert Value to Text
+        char text[4];
+        SDL_itoa(n->value,text,10);
+
+        add_text_panel_to_scene(name,x,y,35,35,text,ARIAL,game,1);
+    }
 }

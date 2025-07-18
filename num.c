@@ -80,8 +80,11 @@ void generate_grid(Grid* g){
         for (int i = 0; i < size; i++) index_arr[i] = i;
         shuffle(index_arr, size);
 
-        int max_size =  (size/2) + 1;
-        int min_size = 2;
+        int max_size =  ((size + 1)/2) + 1;
+        int min_size = size/2 - 1;
+        if(min_size < 1){
+            min_size = 1;
+        }
     
         int valid_count = rand() % (max_size - min_size + 1) + min_size;
 
@@ -116,13 +119,13 @@ void generate_grid(Grid* g){
 
         int* sum = malloc(sizeof(int));
 
-        *sum = 0;
-
         //Handle Malloc Error
         if (sum == NULL) {
             printf("Failed to Generate Grid.\n");
             return;
         }
+
+        *sum = 0;
 
         for(int i = 0; i<valid_nums->count; i++){
             Num* n = (Num*)valid_nums->data[i];
@@ -187,6 +190,7 @@ Num* create_num(int val){
     }
     
     n->value = val;
+    n->is_valid = false;
 
     return n;
 }
