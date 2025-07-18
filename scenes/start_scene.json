@@ -65,7 +65,7 @@
       "name": "InfoPanel",
       "x": 100, 
       "y": 50 ,
-      "width": 600, 
+      "width": 600,
       "height": 400,
       "text": "____________________Goal____________________\nMark all the valid numbers in the grid.\nUse the row and column sums as clues!\n\n_________________How to Play_________________\n1. Deduce which numbers are valid or invalid\n2. Select Mark and click a Number to Mark it.\n3. Select Erase and click a Number to Erase it.\n\nIf you incorrectly mark or erase a number\nyou'll lose a life.",
       "font": "ARIAL",
