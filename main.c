@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
     }
 
     //Create SDL Window
-    SDL_Window* win = SDL_CreateWindow("Mouse Input Example",
+    SDL_Window* win = SDL_CreateWindow("NumSum",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
     if (!win) {
         printf("SDL_CreateWindow Error: %s\n", SDL_GetError());

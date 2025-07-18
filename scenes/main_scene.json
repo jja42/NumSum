@@ -41,11 +41,11 @@
     "text_panels": [
     {
       "name": "InfoPanel",
-      "x": 200, 
-      "y": 100 ,
-      "width": 400, 
-      "height": 200,
-      "text": "This is text.\nThis is test text for testing\nPlease see if this works.",
+      "x": 100, 
+      "y": 50 ,
+      "width": 600, 
+      "height": 400,
+      "text": "____________________Goal____________________\nMark all the valid numbers in the grid.\nUse the row and column sums as clues!\n\n_________________How to Play_________________\n1. Deduce which numbers are valid or invalid\n2. Select Mark and click a Number to Mark it.\n3. Select Erase and click a Number to Erase it.\n\nIf you incorrectly mark or erase a number\nyou'll lose a life.",
       "font": "ARIAL",
       "active": 0
     }
