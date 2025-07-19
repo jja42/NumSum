@@ -246,6 +246,17 @@ void setup_grid_entities(Game* game){
         }
     }
 
+    generate_sums(game);
+}
+
+void generate_sums(Game* game){
+    //For Centering
+    int cellSize = 45;
+    int gridSize = game->grid->size * cellSize;
+    int startX = (800 - gridSize) / 2;
+    startX -= 15;
+    int startY = (600 - gridSize) / 2;
+
     //Put Sums on Top and Side
     for(int r = 0; r<game->grid->sums_r->count; r++){
         int x = startX - 50; 
@@ -253,7 +264,7 @@ void setup_grid_entities(Game* game){
         
         //Get Num
         Num* n = (Num*)game->grid->sums_r->data[r];
-        char name[18];
+        char name[20];
         snprintf(name, sizeof(name), "Row Sum #%d", r);
 
         //Convert Value to Text
@@ -269,7 +280,7 @@ void setup_grid_entities(Game* game){
         
         //Get Num
         Num* n = (Num*)game->grid->sums_c->data[c];
-        char name[18];
+        char name[20];
         snprintf(name, sizeof(name), "Col Sum #%d", c);
 
         //Convert Value to Text

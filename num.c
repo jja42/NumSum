@@ -349,3 +349,97 @@ void print_grid(Grid* g){
         printf("\n");
     }
 }
+
+void update_sums(Grid* g){
+
+    //free our current sums
+    for(int j = 0; j< g->size; j++){
+        int* sum_c = (int*)g->sums_c->data[j];
+        int* sum_r = (int*)g->sums_r->data[j];
+        free(sum_c);
+        free(sum_r);
+    }
+
+    int size = g->size;
+
+    //start with rows
+    for(int row = 0; row < size; row++){  
+        list_t* valid_nums = new_list(1);
+
+        //Handle Malloc Error
+        if (valid_nums == NULL) {
+            printf("Failed to Generate Grid.\n");
+            return;
+        }
+
+        //get all the valid nums from each column in our row
+        list_t* column = (list_t*)g->rows->data[row];
+        for(int col = 0; col < size; col++){
+            Num* n = (Num*)column->data[col];
+            if(n->is_valid && !n->is_marked){
+                list_add(valid_nums,n);
+            }
+        }
+
+        int* sum = malloc(sizeof(int));
+
+        //Handle Malloc Error
+        if (sum == NULL) {
+            printf("Failed to Update Grid.\n");
+            return;
+        }
+
+        *sum = 0;
+
+        for(int i = 0; i<valid_nums->count; i++){
+            Num* n = (Num*)valid_nums->data[i];
+            *sum += n->value;
+        }
+
+        list_replace(g->sums_r, row,sum);
+
+
+        free_list(valid_nums);
+    }
+
+
+    //then columns
+    for(int col = 0; col < size; col++){  
+        list_t* valid_nums = new_list(1);
+
+        //Handle Malloc Error
+        if (valid_nums == NULL) {
+            printf("Failed to Generate Grid.\n");
+            return;
+        }
+
+        //loop through our rows
+        for(int row = 0; row < size; row++){
+            //get all the valid nums from only the designated column in each row
+            list_t* column = (list_t*)g->rows->data[row];
+            Num* n = (Num*)column->data[col];
+            if(n->is_valid && !n->is_marked){
+                list_add(valid_nums,n);
+            }
+        }
+
+        int* sum = malloc(sizeof(int));
+
+        //Handle Malloc Error
+        if (sum == NULL) {
+            printf("Failed to Update Grid.\n");
+            return;
+        }
+
+        *sum = 0;
+
+        for(int i = 0; i<valid_nums->count; i++){
+            Num* n = (Num*)valid_nums->data[i];
+            *sum += n->value;
+        }
+
+        list_replace(g->sums_c, col,sum);
+
+        free_list(valid_nums);
+    }
+}

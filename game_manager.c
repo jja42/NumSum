@@ -16,7 +16,8 @@ entity_s* init_entity(Entity_Type type, void* entity_data, int active, char* nam
          printf("Failed to allocate Entity.\n");
          return NULL;
     }
-    ent->name = name;
+
+    ent->name = strdup(name);
     ent->type = type;
     ent->data = entity_data;
 
@@ -135,10 +136,11 @@ void free_entities(Game* game){
                 free_text_panel(entity);
                 break;
             case GRIDENTITY:
-                
+                free_grid_entity(entity);
             default:
                 break;
             }
+            free(entity->name);
             free(entity);
         }
     }
@@ -251,4 +253,55 @@ void erase_mode(Game* game){
 
     ent = get_entity("MarkButton", game);
     ui_change_panel_border(ui_get_panel(ent),ui_get_color("BLUE"));
+}
+
+void recalculate_sums(Game* game){
+    update_sums(game->grid);
+
+    for(int i = 0; i<game->grid->size; i++){
+        char name[20];
+        snprintf(name, sizeof(name), "Row Sum #%d", i);
+
+        remove_entity(name,game);
+
+        snprintf(name, sizeof(name), "Col Sum #%d", i);
+
+        remove_entity(name,game);
+    }
+
+    generate_sums(game);  
+}
+
+void remove_entity(char* name, Game* game){
+    //loop through entities
+    for(int i = 0; i< game->entities->capacity; i++){
+        //ignore NULL
+        if(game->entities->data[i] != NULL){
+            //get entity
+            entity_s *entity = (entity_s*)game->entities->data[i];
+            if(strcmp(entity->name, name) == 0){
+                switch (entity->type)
+                {
+                //if button, free button
+                case BUTTON:
+                    free_button(entity);
+                    break;
+                //if text panel, free text panel
+                case TEXTPANEL:
+                    free_text_panel(entity);
+                    break;
+                case GRIDENTITY:
+                    free_grid_entity(entity);
+                default:
+                    break;
+                }
+                free(entity->name);
+                free(entity);
+                game->entities->data[i] = NULL;
+                return;
+            }
+        }
+    }
+
+    printf("Could Not Find Entity with Name: %s\n", name);
 }

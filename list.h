@@ -13,8 +13,8 @@ list_t* new_list(int capacity);
 //adds a value to the first non null space
 void list_add(list_t* list, void* item);
 
-//removes a value from the list
-void list_remove(list_t* list, void* item);
+//replace a value in a list with another
+void list_replace(list_t* list, int index, void* new);
 
 //responsible memory management.
 void free_list(list_t* list);

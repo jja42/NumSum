@@ -39,9 +39,13 @@ void grid_entity_click(Game* game, entity_s* ent){
     printf("Number clicked: %d. At Position [%d,%d]. Is Valid: %d\n", g_ent->num->value, g_ent->x, g_ent->y, g_ent->num->is_valid);
     if(game->mode == MARK){
         if(g_ent->num->is_valid){
+            //Highlight Correct Answer
             ui_change_panel_border(g_ent->panel,GOLD);
+            //Mark
             g_ent->num->is_marked = true;
             ent->interactible = false;
+            //Update Sums
+            recalculate_sums(game);
         }
         else{
             printf("Attempted to mark an Invalid Number. :(\n");

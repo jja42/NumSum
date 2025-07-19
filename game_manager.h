@@ -116,4 +116,10 @@ void entity_set_all_active(Game* game);
 //Set all entities inactive
 void entity_set_all_inactive(Game* game);
 
+//removes an entity from our entity_list
+void remove_entity(char* name, Game* game);
+
+//Update the sums in our grid and all relevant text panels
+void recalculate_sums(Game* game);
+
 #endif

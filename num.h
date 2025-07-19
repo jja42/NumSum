@@ -49,4 +49,7 @@ void free_grid(Grid* g);
 //testing to visualize our grid
 void print_grid(Grid* g);
 
+//go through our grid again and update our sums
+void update_sums(Grid* g);
+
 #endif

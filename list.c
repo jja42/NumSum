@@ -15,20 +15,16 @@ void free_list(list_t* list) {
   free(list);
 }
 
-void list_remove(list_t* list, void* item){
 
-    //search through list for data item
-     for (int i = 0; i < list->count; i++) {
-        //if exists, set it to null and reduce count
-        if(list->data[i] == item){
-            list->data[i] = NULL;
-            list->count--;
-            return;
-        }
-    }
-    printf("Could Not Remove Item.\n");
+void list_replace(list_t* list, int index, void* new){
+  if(index > list->capacity){
+    printf("Index is Beyond List Bounds\n");
     return;
+  }
+  list->data[index] = new;
+  return;
 }
+
 
 void list_add(list_t* list, void* item) {
   //resize list if too small
