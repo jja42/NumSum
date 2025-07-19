@@ -10,8 +10,8 @@
       "text": "Info",
       "font": "ARIAL",
       "function": "INFO",
-      "data" : "NONE",
-      "active": 1
+      "active": 1,
+      "color": "BLUE"
     },
     {
       "name": "BackButton",
@@ -22,8 +22,8 @@
       "text": "Start Menu",
       "font": "ARIAL",
       "function": "START",
-      "data" : "NONE",
-      "active": 1
+      "active": 1,
+      "color": "BLUE"
     },
     {
       "name": "CloseButton",
@@ -34,32 +34,32 @@
       "text": "Close Info",
       "font": "ARIAL",
       "function": "CLOSE_INFO",
-      "data" : "NONE",
-      "active": 0
+      "active": 0,
+      "color": "BLUE"
     },
     {
       "name": "MarkButton",
-      "x": 200, 
+      "x": 215, 
       "y": 530 ,
       "width": 150, 
       "height": 50,
       "text": "Mark Mode",
       "font": "ARIAL",
       "function": "MARK",
-      "data" : "NONE",
-      "active": 1
+      "active": 1,
+      "color": "BLUE"
     },
     {
       "name": "EraseButton",
-      "x": 400, 
+      "x": 430, 
       "y": 530 ,
       "width": 150, 
       "height": 50,
       "text": "Erase Mode",
       "font": "ARIAL",
       "function": "ERASE",
-      "data" : "NONE",
-      "active": 1
+      "active": 1,
+      "color": "BLUE"
     }
     ],
     "text_panels": [
@@ -71,7 +71,8 @@
       "height": 400,
       "text": "____________________Goal____________________\nMark all the valid numbers in the grid.\nUse the row and column sums as clues!\n\n_________________How to Play_________________\n1. Deduce which numbers are valid or invalid\n2. Select Mark and click a Number to Mark it.\n3. Select Erase and click a Number to Erase it.\n\nIf you incorrectly mark or erase a number\nyou'll lose a life.",
       "font": "ARIAL",
-      "active": 0
+      "active": 0,
+      "color": "GREEN"
     },
     {
       "name": "ColSums",
@@ -81,7 +82,8 @@
       "height": 35,
       "text": "Column Sums",
       "font": "ARIAL",
-      "active": 1
+      "active": 1,
+      "color": "GREEN"
     },
     {
       "name": "RowSums",
@@ -91,7 +93,8 @@
       "height": 300,
       "text": "R\no\nw\n\nS\nu\nm\ns",
       "font": "ARIAL",
-      "active": 1
+      "active": 1,
+      "color": "GREEN"
     }
     ]
 }

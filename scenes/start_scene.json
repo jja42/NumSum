@@ -10,8 +10,8 @@
       "text": "Start",
       "font": "ARIAL",
       "function": "MAIN",
-      "data": "NONE",
-      "active": 1
+      "active": 1,
+      "color": "BLUE"
     },
     {
       "name": "InfoButton",
@@ -22,8 +22,8 @@
       "text": "Info",
       "font": "ARIAL",
       "function": "INFO",
-      "data": "NONE",
-      "active": 1
+      "active": 1,
+      "color": "BLUE"
     },
     {
       "name": "ExitButton",
@@ -34,8 +34,8 @@
       "text": "Exit",
       "font": "ARIAL",
       "function": "EXIT",
-      "data": "NONE",
-      "active": 1
+      "active": 1,
+      "color": "BLUE"
     },
     {
       "name": "CloseButton",
@@ -46,8 +46,8 @@
       "text": "Close Info",
       "font": "ARIAL",
       "function": "CLOSE_INFO",
-      "data" : "NONE",
-      "active": 0
+      "active": 0,
+      "color": "BLUE"
     }
     ],
     "text_panels": [
@@ -59,7 +59,8 @@
       "height": 50,
       "text": "Num Sum",
       "font": "ARIAL",
-      "active": 1
+      "active": 1,
+      "color": "GREEN"
     },
     {
       "name": "InfoPanel",
@@ -69,7 +70,8 @@
       "height": 400,
       "text": "____________________Goal____________________\nMark all the valid numbers in the grid.\nUse the row and column sums as clues!\n\n_________________How to Play_________________\n1. Deduce which numbers are valid or invalid\n2. Select Mark and click a Number to Mark it.\n3. Select Erase and click a Number to Erase it.\n\nIf you incorrectly mark or erase a number\nyou'll lose a life.",
       "font": "ARIAL",
-      "active": 0
+      "active": 0,
+      "color": "GREEN"
     }
     ]
 }

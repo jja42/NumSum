@@ -43,21 +43,18 @@ UI* init_ui(){
     return ui;
 }
 
-void add_button_to_scene(char* button_name, int x, int y, int w, int h, char* text, FONT font_name, OnClick click_function, Game* game, void* data, int active)
-{
-    TTF_Font* font = get_font(font_name, game->ui_manager);
-    
-    Button* button = init_button(button_name, x, y, w, h, text, font, click_function, game->renderer, data);
+void add_button_to_scene(char* name, TextPanel* t, OnClick click_function, Game* game, int active)
+{    
+    Button* button = init_button(t, click_function);
 
-    entity_s* ent = init_entity(BUTTON, button, active, button_name);
+    entity_s* ent = init_entity(BUTTON, button, active, name);
 
     add_entity(game, ent);
 }
 
-void add_text_panel_to_scene(char* name, int x, int y, int w, int h, char* text, FONT font_name, Game* game, int active){
-    TTF_Font* font = get_font(font_name, game->ui_manager);
+void add_text_panel_to_scene(char* name, int x, int y, int w, int h, char* text, FONT font_name, Game* game, int active, Color border_color){
 
-    TextPanel* text_panel = init_text_panel(name, x, y, w, h, text, font, game->renderer);
+    TextPanel* text_panel = init_text_panel(x, y, w, h, text, font_name, game, border_color);
 
     entity_s* ent = init_entity(TEXTPANEL, text_panel, active, name);
 
@@ -71,27 +68,28 @@ void ui_render_text_panel(SDL_Renderer* ren, void* text_panel_data){
 
 void ui_render_button(SDL_Renderer* ren, void* button_data){
     Button* button = (Button*)button_data;
-    render_button(ren, button);
+    render_text_panel(ren, button->panel);
 }
 
 void ui_click_button(entity_s* entity, Game* game){
     Button* button = (Button*) entity->data;
-    button->on_click(game, button->data);
+    button->on_click(game);
 }
 
-bool ui_check_button(entity_s* entity, int mouseX, int mouseY){
-    Button* button = (Button*) entity->data;
-
-    if(!button->interactible){
+bool ui_check_click(entity_s* entity, int mouseX, int mouseY){
+    
+    if(!entity->interactible){
         return false;
     }
     
+    TextPanel* panel = ui_get_panel(entity);
+    
     //check x bounds
-    if(mouseX <= button->x_pos + button->width && mouseX >= button->x_pos){
+    if(mouseX <= panel->x_pos + panel->width && mouseX >= panel->x_pos){
     //check y bounds
-        if(mouseY <= button->y_pos + button->height && mouseY >= button->y_pos){
-            //if within bounds, return true
-            return true;
+        if(mouseY <= panel->y_pos + panel->height && mouseY >= panel->y_pos){
+                //if within bounds, return true
+                return true;
         }
     }
 
@@ -132,18 +130,60 @@ OnClick parse_button_function(char* function){
     return NULL;
 }
 
-void ui_change_button_border(entity_s* ent, char* color){
-    Button* b = (Button*)ent->data;
-    if(strcmp(color,"blue") == 0){
-        b->border_color = BLUE;
+void ui_change_panel_border(TextPanel* t, Color color){
+    t->border_color = color;
+}
+
+Color ui_get_color(char* color){
+    if(strcmp(color,"BLUE") == 0){
+        return BLUE;
     }
-    if(strcmp(color,"green") == 0){
-        b->border_color = GREEN;
+    if(strcmp(color,"GREEN") == 0){
+        return GREEN;
     }
-    if(strcmp(color,"gold") == 0){
-        b->border_color = GOLD;
+    if(strcmp(color,"GOLD") == 0){
+        return GOLD;
     }
-    if(strcmp(color,"red") == 0){
-        b->border_color = RED;
+    if(strcmp(color,"RED") == 0){
+       return RED;
     }
+}
+
+
+void add_grid_entity_to_scene(int x, int y, TextPanel* panel, Num* num, Game* game){
+
+    GridEntity* g_ent = init_grid_entity(panel, x, y, num);
+
+    entity_s* ent = init_entity(GRIDENTITY, g_ent, 1, "Grid Cell");
+
+    add_entity(game, ent);
+}
+
+void ui_render_grid_entity(SDL_Renderer* ren, void* grid_entity_data){
+    GridEntity* g_ent = (GridEntity*)grid_entity_data;
+    render_text_panel(ren, g_ent->panel);
+}
+
+void ui_click_grid_entity(entity_s* entity, Game* game){
+    grid_entity_click(game, entity);
+}
+
+TextPanel* ui_get_panel(entity_s* ent){
+    switch (ent->type)
+    {
+    case TEXTPANEL:
+        return (TextPanel*)ent->data;
+        break;
+    case BUTTON:
+        Button* button = (Button*) ent->data;
+        return button->panel;
+        break;
+    case GRIDENTITY:
+        GridEntity* g_ent = (GridEntity*)ent->data;
+        return g_ent->panel;
+        break;
+    default:
+        break;
+    }
+    return NULL;
 }

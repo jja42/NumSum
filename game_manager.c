@@ -27,6 +27,8 @@ entity_s* init_entity(Entity_Type type, void* entity_data, int active, char* nam
         ent->active = true;
     }
 
+    ent->interactible = true;
+
     return ent;
 }
 
@@ -69,6 +71,10 @@ void render_entities(Game* game){
             case TEXTPANEL:
                 ui_render_text_panel(renderer, entity->data);
                 break;
+            //if text panel, render text panel
+            case GRIDENTITY:
+                ui_render_grid_entity(renderer, entity->data);
+                break;
             default:
                 break;
             }
@@ -92,8 +98,14 @@ void check_entity_click(Game* game, int mouseX, int mouseY){
             {
             //if button, check position against pos and size
             case BUTTON:
-                if(ui_check_button(entity, mouseX, mouseY)){
+                if(ui_check_click(entity, mouseX, mouseY)){
                     ui_click_button(entity, game);
+                    return;
+                }
+                break;
+            case GRIDENTITY:
+                if(ui_check_click(entity, mouseX, mouseY)){
+                    ui_click_grid_entity(entity,game);
                     return;
                 }
                 break;
@@ -116,14 +128,14 @@ void free_entities(Game* game){
             {
             //if button, free button
             case BUTTON:
-                Button* button = (Button*) entity->data;
-                free_button(button);
+                free_button(entity);
                 break;
              //if text panel, free text panel
             case TEXTPANEL:
-                TextPanel* text_panel = (TextPanel*) entity->data;
-                free_text_panel(text_panel);
+                free_text_panel(entity);
                 break;
+            case GRIDENTITY:
+                
             default:
                 break;
             }
@@ -225,18 +237,18 @@ void mark_mode(Game* game){
     game->mode = MARK;
 
     entity_s* ent = get_entity("MarkButton", game);
-    ui_change_button_border(ent,"gold");
+    ui_change_panel_border(ui_get_panel(ent),ui_get_color("GOLD"));
 
     ent = get_entity("EraseButton", game);
-    ui_change_button_border(ent,"blue");
+    ui_change_panel_border(ui_get_panel(ent),ui_get_color("BLUE"));
 }
 
 void erase_mode(Game* game){
     game->mode = ERASE;
 
     entity_s* ent = get_entity("EraseButton", game);
-    ui_change_button_border(ent,"gold");
+    ui_change_panel_border(ui_get_panel(ent),ui_get_color("GOLD"));
 
     ent = get_entity("MarkButton", game);
-    ui_change_button_border(ent,"blue");
+    ui_change_panel_border(ui_get_panel(ent),ui_get_color("BLUE"));
 }

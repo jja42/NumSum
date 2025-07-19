@@ -39,7 +39,8 @@ bool paused;
 
 typedef enum {
 BUTTON,
-TEXTPANEL
+TEXTPANEL,
+GRIDENTITY
 } Entity_Type;
 
 //Container Type to Loop through for Game Manager
@@ -48,6 +49,7 @@ char* name;
 Entity_Type type;
 void* data;
 bool active;
+bool interactible;
 } entity_s;
 
 

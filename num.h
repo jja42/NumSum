@@ -10,8 +10,7 @@
 typedef struct Num{
     int value;
     bool is_valid;
-    int x;
-    int y;
+    bool is_marked;
 }Num;
 
 //Will hold an in-game representation of the grid to iterate through as well as info about the grid

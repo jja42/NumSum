@@ -6,7 +6,11 @@
 #include <SDL2/SDL_ttf.h>
 #include "game_manager.h"
 
-typedef void (*OnClick)(Game* game, void* data);
+typedef void (*OnClick)(Game* game);
+
+typedef enum FONT{
+ARIAL
+} FONT;
 
 typedef enum {
 BLUE,
@@ -15,27 +19,7 @@ RED,
 GOLD
 }Color;
 
-
-//A Button!
-//It has a name, a position, a size, even a bool and a function
-//Now also holds text and text accessories
-typedef struct Button{
-char* name;
-int x_pos;
-int y_pos;
-int width;
-int height;
-bool interactible;
-OnClick on_click;
-char* button_text;
-SDL_Texture* text_texture;
-SDL_Rect text_rect;
-void* data;
-Color border_color;
-} Button;
-
 typedef struct TextPanel{
-    char* name;
     int x_pos;
     int y_pos;
     int width;
@@ -43,48 +27,63 @@ typedef struct TextPanel{
     char* text;
     SDL_Texture* text_texture;
     SDL_Rect text_rect;
+    Color border_color;
 } TextPanel;
 
+typedef struct Button{
+TextPanel* panel;
+OnClick on_click;
+} Button;
+
+typedef struct GridEntity{
+int x;
+int y;
+TextPanel* panel;
+Num* num;
+}GridEntity;
+
 //Will call game_manager's exit function. 
-void exit_button_func(Game* game, void* data);
+void exit_button_func(Game* game);
 
 //Will call game_manager's main scene function.
-void main_scene_button_func(Game* game, void* data);
+void main_scene_button_func(Game* game);
 
 //Will call game_manager's start menu function
-void start_menu_button_func(Game* game, void* data);
+void start_menu_button_func(Game* game);
 
 //Will display a popup
-void open_info_button_func(Game* game, void* data);
+void open_info_button_func(Game* game);
 
 //Wil close the popup
-void close_info_button_func(Game* game, void* data);
+void close_info_button_func(Game* game);
 
-//Renders a Button to the Screen with a render and button info
-void render_button(SDL_Renderer* renderer, Button* button);
+//Sets Mode to Mark. Changes Mark Button Border
+void mark_button_func(Game* game);
 
-//Create a new button and set it up, also creates a text texture
-Button* init_button(char* button_name, int x, int y, int w, int h, char* text, TTF_Font* font,  OnClick click_function, SDL_Renderer* ren, void* data);
+//Sets Mode to Erase. Changes Erase Button Border
+void erase_button_func(Game* game);
+
+//Create a new button and set it up
+Button* init_button(TextPanel* t, OnClick click_function);
+
+//Create a new button and set it up
+GridEntity* init_grid_entity(TextPanel* t, int x, int y, Num* n);
 
 //Frees Button Data
-void free_button(Button *button);
+void free_button(entity_s *ent);
 
 //Button function for our grid entities
-void grid_entity_button_func(Game* game, void* data);
+void grid_entity_click(Game* game, entity_s* ent);
 
 //Creates a new Text Panel
-TextPanel* init_text_panel(char* name, int x, int y, int w, int h, char* text, TTF_Font* font, SDL_Renderer* ren);
+TextPanel* init_text_panel(int x, int y, int w, int h, char* text, FONT font_name, Game* game, Color border_color);
 
 //Renders a Text Panel to the Screen
 void render_text_panel(SDL_Renderer* renderer, TextPanel* text_panel);
 
 //Frees Text Panel Data
-void free_text_panel(TextPanel *text_panel);
+void free_text_panel(entity_s *ent);
 
-//Sets Mode to Mark. Changes Mark Button Border
-void mark_button_func(Game* game, void* data);
-
-//Sets Mode to Erase. Changes Erase Button Border
-void erase_button_func(Game* game, void* data);
-
+//Frees Grid Entity Data
+void free_grid_entity(entity_s *ent);
 #endif

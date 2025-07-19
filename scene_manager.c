@@ -43,7 +43,7 @@ void load_scene(char* name, Game* game){
         }
     }
 
-    printf("Could Not Find Scene Named: %s in Scene List", name);
+    printf("Could Not Find Scene Named: %s in Scene List\n", name);
     return;
 }
 
@@ -73,10 +73,13 @@ void load_scene_objects(Scene* scene, list_t* scene_objects, Game* game){
                 FONT f = parse_font(font);
                 char* function = (char*)json_obj_get(json_elements,"function")->value;
                 OnClick func = parse_button_function(function);
-                void* data = json_obj_get(json_elements,"data")->value;
                 int* active = (int*)json_obj_get(json_elements,"active")->value;
+                char* color = (char*)json_obj_get(json_elements,"color")->value;
+                Color border_color = ui_get_color(color);
 
-                add_button_to_scene(name, *x, *y, *width, *height, text, f, func, game, data, *active);
+                TextPanel* t = init_text_panel(*x,*y,*width,*height,text,f,game, border_color);
+
+                add_button_to_scene(name, t, func, game, *active);
             }
         }
     }
@@ -101,8 +104,10 @@ void load_scene_objects(Scene* scene, list_t* scene_objects, Game* game){
                 char* font = (char*)json_obj_get(json_elements,"font")->value;
                 FONT f = parse_font(font);
                 int* active = (int*)json_obj_get(json_elements,"active")->value;
+                char* color = (char*)json_obj_get(json_elements,"color")->value;
+                Color border_color = ui_get_color(color);
 
-                add_text_panel_to_scene(name, *x, *y, *width, *height, text, f, game, *active);
+                add_text_panel_to_scene(name, *x, *y, *width, *height, text, f, game, *active, border_color);
             }
         }
     }
@@ -215,25 +220,29 @@ void setup_grid_entities(Game* game){
     startX -= 15;
     int startY = (600 - gridSize) / 2;
 
-    //Make Buttons for each Grid Cell
+    //Make Grid Entities for each Grid Cell
     for(int i = 0; i<game->grid->size; i++){
         list_t* columns = (list_t*)game->grid->rows->data[i];
         for(int j = 0; j<game->grid->size; j++){
             //Get Num
             Num* n = (Num*)columns->data[j];
             char* name = "Grid Cell";
+
             //Convert Value to Text
             char text[4];
             SDL_itoa(n->value,text,10);
-            //Set Number Position
-            n->x = j;
-            n->y = i;
-            //Button Data
-            void* data = n;
-            //Position
+
+            //Set Grid Entity Position
+            int grid_x = j;
+            int grid_y = i;
+
+            //Button Position
             int x  = startX + (j * 50);
             int y = startY + (i * 50);
-            add_button_to_scene(name, x, y, 45, 45, text, ARIAL, grid_entity_button_func, game, data, 1);
+
+            TextPanel* p = init_text_panel(x, y, 45, 45, text, ARIAL, game, BLUE);
+
+            add_grid_entity_to_scene(grid_x,grid_y,p,n,game);
         }
     }
 
@@ -250,7 +259,7 @@ void setup_grid_entities(Game* game){
         char text[4];
         SDL_itoa(n->value,text,10);
 
-        add_text_panel_to_scene(name,x,y,35,35,text,ARIAL,game,1);
+        add_text_panel_to_scene(name,x,y,35,35,text,ARIAL,game,1, GREEN);
     }
 
     for(int c = 0; c<game->grid->sums_c->count; c++){
@@ -265,6 +274,6 @@ void setup_grid_entities(Game* game){
         char text[4];
         SDL_itoa(n->value,text,10);
 
-        add_text_panel_to_scene(name,x,y,35,35,text,ARIAL,game,1);
+        add_text_panel_to_scene(name,x,y,35,35,text,ARIAL,game,1, GREEN);
     }
 }

@@ -191,6 +191,7 @@ Num* create_num(int val){
     
     n->value = val;
     n->is_valid = false;
+    n->is_marked = false;
 
     return n;
 }
