@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
     Game* game = init_game(ren);
 
     //Init Grid for testing
-    Grid* grid = create_grid(5); //N x N grid
+    Grid* grid = create_grid(8); //N x N grid
 
     game->grid = grid;
 
