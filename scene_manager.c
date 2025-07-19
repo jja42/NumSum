@@ -253,7 +253,8 @@ void setup_grid_entities(Game* game){
         
         //Get Num
         Num* n = (Num*)game->grid->sums_r->data[r];
-        char* name = "Row Sum";
+        char name[18];
+        snprintf(name, sizeof(name), "Row Sum #%d", r);
 
         //Convert Value to Text
         char text[4];
@@ -268,7 +269,8 @@ void setup_grid_entities(Game* game){
         
         //Get Num
         Num* n = (Num*)game->grid->sums_c->data[c];
-        char* name = "Column Sum";
+        char name[18];
+        snprintf(name, sizeof(name), "Col Sum #%d", c);
 
         //Convert Value to Text
         char text[4];
