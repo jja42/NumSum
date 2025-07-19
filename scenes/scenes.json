@@ -7,6 +7,14 @@
     {
       "name": "main_scene",
       "file": "scenes/main_scene.json"
+    },
+    {
+      "name": "win_scene",
+      "file": "scenes/win_scene.json"
+    },
+    {
+      "name": "loss_scene",
+      "file": "scenes/loss_scene.json"
     }
   ]
 }

@@ -1,0 +1,53 @@
+{
+  "scene_name": "loss_scene",
+  "buttons": [
+    {
+      "name": "StartButton",
+      "x": 200, 
+      "y": 450,
+      "width": 150,
+      "height": 50 ,
+      "text": "Start Menu",
+      "font": "ARIAL",
+      "function": "START",
+      "active": 1,
+      "color": "BLUE"
+    },
+    {
+      "name": "ExitButton",
+      "x": 500, 
+      "y": 450,
+      "width": 150,
+      "height": 50 ,
+      "text": "Exit",
+      "font": "ARIAL",
+      "function": "EXIT",
+      "active": 1,
+      "color": "BLUE"
+    }
+    ],
+    "text_panels": [
+    {
+      "name": "Title",
+      "x": 25, 
+      "y": 25 ,
+      "width": 750, 
+      "height": 50,
+      "text": "Num Sum",
+      "font": "ARIAL",
+      "active": 1,
+      "color": "GREEN"
+    },
+    {
+      "name": "Loss",
+      "x": 300, 
+      "y": 125,
+      "width": 250,
+      "height": 250,
+      "text": "You Lost :(\n\nNo Worries.\n\nYou can try again.\n\n",
+      "font": "ARIAL",
+      "active": 1,
+      "color": "RED"
+    }
+    ]
+}

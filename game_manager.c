@@ -309,13 +309,13 @@ void remove_entity(char* name, Game* game){
 
 void check_victory(Game* game){
     if(check_grid_complete(game->grid)){
-        printf("You Win! :)\n");
+        load_scene_name(VICTORY,game);
     }
 }
 
 void check_loss(Game* game){
     if(game->lives <= 0){
-        printf("Game Over Man :(\n");
+        load_scene_name(LOSS,game);
     }
 }
 

@@ -14,7 +14,14 @@ void load_scene_name(Scene_Name scene_name, Game* game){
         load_scene("main_scene",game);
         setup_grid_entities(game);
         break;
+    case VICTORY:
+        load_scene("win_scene",game);
+        break;
+    case LOSS:
+        load_scene("loss_scene",game);
+        break;
     default:
+        printf("No Matching Scene Found.\n");
         break;
     }
 }
