@@ -32,9 +32,9 @@ Focus on how each number lines up with both its **row** and **column** sums.
 **FIRST**
 Make sure you have the following installed:
 - SDL2 and SDL_ttf
-sudo apt install libsdl2-dev libsdl2-ttf-dev build-essential
+```sudo apt install libsdl2-dev libsdl2-ttf-dev build-essential```
 
-1. Clone the Repository: git clone https://github.com/jja42/NumSum/
-2. CD into Folder: cd NumSum
-3. Compile with: gcc -o num_sum.exe *.c `sdl2-config --cflags --libs` -lSDL2_ttf
-4. Run it: ./num_sum
+1. Clone the Repository: ```git clone https://github.com/jja42/NumSum/```
+2. CD into Folder: ```cd NumSum```     
+3. Compile with: ```gcc -o num_sum.exe *.c `sdl2-config --cflags --libs` -lSDL2_ttf```
+4. Run it: ```./num_sum```
