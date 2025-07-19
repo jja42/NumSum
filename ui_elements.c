@@ -66,7 +66,7 @@ void init_grid_8(Game* game){
 
 void grid_entity_click(Game* game, entity_s* ent){
     GridEntity* g_ent = (GridEntity*)ent->data;
-    printf("Number clicked: %d. At Position [%d,%d]. Is Valid: %d\n", g_ent->num->value, g_ent->x, g_ent->y, g_ent->num->is_valid);
+    //printf("Number clicked: %d. At Position [%d,%d]. Is Valid: %d\n", g_ent->num->value, g_ent->x, g_ent->y, g_ent->num->is_valid);
     if(game->mode == MARK){
         if(g_ent->num->is_valid){
             //Highlight Correct Answer
