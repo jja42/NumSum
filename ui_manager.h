@@ -61,6 +61,10 @@ void ui_change_panel_border(TextPanel* b, Color color);
 //Get TextPanel from Entity Data
 TextPanel* ui_get_panel(entity_s* ent);
 
+//handle rendering a grid_entity
 void ui_render_grid_entity(SDL_Renderer* ren, void* grid_entity_data);
+
+//given a text panel, update its text to the provided text
+void ui_update_panel_text(TextPanel* text_panel, char* text, FONT font_name, Game* game);
 
 #endif

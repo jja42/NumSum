@@ -187,3 +187,35 @@ TextPanel* ui_get_panel(entity_s* ent){
     }
     return NULL;
 }
+
+void ui_update_panel_text(TextPanel* text_panel, char* text, FONT font_name, Game* game){
+
+    TTF_Font* font = get_font(font_name, game->ui_manager);
+    SDL_Renderer* ren = game->renderer;
+
+    //Create Text Surface and Texture
+    SDL_Color black = {0, 0, 0};
+    SDL_Surface* text_surface = TTF_RenderText_Blended_Wrapped(font, text, black,0);
+    SDL_Texture* text_texture = SDL_CreateTextureFromSurface(ren, text_surface);
+
+    //Get these for centering
+    int text_width = text_surface->w;
+    int text_height = text_surface->h;
+
+    //FREE
+    SDL_FreeSurface(text_surface);
+
+    //Also free old ref
+    SDL_DestroyTexture(text_panel->text_texture);
+
+    //Create a rect
+    SDL_Rect text_rect = {
+    text_panel->x_pos + (text_panel->width - text_width) / 2,
+    text_panel->y_pos + (text_panel->height - text_height) / 2,
+    text_width,
+    text_height};
+
+    //Assign our text refs here for rendering later
+    text_panel->text_texture = text_texture;
+    text_panel->text_rect = text_rect;
+}

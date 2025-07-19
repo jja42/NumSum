@@ -39,9 +39,9 @@ void grid_entity_click(Game* game, entity_s* ent){
     printf("Number clicked: %d. At Position [%d,%d]. Is Valid: %d\n", g_ent->num->value, g_ent->x, g_ent->y, g_ent->num->is_valid);
     if(game->mode == MARK){
         if(g_ent->num->is_valid){
-            printf("Marked Valid Number. :)\n");
             ui_change_panel_border(g_ent->panel,GOLD);
             g_ent->num->is_marked = true;
+            ent->interactible = false;
         }
         else{
             printf("Attempted to mark an Invalid Number. :(\n");
@@ -54,8 +54,8 @@ void grid_entity_click(Game* game, entity_s* ent){
             ui_change_panel_border(g_ent->panel,RED);
         }
         else{
-            printf("Erased an Invalid Number. :)\n");
-            //Update Text to clear number
+            ui_update_panel_text(g_ent->panel," ",ARIAL,game);
+            ent->interactible = false;
         }
     }
 }
