@@ -106,7 +106,7 @@ FONT parse_font(char* font){
 
 OnClick parse_button_function(char* function){
     if(strcmp(function,"MAIN") == 0){
-        return main_scene_button_func;
+        return start_button_func;
     }
     if(strcmp(function,"INFO") == 0){
         return open_info_button_func;
@@ -125,6 +125,24 @@ OnClick parse_button_function(char* function){
     }
     if(strcmp(function,"ERASE") == 0){
         return erase_button_func;
+    }
+    if(strcmp(function,"GRID3") == 0){
+        return init_grid_3;
+    }
+    if(strcmp(function,"GRID4") == 0){
+        return init_grid_4;
+    }
+    if(strcmp(function,"GRID5") == 0){
+        return init_grid_5;
+    }
+    if(strcmp(function,"GRID6") == 0){
+        return init_grid_6;
+    }
+    if(strcmp(function,"GRID7") == 0){
+        return init_grid_7;
+    }
+    if(strcmp(function,"GRID8") == 0){
+        return init_grid_8;
     }
     printf("Could not find matching Function for: %s\n", function);
     return NULL;

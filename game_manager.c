@@ -47,6 +47,7 @@ Game* init_game(SDL_Renderer* renderer){
     game->ui_manager = init_ui();
     game->scene_manager = init_scene_management();
     game->lives = 4;
+    game->grid = NULL;
     return game;
 }
 
@@ -153,11 +154,18 @@ void free_game(Game* game){
     free_list(game->entities);
     free_ui(game->ui_manager);
     free_scenes(game->scene_manager);
+    if(game->grid){
+        free_grid(game->grid);
+    }
     free(game);
 }
 
 void exit_game(Game* game){
     game->mode = END;
+}
+
+void select_scene(Game* game){
+    load_scene_name(SELECT, game);
 }
 
 void main_scene(Game* game){
@@ -325,4 +333,16 @@ void lose_life(Game* game){
     char text[40]; 
     snprintf(text, sizeof(text), "  You Have\n   %d Lives\n Remaining",game->lives);
     ui_update_panel_text(ui_get_panel(ent),text,ARIAL,game);
+}
+
+void init_grid(Game* game, int size){
+    //clear any existing grid
+    if(game->grid != NULL){
+        free_grid(game->grid);
+    }
+
+    //Init Grid for testing
+    Grid* grid = create_grid(size); //N x N grid
+
+    game->grid = grid;
 }

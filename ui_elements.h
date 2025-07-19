@@ -46,7 +46,7 @@ Num* num;
 void exit_button_func(Game* game);
 
 //Will call game_manager's main scene function.
-void main_scene_button_func(Game* game);
+void start_button_func(Game* game);
 
 //Will call game_manager's start menu function
 void start_menu_button_func(Game* game);
@@ -86,4 +86,22 @@ void free_text_panel(entity_s *ent);
 
 //Frees Grid Entity Data
 void free_grid_entity(entity_s *ent);
+
+//Creates a Size 3 Grid
+void init_grid_3(Game* game);
+
+//Creates a Size 4 Grid
+void init_grid_4(Game* game);
+
+//Creates a Size 5 Grid
+void init_grid_5(Game* game);
+
+//Creates a Size 6 Grid
+void init_grid_6(Game* game);
+
+//Creates a Size 7 Grid
+void init_grid_7(Game* game);
+
+//Creates a Size 8 Grid
+void init_grid_8(Game* game);
 #endif

@@ -15,6 +15,10 @@
     {
       "name": "loss_scene",
       "file": "scenes/loss_scene.json"
+    },
+    {
+      "name": "select_scene",
+      "file": "scenes/select_scene.json"
     }
   ]
 }

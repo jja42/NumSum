@@ -28,7 +28,7 @@
     {
       "name": "CloseButton",
       "x": 300, 
-      "y": 500 ,
+      "y": 525 ,
       "width": 150, 
       "height": 50,
       "text": "Close Info",
@@ -67,9 +67,9 @@
       "name": "InfoPanel",
       "x": 100, 
       "y": 50 ,
-      "width": 600, 
-      "height": 400,
-      "text": "____________________Goal____________________\nMark all the valid numbers in the grid.\nUse the row and column sums as clues!\n\n_________________How to Play_________________\n1. Deduce which numbers are valid or invalid\n2. Select Mark and click a Number to Mark it.\n3. Select Erase and click a Number to Erase it.\n\nIf you incorrectly mark or erase a number\nyou'll lose a life.",
+      "width": 600,
+      "height": 450,
+      "text": "____________________Goal____________________\nMark all the valid numbers in the grid.\nUse the row and column sums as clues!\n\n_________________How to Play_________________\n1. Deduce which numbers are valid or invalid\n\n2. Select Mark and click a Number to Mark it.\nCorrectly marking a number will reduce the sum.\n\n3. Select Erase and click a Number to Erase it.\nThis will help you clear the grid and focus.\n\nIf you incorrectly mark or erase a number\nyou'll lose a life.",
       "font": "ARIAL",
       "active": 0,
       "color": "GREEN"

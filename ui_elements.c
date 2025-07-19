@@ -7,9 +7,9 @@ void exit_button_func(Game* game)
     exit_game(game);
 }
 
-void main_scene_button_func(Game* game)
+void start_button_func(Game* game)
 {
-    main_scene(game);
+    select_scene(game);
 }
 
 void start_menu_button_func(Game* game){
@@ -32,6 +32,36 @@ void mark_button_func(Game* game){
 
 void erase_button_func(Game* game){
     erase_mode(game);
+}
+
+void init_grid_3(Game* game){
+    init_grid(game,3);
+    main_scene(game);
+}
+
+void init_grid_4(Game* game){
+    init_grid(game,4);
+    main_scene(game);
+}
+
+void init_grid_5(Game* game){
+    init_grid(game,5);
+    main_scene(game);
+}
+
+void init_grid_6(Game* game){
+    init_grid(game,6);
+    main_scene(game);
+}
+
+void init_grid_7(Game* game){
+    init_grid(game,7);
+    main_scene(game);
+}
+
+void init_grid_8(Game* game){
+    init_grid(game,8);
+    main_scene(game);
 }
 
 void grid_entity_click(Game* game, entity_s* ent){

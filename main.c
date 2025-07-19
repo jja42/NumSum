@@ -53,13 +53,6 @@ int main(int argc, char* argv[]) {
     //Init Game Manager
     Game* game = init_game(ren);
 
-    //Init Grid for testing
-    Grid* grid = create_grid(3); //N x N grid
-
-    game->grid = grid;
-
-    //print_grid(grid);
-
     //Load our list of scenes
     load_scene_manifest("scenes/scenes.json",game->scene_manager);
 
@@ -111,7 +104,6 @@ int main(int argc, char* argv[]) {
 
     //Clean Up and Exit
     free_game(game);
-    free_grid(grid);
     TTF_Quit();
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);

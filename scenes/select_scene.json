@@ -1,0 +1,114 @@
+{
+  "scene_name": "start_scene",
+  "buttons": [
+    {
+      "name": "3",
+      "x": 100, 
+      "y": 100,
+      "width": 150,
+      "height": 100 ,
+      "text": "3x3 Grid",
+      "font": "ARIAL",
+      "function": "GRID3",
+      "active": 1,
+      "color": "BLUE"
+    },
+    {
+      "name": "4",
+      "x": 300, 
+      "y": 100,
+      "width": 150,
+      "height": 100 ,
+      "text": "4x4 Grid",
+      "font": "ARIAL",
+      "function": "GRID4",
+      "active": 1,
+      "color": "BLUE"
+    },
+    {
+      "name": "5",
+      "x": 500, 
+      "y": 100,
+      "width": 150,
+      "height": 100 ,
+      "text": "5x5 Grid",
+      "font": "ARIAL",
+      "function": "GRID5",
+      "active": 1,
+      "color": "BLUE"
+    },
+    {
+      "name": "6",
+      "x": 100, 
+      "y": 300,
+      "width": 150,
+      "height": 100 ,
+      "text": "6x6 Grid",
+      "font": "ARIAL",
+      "function": "GRID6",
+      "active": 1,
+      "color": "BLUE"
+    },
+    {
+      "name": "7",
+      "x": 300, 
+      "y": 300,
+      "width": 150,
+      "height": 100 ,
+      "text": "7x7 Grid7",
+      "font": "ARIAL",
+      "function": "GRID7",
+      "active": 1,
+      "color": "BLUE"
+    },
+    {
+      "name": "8",
+      "x": 500, 
+      "y": 300,
+      "width": 150,
+      "height": 100 ,
+      "text": "8x8 Grid",
+      "font": "ARIAL",
+      "function": "GRID8",
+      "active": 1,
+      "color": "BLUE"
+    },
+    {
+      "name": "ExitButton",
+      "x": 500, 
+      "y": 450,
+      "width": 200,
+      "height": 50 ,
+      "text": "Exit",
+      "font": "ARIAL",
+      "function": "EXIT",
+      "active": 1,
+      "color": "BLUE"
+    },
+    {
+      "name": "BackButton",
+      "x": 100, 
+      "y": 450 ,
+      "width": 200, 
+      "height": 50,
+      "text": "Start Menu",
+      "font": "ARIAL",
+      "function": "START",
+      "active": 1,
+      "color": "BLUE"
+    }
+    ],
+    "text_panels": [
+    {
+      "name": "Help",
+      "x": 25, 
+      "y": 25 ,
+      "width": 750, 
+      "height": 50,
+      "text": "Select a Grid Size. Larger = Harder",
+      "font": "ARIAL",
+      "active": 1,
+      "color": "GREEN"
+    }
+    ]
+}

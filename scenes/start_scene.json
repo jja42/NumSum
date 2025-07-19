@@ -40,7 +40,7 @@
     {
       "name": "CloseButton",
       "x": 325, 
-      "y": 500 ,
+      "y": 525 ,
       "width": 150, 
       "height": 50,
       "text": "Close Info",

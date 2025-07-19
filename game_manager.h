@@ -60,7 +60,10 @@ void pause_game(Game* game);
 //Close Pause Menu
 void resume_game(Game* game);
 
-//Transition us from the Start Menu into the Main Scene
+//Transition us into the Select Scene'
+void select_scene(Game* game);
+
+//Transition us into the Main Scene
 void main_scene(Game* game);
 
 //Change game mode to END which will cause game to stop running and exit
@@ -131,5 +134,8 @@ void check_loss(Game* game);
 
 //deduct a life when we get an answer wrong
 void lose_life(Game* game);
+
+//initialize our grid
+void init_grid(Game* game, int size);
 
 #endif

@@ -20,6 +20,9 @@ void load_scene_name(Scene_Name scene_name, Game* game){
     case LOSS:
         load_scene("loss_scene",game);
         break;
+    case SELECT:
+        load_scene("select_scene",game);
+        break;
     default:
         printf("No Matching Scene Found.\n");
         break;

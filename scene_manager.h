@@ -14,7 +14,8 @@ typedef enum{
     START_MENU,
     MAIN_GAME,
     LOSS,
-    VICTORY
+    VICTORY,
+    SELECT
 }Scene_Name;
 
 //Switch Statement with enum to load correct scene
