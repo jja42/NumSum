@@ -46,6 +46,7 @@ Game* init_game(SDL_Renderer* renderer){
     game->renderer = renderer;
     game->ui_manager = init_ui();
     game->scene_manager = init_scene_management();
+    game->lives = 4;
     return game;
 }
 
@@ -304,4 +305,23 @@ void remove_entity(char* name, Game* game){
     }
 
     printf("Could Not Find Entity with Name: %s\n", name);
+}
+
+bool check_victory(Game* game){
+    //check_grid_complete(game->grid);
+}
+
+bool check_loss(Game* game){
+    if(game->lives <= 0){
+        return true;
+    }
+    return false;
+}
+
+void lose_life(Game* game){
+    game->lives -= 1;
+    entity_s* ent = get_entity("Lives",game);
+    char text[40]; 
+    snprintf(text, sizeof(text), "  You Have\n   %d Lives\n Remaining",game->lives);
+    ui_update_panel_text(ui_get_panel(ent),text,ARIAL,game);
 }

@@ -3,8 +3,8 @@
   "buttons": [
     {
       "name": "InfoButton",
-      "x": 25, 
-      "y": 525 ,
+      "x": 625, 
+      "y": 125,
       "width": 150, 
       "height": 50,
       "text": "Info",
@@ -16,7 +16,7 @@
     {
       "name": "BackButton",
       "x": 625, 
-      "y": 525 ,
+      "y": 450 ,
       "width": 150, 
       "height": 50,
       "text": "Start Menu",
@@ -39,7 +39,7 @@
     },
     {
       "name": "MarkButton",
-      "x": 215, 
+      "x": 200, 
       "y": 530 ,
       "width": 150, 
       "height": 50,
@@ -51,7 +51,7 @@
     },
     {
       "name": "EraseButton",
-      "x": 430, 
+      "x": 450, 
       "y": 530 ,
       "width": 150, 
       "height": 50,
@@ -92,6 +92,17 @@
       "width": 35, 
       "height": 300,
       "text": "R\no\nw\n\nS\nu\nm\ns",
+      "font": "ARIAL",
+      "active": 1,
+      "color": "GREEN"
+    },
+    {
+      "name": "Lives",
+      "x": 625, 
+      "y": 275 ,
+      "width": 150, 
+      "height": 75,
+      "text": "  You Have\n   4 Lives\n Remaining",
       "font": "ARIAL",
       "active": 1,
       "color": "GREEN"

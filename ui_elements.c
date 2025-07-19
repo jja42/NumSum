@@ -48,16 +48,19 @@ void grid_entity_click(Game* game, entity_s* ent){
             recalculate_sums(game);
         }
         else{
-            printf("Attempted to mark an Invalid Number. :(\n");
+            //printf("Attempted to mark an Invalid Number. :(\n");
+            lose_life(game);
             ui_change_panel_border(g_ent->panel,RED);
         }
     }
     if(game->mode == ERASE){
         if(g_ent->num->is_valid){
-            printf("Attempted to Erase a Valid Number. :(\n");
+            //printf("Attempted to Erase a Valid Number. :(\n");
+            lose_life(game);
             ui_change_panel_border(g_ent->panel,RED);
         }
         else{
+            ui_change_panel_border(g_ent->panel,BLUE);
             ui_update_panel_text(g_ent->panel," ",ARIAL,game);
             ent->interactible = false;
         }

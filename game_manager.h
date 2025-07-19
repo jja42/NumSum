@@ -35,6 +35,7 @@ UI* ui_manager;
 SceneManager* scene_manager;
 Grid* grid;
 bool paused;
+int lives;
 } Game;
 
 typedef enum {
@@ -121,5 +122,14 @@ void remove_entity(char* name, Game* game);
 
 //Update the sums in our grid and all relevant text panels
 void recalculate_sums(Game* game);
+
+//check our grid. if it's complete, we win!
+bool check_victory(Game* game);
+
+//check our lives. if we're out, we lose
+bool check_loss(Game* game);
+
+//deduct a life when we get an answer wrong
+void lose_life(Game* game);
 
 #endif
