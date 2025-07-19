@@ -307,15 +307,16 @@ void remove_entity(char* name, Game* game){
     printf("Could Not Find Entity with Name: %s\n", name);
 }
 
-bool check_victory(Game* game){
-    //check_grid_complete(game->grid);
+void check_victory(Game* game){
+    if(check_grid_complete(game->grid)){
+        printf("You Win! :)\n");
+    }
 }
 
-bool check_loss(Game* game){
+void check_loss(Game* game){
     if(game->lives <= 0){
-        return true;
+        printf("Game Over Man :(\n");
     }
-    return false;
 }
 
 void lose_life(Game* game){

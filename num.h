@@ -52,4 +52,7 @@ void print_grid(Grid* g);
 //go through our grid again and update our sums
 void update_sums(Grid* g);
 
+//return true if our grid is all marked
+bool check_grid_complete(Grid* g);
+
 #endif

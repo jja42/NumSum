@@ -443,3 +443,15 @@ void update_sums(Grid* g){
         free_list(valid_nums);
     }
 }
+
+bool check_grid_complete(Grid* g){
+    //check if all of our sums are at 0
+    for(int j = 0; j< g->size; j++){
+        int* sum_c = (int*)g->sums_c->data[j];
+        int* sum_r = (int*)g->sums_r->data[j];
+        if(*sum_c > 0 || *sum_r > 0){
+            return false;
+        }
+    }
+    return true;
+}
