@@ -74,6 +74,7 @@ void grid_entity_click(Game* game, entity_s* ent){
             //Mark
             g_ent->num->is_marked = true;
             ent->interactible = false;
+            ui_update_panel_text(g_ent->panel," ",ARIAL,game);
             //Update Sums
             recalculate_sums(game);
             //check if we've completed the grid
