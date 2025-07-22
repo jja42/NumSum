@@ -55,7 +55,7 @@
       "y": 300,
       "width": 150,
       "height": 100 ,
-      "text": "7x7 Grid7",
+      "text": "7x7 Grid",
       "font": "ARIAL",
       "function": "GRID7",
       "active": 1,
